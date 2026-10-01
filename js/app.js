@@ -68,29 +68,17 @@ function route() {
   window.scrollTo(0, 0); onScroll();
   if (hero) hero.setActive(page === "home");
 }
-function onScroll() { $("#top").classList.toggle("solid", scrollY > 40 || $("#nav").classList.contains("open")); heroTitle(); }
+function onScroll() { $("#top").classList.toggle("solid", scrollY > 40 || $("#nav").classList.contains("open")); heroShowcase(); }
 addEventListener("scroll", onScroll, { passive: true });
-addEventListener("resize", () => heroTitle(true), { passive: true });
-
-/* cover title: up to MAX× larger at the top, back to 1× after scrolling RANGE px.
-   It grows from its bottom-left corner, and the eyebrow line above moves up to make room. */
-const heroH1 = $(".hero h1"), heroEyebrow = $(".hero .eyebrow");
-let heroBase = null;
-function heroTitle(remeasure) {
-  if (reduceMotion || !heroH1 || heroH1.offsetParent === null) return;
-  if (remeasure || !heroBase) {
-    heroH1.style.transform = ""; heroEyebrow.style.transform = "";
-    const room = heroH1.parentElement.clientWidth - parseFloat(getComputedStyle(heroH1.parentElement).paddingLeft) * 2;
-    const r = document.createRange(); r.selectNodeContents(heroH1);
-    const w = r.getBoundingClientRect().width, h = heroH1.getBoundingClientRect().height;
-    heroBase = { h, max: Math.max(1, Math.min(1.6, (room * 0.98) / w)), range: Math.max(260, innerHeight * 0.45) };
-  }
-  const p = Math.min(1, Math.max(0, scrollY / heroBase.range)), e = 1 - Math.pow(1 - p, 2);
-  const s = heroBase.max - (heroBase.max - 1) * e;
-  heroH1.style.transform = `scale(${s.toFixed(4)})`;
-  heroEyebrow.style.transform = `translateY(${(-(s - 1) * heroBase.h).toFixed(1)}px)`;
-}
 $("#menuBtn").onclick = () => { const o = $("#nav").classList.toggle("open"); $("#menuBtn").setAttribute("aria-expanded", o); onScroll(); };
+
+/* full-screen cover: the .show items (stats, scroll cue) fade away over the first part of the scroll */
+const showItems = [...document.querySelectorAll(".hero .show")];
+function heroShowcase() {
+  if (reduceMotion) return;
+  const p = Math.min(1, Math.max(0, scrollY / (innerHeight * 0.4)));
+  showItems.forEach(el => { el.style.opacity = (1 - p).toFixed(3); el.style.transform = p ? `translateY(${(-p * 24).toFixed(1)}px)` : ""; el.style.pointerEvents = p > 0.6 ? "none" : ""; });
+}
 
 /* ---------- lightbox ---------- */
 const lb = { list: [], i: 0 };
@@ -124,6 +112,11 @@ document.addEventListener("click", e => {
 
 /* ---------- HOME ---------- */
 safe("Home", () => {
+  /* cover stats are counted from the data files, so they stay current */
+  const published = (PUBS.JOURNALS || []).filter(p => p.journal !== "Under review").length + (PUBS.EARLY || []).length;
+  const members = (PEOPLE.MEMBERS || []).reduce((n, g) => n + (g.people || []).length, 0) + (PEOPLE.PI ? 1 : 0);
+  const stats = [[published, "Journal articles"], [NEWS.filter(n => n.type === "grant").length, "Research grants"], [members, "Team members"], [(PEOPLE.ALUMNI || []).length, "Alumni"]];
+  $("#heroStats").innerHTML = stats.filter(([v]) => v).map(([v, l]) => `<div><b class="num">${v}</b><span>${l}</span></div>`).join("");
   $("#focusList").insertAdjacentHTML("beforeend", `<ul>${RESEARCH.map(t => `
     <li><a href="#research" data-thrust="${esc(t.id)}"><b>${esc(t.homeTitle)}</b><span>(${esc(t.homeTags).replace(/ · /g, ", ")})</span></a></li>`).join("")}</ul>`);
   const h = SITE.hiring || {};
