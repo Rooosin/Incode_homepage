@@ -121,6 +121,24 @@ button { font-family: inherit; }
 .hero .wrap { padding-block: calc(env(safe-area-inset-top, 0px) + 10rem) 5rem; }
 .hero { background: radial-gradient(120% 90% at 75% 40%, #3a0b0b 0%, #160808 55%, #0c0505 100%); }
 .hero > canvas.bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; display: block; touch-action: pan-y; }
+/* full-screen intro: the stage reserves one screen of height; the cover is pinned to the top and its
+   height is set from JS (screen height minus scroll), so the next section stays glued to its bottom edge */
+.hero-copy { position: relative; }
+.hero-brag, .scroll-cue { display: none; }
+.hero-stage.on { height: 100vh; height: 100svh; }
+.hero-stage.on .hero { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; align-items: flex-end; }
+.hero-stage.on .hero > .wrap { width: 100%; }
+.hero-stage.on .hero > canvas.bg { bottom: auto; height: 100vh; height: 100svh; }
+.hero-stage.on .hero-copy { will-change: transform; }
+.hero-stage.on .hero-brag { display: flex; position: absolute; left: 0; top: 100%; margin-top: 2.6rem; flex-wrap: wrap; gap: 1.2rem 3rem; padding-top: 1.4rem; border-top: 1px solid rgba(255,255,255,0.16); min-width: min(36rem, 100%); }
+.hero-brag div { display: grid; }
+.hero-brag b { font-size: clamp(1.7rem, 3.2vw, 2.4rem); font-weight: 800; color: var(--orange); line-height: 1.05; }
+.hero-brag span { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-top: 0.3rem; }
+.hero-stage.on .scroll-cue { display: block; position: absolute; left: 50%; bottom: 1.2rem; width: 22px; height: 34px; margin-left: -11px; border: 1.5px solid rgba(255,255,255,0.45); border-radius: 12px; }
+.scroll-cue span { position: absolute; left: 50%; top: 7px; width: 3px; height: 7px; margin-left: -1.5px; border-radius: 2px; background: var(--orange); animation: cue 1.8s ease-in-out infinite; }
+@keyframes cue { 0% { opacity: 0; transform: translateY(-3px); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(9px); } }
+@media (prefers-reduced-motion: reduce) { .scroll-cue span { animation: none; } }
+@media (max-width: 920px) { .hero-stage.on .scroll-cue { display: none; } }
 .hero::after { background: linear-gradient(90deg, rgba(12,5,5,0.88) 0%, rgba(12,5,5,0.62) 34%, rgba(12,5,5,0.08) 70%, rgba(12,5,5,0) 100%), linear-gradient(0deg, rgba(12,5,5,0.7) 0%, transparent 35%); pointer-events: none; }
 .hero-cap { position: absolute; right: clamp(16px, 4vw, 40px); bottom: 1.4rem; display: flex; align-items: center; gap: 0.6rem; font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.62); letter-spacing: 0.02em; pointer-events: none; }
 .hero-cap .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 0 rgba(255,153,0,0.6); animation: pulse 2s infinite; }

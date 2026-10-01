@@ -65,10 +65,33 @@ function route() {
   document.querySelectorAll(".page").forEach(p => p.hidden = p.dataset.page !== page);
   document.querySelectorAll(".nav a").forEach(a => a.getAttribute("href") === "#" + page ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
   $("#nav").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded", "false");
-  window.scrollTo(0, 0); onScroll();
+  window.scrollTo(0, 0); if (page === "home") heroStage(true); onScroll();
   if (hero) hero.setActive(page === "home");
 }
-function onScroll() { $("#top").classList.toggle("solid", scrollY > 40 || $("#nav").classList.contains("open")); }
+function onScroll() { $("#top").classList.toggle("solid", scrollY > 40 || $("#nav").classList.contains("open")); heroStage(); }
+
+/* ---------- full-screen intro ----------
+   The stage is one screen tall and the cover is pinned inside it. Cover height = screen height − scroll,
+   never below its normal height (H0). Because the stage is exactly one screen, the section after it
+   moves up at the same rate the cover shrinks, so they stay attached. After (screen − H0) px of scroll
+   the page looks exactly like the normal layout and scrolls on as usual. */
+const stage = $("#heroStage"), heroEl = $(".hero"), heroCopy = $("#heroCopy"), heroBrag = $("#heroBrag"), scrollCue = $("#scrollCue");
+let stageV = 0, stageH0 = 0;
+function heroStage(remeasure) {
+  if (!stage || reduceMotion || stage.offsetParent === null) return;
+  if (remeasure || !stageV) {
+    stage.classList.remove("on"); heroEl.style.height = ""; heroCopy.style.transform = "";
+    stageH0 = heroEl.offsetHeight;
+    stage.classList.add("on"); stageV = stage.offsetHeight;
+    if (stageV - stageH0 < 80) { stage.classList.remove("on"); stageV = -1; return; }   // screen too short to bother
+  }
+  if (stageV < 0) return;
+  const h = Math.max(stageH0, stageV - scrollY), extra = h - stageH0, t = extra / (stageV - stageH0);
+  heroEl.style.height = h + "px";
+  heroCopy.style.transform = extra ? `translateY(${(-extra * 0.38).toFixed(1)}px)` : "";
+  heroBrag.style.opacity = scrollCue.style.opacity = Math.max(0, t * 1.4 - 0.4).toFixed(3);
+}
+addEventListener("resize", () => heroStage(true), { passive: true });
 addEventListener("scroll", onScroll, { passive: true });
 $("#menuBtn").onclick = () => { const o = $("#nav").classList.toggle("open"); $("#menuBtn").setAttribute("aria-expanded", o); onScroll(); };
 
@@ -104,6 +127,11 @@ document.addEventListener("click", e => {
 
 /* ---------- HOME ---------- */
 safe("Home", () => {
+  /* full-screen intro stats, counted from the data files so they stay current */
+  const published = (PUBS.JOURNALS || []).filter(p => p.journal !== "Under review").length + (PUBS.EARLY || []).length;
+  const members = (PEOPLE.MEMBERS || []).reduce((n, g) => n + (g.people || []).length, 0) + (PEOPLE.PI ? 1 : 0);
+  $("#heroBrag").innerHTML = [[published, "Journal articles"], [NEWS.filter(n => n.type === "grant").length, "Research grants"], [members, "Team members"], [(PEOPLE.ALUMNI || []).length, "Alumni"]]
+    .filter(([v]) => v).map(([v, l]) => `<div><b class="num">${v}</b><span>${l}</span></div>`).join("");
   $("#focusList").insertAdjacentHTML("beforeend", `<ul>${RESEARCH.map(t => `
     <li><a href="#research" data-thrust="${esc(t.id)}"><b>${esc(t.homeTitle)}</b><span>(${esc(t.homeTags).replace(/ · /g, ", ")})</span></a></li>`).join("")}</ul>`);
   const h = SITE.hiring || {};
@@ -282,6 +310,7 @@ $("#copyMail").addEventListener("click", async e => {
 
 /* ---------- hero: a random research simulation on every visit ---------- */
 safe("Cover", () => {
+  heroStage(true);   // size the full-screen stage before the animation measures its canvas
   const keys = (SITE.coverScenes || []).filter(k => SCENES[k]);
   if (!keys.length) { $(".hero-cap").hidden = true; return; }
   let last = null; try { last = localStorage.getItem("incode-scene"); } catch (e) {}
