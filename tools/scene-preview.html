@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INCODE Cover Scenes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;800&family=Noto+Sans+KR:wght@400;600&display=swap">
+<style>
+:root{color-scheme:dark}
+body{margin:0;background:#0d0606;color:#fff;font-family:"Plus Jakarta Sans","Noto Sans KR",system-ui,sans-serif;padding:32px clamp(16px,4vw,40px)}
+h1{font-size:28px;font-weight:800;margin:0}
+h1 span{color:#ff9900}
+.intro{color:rgba(255,255,255,.65);margin:8px 0 28px;font-family:"Noto Sans KR",sans-serif}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,520px),1fr));gap:20px;max-width:1400px}
+.card{border-radius:14px;overflow:hidden;background:#140a0a;border:1px solid rgba(255,255,255,.08)}
+.stage{position:relative;aspect-ratio:16/9;background:radial-gradient(120% 90% at 75% 40%,#3a0b0b 0%,#160808 55%,#0c0505 100%)}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.stage .tag{position:absolute;left:14px;top:12px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#ff9900;background:rgba(10,4,4,.6);padding:4px 9px;border-radius:999px}
+.meta{padding:14px 16px 16px}
+.meta b{display:block;font-size:16px}
+.meta p{margin:4px 0 0;color:rgba(255,255,255,.6);font-size:13.5px;font-family:"Noto Sans KR",sans-serif}
+</style></head><body>
+<h1>Cover scenes <span>· preview</span></h1>
+<p class="intro">홈페이지 커버에 들어갈 연구 애니메이션 4종입니다. 접속할 때마다 이 중 하나가 랜덤으로 나와요. 마우스를 올리면 각 장면이 반응합니다.</p>
+<div class="grid" id="grid"></div>
+<script src="../js/scenes.js"></script>
+<script>
+const KO = {
+  energy: ["전고체전지 이온 이동", "전극 속 활물질 입자 사이로 리튬 이온이 흐르고, 이온을 받은 입자가 주황색으로 빛나요."],
+  spheroid: ["3D 스페로이드 배양 칩", "관류 채널을 따라 흘러온 약물이 마이크로웰로 들어가 스페로이드에 닿으면 표면이 빛나요. 약물 농도 펄스가 지나가면 스페로이드가 주황색으로 밝아져요."],
+  plasmonic: ["금 나노홀 어레이 플라즈몬", "빛의 파면이 지나갈 때 금 나노홀 가장자리에 핫스팟이 켜지고 빛이 퍼져 나가요."],
+  neural: ["PINN 신경망 학습", "입력 신호가 신경망 층을 따라 펄스로 전달되며 노드가 활성화돼요."]
+};
+const grid = document.getElementById("grid");
+Object.keys(SCENES).forEach(k => {
+  const s = SCENES[k];
+  grid.insertAdjacentHTML("beforeend", `<div class="card"><div class="stage"><canvas id="cv-${k}"></canvas><span class="tag">${s.thrust}</span></div><div class="meta"><b>${KO[k][0]}</b><p>${KO[k][1]}</p></div></div>`);
+});
+Object.keys(SCENES).forEach(k => runScene(document.getElementById("cv-" + k), k));
+</script></body></html>

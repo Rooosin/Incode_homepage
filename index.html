@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>INCODE Lab · Sogang</title>
+<meta name="description" content="INCODE Lab (SONG Research Group), Department of Mechanical Engineering, Sogang University. AI-powered multiscale design of energy, nano-bio and intelligent engineering systems.">
+<link rel="icon" href="img/logos/incode.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!--
+  내용 수정은 이 파일이 아니라 data/ 폴더의 파일에서 하세요.
+  자세한 방법은 README.md 를 참고하세요.
+-->
+<header class="top" id="top">
+  <div class="wrap bar">
+    <a class="brand" href="#home" aria-label="INCODE Lab home">
+      <img class="sogang" src="img/logos/sogang.png" alt="Sogang University"><span class="sep"></span><img src="img/logos/incode.png" alt="INCODE Lab">
+    </a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Pages">
+      <a href="#home">Home</a>
+      <a href="#research">Research</a>
+      <a href="#team">Team</a>
+      <a href="#publications">Publications</a>
+      <a href="#news">News</a>
+      <a href="#photo">Photo</a>
+      <a href="#lectures">Lectures</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ================= HOME ================= -->
+<div class="page" data-page="home">
+  <section class="banner hero">
+    <canvas class="bg" id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="hero-cap" aria-hidden="true"><span class="dot"></span><span id="heroCapText"></span><span class="scalebar" id="heroScale"></span><button type="button" id="heroNext" aria-label="Show another research simulation">Next ↻</button></div>
+    <div class="wrap">
+      <p class="eyebrow on-dark">SONG Research Group · Sogang University</p>
+      <h1><span class="o">INCODE</span> Lab</h1>
+      <p class="exp"><b>IN</b>telligent &amp; <b>CO</b>nvergent <b>DE</b>sign<br>for advanced engineering systems</p>
+      <div class="cta"><a class="btn primary" href="#research">Explore our research →</a><a class="btn ghost" href="#team">Meet the team</a></div>
+      <div class="stats" id="stats"></div>
+    </div>
+  </section>
+
+  <section class="sec welcome">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow on-dark">SONG Group @ Sogang University</p>
+        <h2>Welcome to <span class="o">SONG</span> Research Group</h2>
+        <div class="txt">
+          <p>Welcome to SONG Research Group (INtelligent &amp; COnvergent DEsign for advanced engineering systems lab) at Sogang University.</p>
+          <p>We focus on advancing next-generation energy and bio-systems through AI-powered multiscale simulation and optimal design approaches. Our research bridges computational engineering with energy and biomedical applications, aiming for both scientific discovery and practical impact.</p>
+          <p>At SONG group, we are building an open, collaborative environment where industry and academia meet to drive real-world innovation. We invite you to explore the future of simulation-driven, AI-enhanced engineering for energy and healthcare systems with us.</p>
+        </div>
+      </div>
+      <div class="focus-list" id="focusList"><h3>Our team focuses on</h3></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><div><p class="eyebrow">Researches</p><h2>What we work on</h2></div><a class="link-more" href="#research">All research →</a></div>
+      <div class="tcards" id="tcards"></div>
+    </div>
+  </section>
+
+  <section class="sec alt">
+    <div class="wrap">
+      <div class="sec-head"><div><p class="eyebrow">Group news</p><h2>Latest from the lab</h2></div><a class="link-more" href="#news">All news →</a></div>
+      <div class="ncards" id="ncards"></div>
+      <div class="nmini" id="nmini"></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap join">
+      <div class="txt">
+        <p class="eyebrow">Join our journey!</p>
+        <h2 class="ko">함께 연구할 분을 기다립니다</h2>
+        <p class="ko lead">우리 연구실은 도전적이고 창의적인 문제 해결에 열정을 가진 학부생 및 대학원생과 함께 하기를 기다립니다. 기계공학, 바이오, 에너지, 인공지능 등 다양한 융합 분야에 관심이 있다면 누구든지 지원 가능합니다.</p>
+        <p class="ko">연구 내용이나 진학, 인턴십, 연구실 생활 등에 대해 궁금한 점이 있다면 편하게 <span class="mail">jsong@sogang.ac.kr</span>로 연락 주세요.</p>
+        <div id="hiring"></div>
+        <p style="color:var(--muted)">We welcome motivated and curious students to explore new frontiers in intelligent system design, nano-bio systems, and energy technologies. If you're ready to learn, create, and grow together, reach out to <span class="mail">jsong@sogang.ac.kr</span> for more information!</p>
+      </div>
+      <div class="photo"><img src="img/home/join-photo.jpg" alt="INCODE Lab members in a photo booth strip" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="sec alt">
+    <div class="wrap">
+      <div class="sec-head"><div><p class="eyebrow">Photo</p><h2>Life in the lab</h2></div><a class="link-more" href="#photo">All photos →</a></div>
+      <div class="mosaic" id="mosaic" data-gallery></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= RESEARCH ================= -->
+<div class="page" data-page="research" hidden>
+  <section class="banner"><img class="bg" src="img/banners/research.jpg" alt="">
+    <div class="wrap"><p class="crumb"><a href="#home">Home</a> / Researches</p><h1>Researches</h1>
+      <p class="sub">We design energy, nano-bio and intelligent engineering systems through AI-powered modeling, multiscale simulation and optimization-driven design.</p></div>
+  </section>
+  <div class="subnav"><div class="wrap" id="thrustNav"></div></div>
+  <div id="thrusts"></div>
+</div>
+
+<!-- ================= TEAM ================= -->
+<div class="page" data-page="team" hidden>
+  <section class="banner"><img class="bg" src="img/banners/team.jpg" alt="">
+    <div class="wrap"><p class="crumb"><a href="#home">Home</a> / Team</p><h1>Team</h1>
+      <p class="sub">Principal investigator, researchers and alumni of the SONG Research Group.</p></div>
+  </section>
+  <div class="subnav"><div class="wrap" id="teamNav"></div></div>
+  <section class="sec" id="t-pi"><div class="wrap"><div class="pi" id="pi"></div></div></section>
+  <section class="sec alt" id="t-researchers"><div class="wrap"><div class="sec-head"><div><p class="eyebrow">Researchers</p><h2>Current members</h2></div></div><div id="people"></div></div></section>
+  <section class="sec" id="t-alumni"><div class="wrap"><div class="sec-head"><div><p class="eyebrow">Alumni</p><h2>Where they are now</h2></div></div><div class="alumni" id="alumni"></div></div></section>
+</div>
+
+<!-- ================= PUBLICATIONS ================= -->
+<div class="page" data-page="publications" hidden>
+  <section class="banner"><img class="bg" src="img/banners/publications.jpg" alt="">
+    <div class="wrap"><p class="crumb"><a href="#home">Home</a> / Publications</p><h1>Publications</h1>
+      <p class="sub">International journal articles with impact factor and JCR rank at the time of publication.</p></div>
+  </section>
+  <div class="subnav"><div class="wrap" id="pubNav"></div></div>
+  <section class="sec"><div class="wrap">
+    <div class="pubsec" id="p-journals">
+      <h2>International journals</h2>
+      <div class="pubbar">
+        <div class="chips" id="years" role="group" aria-label="Filter by year"></div>
+        <label class="search"><input id="pubSearch" type="search" placeholder="Search title, author, journal" aria-label="Search publications"></label>
+      </div>
+      <p class="legend">† Equal contribution · * Corresponding author · <u>Underlined</u>: group member</p>
+      <div id="pubList" aria-live="polite" style="margin-top:1.5rem"></div>
+    </div>
+    <div class="pubsec" id="p-prep"><h2>In preparation</h2><ol class="plist" id="prepList"></ol></div>
+    <div class="pubsec" id="p-early"><h2>Starting independent researches <span style="color:var(--muted);font-weight:600;font-size:1rem">2009 – 2017</span></h2><ol class="plist" id="earlyList"></ol></div>
+  </div></section>
+</div>
+
+<!-- ================= NEWS ================= -->
+<div class="page" data-page="news" hidden>
+  <section class="banner"><img class="bg" src="img/banners/news.jpg" alt="">
+    <div class="wrap"><p class="crumb"><a href="#home">Home</a> / News</p><h1>News</h1>
+      <p class="sub">Publications, journal covers, grants, awards, conferences and new members.</p></div>
+  </section>
+  <div class="subnav"><div class="wrap"><div class="chips" id="newsKinds" style="flex-wrap:nowrap" role="group" aria-label="Filter news"></div></div></div>
+  <section class="sec alt"><div class="wrap"><div class="nlist" id="newsList"></div></div></section>
+</div>
+
+<!-- ================= PHOTO ================= -->
+<div class="page" data-page="photo" hidden>
+  <section class="banner"><img class="bg" src="img/banners/photo.jpg" alt="">
+    <div class="wrap"><p class="crumb"><a href="#home">Home</a> / Photo</p><h1>Photo</h1>
+      <p class="sub">Lab lunches, birthdays, graduations, conferences and campus walks.</p></div>
+  </section>
+  <div class="subnav"><div class="wrap"><div class="chips" id="albumTabs" style="flex-wrap:nowrap" role="group" aria-label="Albums"></div></div></div>
+  <section class="sec"><div class="wrap"><div class="album" id="album"></div></div></section>
+</div>
+
+<!-- ================= LECTURES ================= -->
+<div class="page" data-page="lectures" hidden>
+  <section class="banner"><img class="bg" src="img/banners/lectures.jpg" alt="">
+    <div class="wrap"><p class="crumb"><a href="#home">Home</a> / Lectures</p><h1>Lectures</h1>
+      <p class="sub">Undergraduate courses taught by Professor Jihwan Song.</p></div>
+  </section>
+  <section class="sec alt"><div class="wrap"><div class="lects" id="lects"></div></div></section>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <div class="logos"><img src="img/logos/incode.png" alt="INCODE Lab"><span class="sep"></span><img src="img/logos/sogang.png" alt="Sogang University"></div>
+        <p class="about">INtelligent &amp; COnvergent DEsign for advanced engineering systems. SONG Research Group, Department of Mechanical Engineering, Sogang University.</p>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <div class="rows">
+          <span>AS 613 (Office) &amp; AS 615 (Lab.)</span>
+          <span>Sogang University, 35 Baekbeom-ro, Mapo-gu, Seoul, 04107 Korea</span>
+          <span class="ko">서울특별시 마포구 백범로 35 아담샬관 613 &amp; 615</span>
+        </div>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <div class="rows">
+          <span class="num">+82-2-705-8639</span>
+          <span><span id="mail">jsong@sogang.ac.kr</span><button class="copy-btn" id="copyMail" type="button">Copy</button></span>
+        </div>
+      </div>
+    </div>
+    <p class="bottom">COPYRIGHT © SOGANG UNIVERSITY SONG RESEARCH GROUP. ALL RIGHTS RESERVED.</p>
+  </div>
+</footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="bar"><span id="lbCap"></span><button type="button" id="lbClose">Close ✕</button></div>
+  <div class="stage"><img id="lbImg" alt=""></div>
+  <div class="ctl"><button type="button" id="lbPrev">← Prev</button><span class="cnt" id="lbCnt"></span><button type="button" id="lbNext">Next →</button></div>
+</div>
+
+<!-- 내용 데이터 (여기를 수정하세요) -->
+<script src="data/site.js"></script>
+<script src="data/research.js"></script>
+<script src="data/people.js"></script>
+<script src="data/publications.js"></script>
+<script src="data/news.js"></script>
+<script src="data/photos.js"></script>
+<!-- 사이트 동작 코드 -->
+<script src="js/scenes.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
