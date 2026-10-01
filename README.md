@@ -15,7 +15,7 @@ data/               ★ 내용은 여기서 수정
   people.js           교수님, 현재 멤버, 졸업생
   photos.js           사진 앨범
   research.js         연구 분야와 프로젝트 설명
-  site.js             모집 공고, 강의 목록, 커버 애니메이션, 숫자 요약
+  site.js             모집 공고, 강의 목록, 커버 애니메이션, Home 뉴스 범위
 img/                ★ 사진은 여기에
   news/  photos/  people/  research/  banners/  logos/  home/
 css/style.css       디자인 (색, 글꼴, 배치)
@@ -58,7 +58,7 @@ window.NEWS = [
 - `type`은 다음 중 하나: `"pub"` 논문, `"cover"` 저널 표지, `"grant"` 과제, `"award"` 수상, `"conf"` 학회, `"member"` 새 멤버, `"alumni"` 졸업생 소식, `"media"` 언론, `"lab"` 연구실
 - 사진이 없으면 `images: []`
 - 줄을 나누고 싶으면 `text`를 백틱(`` ` ``)으로 감싸고 엔터로 줄바꿈하면 돼요.
-- 맨 위 3개는 Home 카드로, 그다음 4개는 Home 목록으로 자동 표시됩니다.
+- Home의 **Group News**에는 `data/site.js`의 `homeNewsSince` 날짜 이후 소식이 모두 나오고, 전체 목록은 News 페이지에 나옵니다.
 
 ### 2. 논문 추가 — `data/publications.js`
 
@@ -119,14 +119,13 @@ window.NEWS = [
    },
    ```
 - 새해가 되면 `window.ALBUMS = [` 아래 맨 위에 `{ label: "2027", events: [ ... ] },`를 추가하세요.
-- 첫 번째 앨범의 최신 사진 7장이 Home의 "Life in the lab"에 나옵니다.
 
-### 5. 모집 공고 · 강의 · 커버 · 숫자 요약 — `data/site.js`
+### 5. 모집 공고 · 강의 · 커버 · Home 뉴스 범위 — `data/site.js`
 
 - `hiring`: 박사후 연구원 등 모집 공고. 마감되면 `show: false`
 - `lectures`: 학기별 강의 목록
 - `coverScenes`: Home 커버에 랜덤으로 나오는 애니메이션. `"energy"`(전고체전지), `"spheroid"`(스페로이드 칩), `"plasmonic"`(금 나노홀), `"neural"`(PINN) 중 원하는 것만 남기세요. `tools/scene-preview.html`에서 미리 볼 수 있어요.
-- `stats`: 커버 아래 숫자 요약. 필요 없으면 `stats: []`
+- `homeNewsSince`: Home의 Group News에 보여줄 소식의 시작 날짜 (예: `"2025.09.01"`)
 
 ### 6. 연구 소개 — `data/research.js`
 

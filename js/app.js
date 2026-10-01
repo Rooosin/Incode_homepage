@@ -8,7 +8,7 @@
 /* ---------- data check: a broken data file shows a clear message instead of a blank page ---------- */
 const FILES = [["SITE", "data/site.js"], ["RESEARCH", "data/research.js"], ["PEOPLE", "data/people.js"], ["PUBLICATIONS", "data/publications.js"], ["NEWS", "data/news.js"], ["ALBUMS", "data/photos.js"]];
 const pending = FILES.filter(([v]) => !window[v]).map(([, f]) => `${f} 파일을 읽지 못했어요. 쉼표·따옴표·괄호가 빠졌는지 확인하세요.`);
-const SITE = window.SITE || { stats: [], hiring: { show: false }, lectures: [], coverScenes: Object.keys(SCENES) };
+const SITE = window.SITE || { hiring: { show: false }, lectures: [], coverScenes: Object.keys(SCENES) };
 const RESEARCH = window.RESEARCH || [];
 const PEOPLE = window.PEOPLE || { PI: null, MEMBERS: [], ALUMNI: [] };
 const PUBS = window.PUBLICATIONS || { GROUP_MEMBERS: [], JOURNALS: [], IN_PREPARATION: [], EARLY: [] };
@@ -104,24 +104,22 @@ document.addEventListener("click", e => {
 
 /* ---------- HOME ---------- */
 safe("Home", () => {
-  $("#stats").innerHTML = (SITE.stats || []).map(s => `<div><b class="num">${esc(s.value)}</b><span>${esc(s.label)}</span></div>`).join("");
-  $("#stats").hidden = !(SITE.stats || []).length;
-  $("#focusList").insertAdjacentHTML("beforeend", RESEARCH.map((t, i) => `
-    <a href="#research" data-thrust="${esc(t.id)}"><span class="ic">${String(i + 1).padStart(2, "0")}</span><span><b>${esc(t.homeTitle)}</b><small>(${esc(t.homeTags).replace(/ · /g, ", ")})</small></span><span class="arr">→</span></a>`).join(""));
-  $("#tcards").innerHTML = RESEARCH.map(t => `
-    <a class="tcard zoom" href="#research" data-thrust="${esc(t.id)}">${IMG(t.image, t.title)}
-      <div class="in"><h3>${esc(t.title)}</h3><p>${esc(t.cardText)}</p><span class="go">Learn more →</span></div></a>`).join("");
-  $("#ncards").innerHTML = NEWS.slice(0, 3).map(n => `
-    <a class="ncard" href="#news">
-      <div class="ph">${IMG((n.images || [])[0], n.title)}</div>
-      <div class="in"><div class="meta"><span class="num">${esc(n.date)}</span>${kindPill(n.type)}</div>
-      <h3>${esc(n.title)}</h3><p>${esc(plain(n.text))}</p></div></a>`).join("");
-  $("#nmini").innerHTML = NEWS.slice(3, 7).map(n => `
-    <a href="#news"><span class="d num">${esc(n.date)}</span><span class="t">${esc(plain(n.text))}</span>${kindPill(n.type)}</a>`).join("");
+  $("#focusList").insertAdjacentHTML("beforeend", `<ul>${RESEARCH.map(t => `
+    <li><a href="#research" data-thrust="${esc(t.id)}"><b>${esc(t.homeTitle)}</b><span>(${esc(t.homeTags).replace(/ · /g, ", ")})</span></a></li>`).join("")}</ul>`);
   const h = SITE.hiring || {};
   $("#hiring").innerHTML = h.show ? `<div class="notice ko"><span class="pill">Hiring</span><b>${esc(h.title)}</b><span>${md(h.text)}</span></div>` : "";
-  const shots = (ALBUMS[0]?.events || []).filter(e => e.images?.length).slice(0, 7);
-  $("#mosaic").innerHTML = shots.map(e => `<button type="button" class="zoom" data-lb="${esc(e.images[0])}" data-cap="${esc(e.date + " · " + e.title)}">${IMG(e.images[0], e.title)}<span class="cap"><span>${esc(e.date)}</span>${esc(e.title)}</span></button>`).join("");
+  /* Group News: every item from SITE.homeNewsSince onward (default: the 12 most recent) */
+  const key = d => ((String(d).match(/^\d{4}(\.\d{1,2}){0,2}/) || [""])[0]).split(".").map((x, i) => i ? x.padStart(2, "0") : x).join(".");
+  const since = SITE.homeNewsSince ? key(SITE.homeNewsSince) : null;
+  const list = since ? NEWS.filter(n => key(n.date) >= since) : NEWS.slice(0, 12);
+  $("#homeNews").innerHTML = list.map(n => {
+    const imgs = n.images || [];
+    return `<article class="hn">
+      <div class="hn-head"><span class="num">${esc(n.date)}</span><span class="sep">|</span><b>${esc(n.title)}</b></div>
+      <div class="hn-text">${md(n.text, true)}</div>
+      ${imgs.length ? `<div class="hn-pics" data-gallery>${imgs.map(p => thumb(p, n.date + " · " + n.title)).join("")}</div>` : ""}
+    </article>`;
+  }).join("");
 });
 
 /* ---------- RESEARCH ---------- */

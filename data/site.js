@@ -1,6 +1,6 @@
 // =====================================================================
 //  SITE SETTINGS  (자주 바뀌는 안내 문구 모음)
-//  - stats: Home 커버 아래 숫자 요약. 필요 없으면 [] 로 두면 숨겨져요.
+//  - homeNewsSince: Home의 Group News에 이 날짜 이후 소식을 모두 보여줘요. (나머지는 News 페이지에)
 //  - hiring: 박사후 연구원 등 모집 공고. show: false 로 바꾸면 숨겨져요.
 //  - lectures: Lectures 페이지 강의 목록.
 //  - coverScenes: Home 커버에 랜덤으로 나오는 연구 애니메이션.
@@ -8,20 +8,7 @@
 // =====================================================================
 
 window.SITE = {
-  stats: [
-    {
-      value: "45",
-      label: "Journal articles"
-    },
-    {
-      value: "3",
-      label: "Research thrusts"
-    },
-    {
-      value: "AS-615",
-      label: "Adam Schall Hall"
-    }
-  ],
+  homeNewsSince: "2025.09.01",
   hiring: {
     show: true,
     title: "박사후 연구원 초빙",

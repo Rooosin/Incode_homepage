@@ -143,19 +143,36 @@ button { font-family: inherit; }
 
 .welcome { background: var(--crimson); color: #fff; position: relative; overflow: hidden; }
 .welcome::before { content: ""; position: absolute; right: -10rem; top: -10rem; width: 30rem; height: 30rem; border-radius: 50%; background: radial-gradient(circle, rgba(255,153,0,0.22), transparent 65%); }
-.welcome .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 2.5rem 4rem; position: relative; }
-.welcome h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); font-weight: 800; margin-top: 0.6rem; }
-.welcome h2 .o { color: var(--orange); }
-.welcome .txt { display: grid; gap: 1rem; margin-top: 1.25rem; color: rgba(255,255,255,0.86); max-width: 38rem; }
-.focus-list { display: grid; gap: 0.75rem; align-content: start; }
-.focus-list h3 { font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange); font-weight: 700; margin-bottom: 0.25rem; }
-.focus-list a { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr) auto; gap: 1rem; align-items: center; padding: 1.1rem 1.25rem; border-radius: 12px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); text-decoration: none; transition: background .2s; }
+.welcome .wrap { position: relative; display: grid; gap: 1.6rem; }
+.welcome h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); font-weight: 800; color: var(--orange); }
+.welcome .txt { display: grid; gap: 1rem; color: rgba(255,255,255,0.88); max-width: 60rem; }
+.welcome .closing { color: rgba(255,255,255,0.88); max-width: 60rem; }
+.focus-list { display: grid; gap: 0.75rem; }
+.focus-list h3 { font-size: 1.05rem; font-weight: 800; color: #fff; }
+.focus-list ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem; }
+.focus-list a { display: grid; gap: 0.35rem; height: 100%; padding: 1.15rem 1.25rem; border-radius: 12px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-top: 3px solid var(--orange); text-decoration: none; transition: background .2s; }
 .focus-list a:hover { background: rgba(255,255,255,0.13); }
-.focus-list .ic { width: 2.75rem; height: 2.75rem; border-radius: 10px; background: var(--orange); color: #3a1d00; display: grid; place-items: center; font-weight: 800; font-size: 0.85rem; }
-.focus-list b { display: block; font-weight: 700; line-height: 1.3; }
-.focus-list small { display: block; color: rgba(255,255,255,0.68); font-size: 0.82rem; margin-top: 0.2rem; }
-.focus-list .arr { color: var(--orange); font-size: 1.2rem; }
-@media (max-width: 860px) { .welcome .wrap { grid-template-columns: minmax(0, 1fr); } }
+.focus-list b { font-weight: 700; color: var(--orange); line-height: 1.35; }
+.focus-list span { color: rgba(255,255,255,0.75); font-size: 0.875rem; }
+@media (max-width: 860px) { .focus-list ul { grid-template-columns: minmax(0, 1fr); } }
+
+.news-band { background: var(--crimson); color: #fff; }
+.news-band .wrap { padding-block: 1.4rem; }
+.news-band h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; color: var(--orange); }
+.hnews { display: grid; gap: 0; max-width: 58rem; }
+.hn { padding-block: 2.25rem; border-bottom: 1px solid var(--line); display: grid; gap: 0.7rem; }
+.hn:first-child { padding-top: 0; }
+.hn-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem; font-size: 1.05rem; }
+.hn-head .num { font-weight: 800; }
+.hn-head .sep { color: var(--muted); }
+.hn-head b { font-weight: 800; color: var(--crimson-text); }
+.hn-text { color: var(--muted); display: grid; gap: 0.35rem; }
+.hn-text a { color: var(--crimson-text); font-weight: 600; }
+.hn-pics { display: grid; gap: 0.75rem; margin-top: 0.4rem; }
+.hn-pics button { all: unset; cursor: zoom-in; display: block; border-radius: 10px; overflow: hidden; background: var(--figure-bg); border: 1px solid var(--line); box-shadow: var(--shadow); max-width: 100%; }
+.hn-pics button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+.hn-pics img { display: block; width: 100%; }
+.hnews-more { margin-top: 2rem; }
 
 .tcards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
 .tcard { position: relative; border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 5; color: #fff; text-decoration: none; display: flex; align-items: flex-end; isolation: isolate; box-shadow: var(--shadow); background: var(--night); }
