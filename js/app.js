@@ -107,7 +107,7 @@ safe("Home", () => {
   $("#focusList").insertAdjacentHTML("beforeend", `<ul>${RESEARCH.map(t => `
     <li><a href="#research" data-thrust="${esc(t.id)}"><b>${esc(t.homeTitle)}</b><span>(${esc(t.homeTags).replace(/ · /g, ", ")})</span></a></li>`).join("")}</ul>`);
   const h = SITE.hiring || {};
-  $("#hiring").innerHTML = h.show ? `<div class="notice ko"><span class="pill">Hiring</span><b>${esc(h.title)}</b><span>${md(h.text)}</span></div>` : "";
+  $("#hiring").innerHTML = h.show ? `<div class="notice ko"><b>${esc(h.title)}</b><p>${md(h.text)}</p></div>` : "";
   /* Group News: the most recent SITE.homeNewsCount items (the News page keeps the full record) */
   const list = NEWS.slice(0, SITE.homeNewsCount || 10);
   $("#homeNews").innerHTML = list.map(n => {

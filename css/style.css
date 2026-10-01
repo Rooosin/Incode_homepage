@@ -207,10 +207,8 @@ button { font-family: inherit; }
 .join .txt { display: grid; gap: 1.1rem; }
 .join h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); font-weight: 800; }
 .join .lead { font-size: 1.05rem; }
-.notice { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.4rem 1rem; padding: 1.2rem 1.4rem; border-radius: 12px; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--orange); box-shadow: var(--shadow); }
-.notice b { color: var(--crimson-text); }
-.notice .pill { align-self: start; }
-.notice > span:last-child { grid-column: 2; }
+.notice { display: grid; gap: 0.3rem; }
+.notice b { color: var(--crimson-text); font-size: 1.05rem; font-weight: 700; }
 .mail { font-weight: 700; color: var(--crimson-text); }
 .join .photo { border-radius: var(--radius); overflow: hidden; box-shadow: 0 30px 60px -30px rgba(40,10,10,0.5); max-width: 20rem; justify-self: center; }
 .join .photo img { display: block; width: 100%; }
