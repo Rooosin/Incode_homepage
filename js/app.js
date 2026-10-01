@@ -108,10 +108,8 @@ safe("Home", () => {
     <li><a href="#research" data-thrust="${esc(t.id)}"><b>${esc(t.homeTitle)}</b><span>(${esc(t.homeTags).replace(/ · /g, ", ")})</span></a></li>`).join("")}</ul>`);
   const h = SITE.hiring || {};
   $("#hiring").innerHTML = h.show ? `<div class="notice ko"><span class="pill">Hiring</span><b>${esc(h.title)}</b><span>${md(h.text)}</span></div>` : "";
-  /* Group News: every item from SITE.homeNewsSince onward (default: the 12 most recent) */
-  const key = d => ((String(d).match(/^\d{4}(\.\d{1,2}){0,2}/) || [""])[0]).split(".").map((x, i) => i ? x.padStart(2, "0") : x).join(".");
-  const since = SITE.homeNewsSince ? key(SITE.homeNewsSince) : null;
-  const list = since ? NEWS.filter(n => key(n.date) >= since) : NEWS.slice(0, 12);
+  /* Group News: the most recent SITE.homeNewsCount items (the News page keeps the full record) */
+  const list = NEWS.slice(0, SITE.homeNewsCount || 10);
   $("#homeNews").innerHTML = list.map(n => {
     const imgs = n.images || [];
     return `<article class="hn">

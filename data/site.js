@@ -1,6 +1,6 @@
 // =====================================================================
 //  SITE SETTINGS  (자주 바뀌는 안내 문구 모음)
-//  - homeNewsSince: Home의 Group News에 이 날짜 이후 소식을 모두 보여줘요. (나머지는 News 페이지에)
+//  - homeNewsCount: Home의 Group News에 보여줄 최신 소식 개수. 전체 기록은 News 페이지에 모두 나와요.
 //  - hiring: 박사후 연구원 등 모집 공고. show: false 로 바꾸면 숨겨져요.
 //  - lectures: Lectures 페이지 강의 목록.
 //  - coverScenes: Home 커버에 랜덤으로 나오는 연구 애니메이션.
@@ -8,7 +8,7 @@
 // =====================================================================
 
 window.SITE = {
-  homeNewsSince: "2025.09.01",
+  homeNewsCount: 10,
   hiring: {
     show: true,
     title: "박사후 연구원 초빙",
