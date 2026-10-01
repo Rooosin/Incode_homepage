@@ -154,6 +154,9 @@ window.NEWS = [
 
 잘못 고쳤다면 저장소의 **History**에서 이전 버전을 보고 되돌릴 수 있어요.
 
+> 수정이 사이트에 안 보이면: 브라우저가 이전 파일을 최대 10분간 기억해 두기 때문이에요. **Ctrl + F5**(맥은 Cmd + Shift + R)로 새로고침하면 바로 보여요.
+> `css/`, `js/` 파일이나 `index.html`의 구조를 바꿨다면 `index.html` 아래쪽 `?v=2` 숫자를 모두 하나씩 올려 주세요(예: `?v=3`). 그래야 방문자들도 바로 새 버전을 받아요.
+
 ### 학교 주소(incode.sogang.ac.kr) 연결하기
 
 1. **Settings → Pages → Custom domain**에 `incode.sogang.ac.kr` 입력 → Save
