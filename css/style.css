@@ -333,8 +333,10 @@ button { font-family: inherit; }
 .nlist { display: grid; gap: 1.25rem; }
 .nyear { font-size: 1.6rem; font-weight: 800; color: var(--crimson-text); padding-top: 1.5rem; }
 .nyear:first-child { padding-top: 0; }
-.nitem { display: grid; grid-template-columns: minmax(0, 1fr) 16rem; gap: 1.5rem; padding: 1.5rem; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); align-items: start; }
-.nitem.noimg { grid-template-columns: minmax(0, 1fr); }
+.nitem { display: grid; gap: 0; padding: 1.4rem 1.5rem; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.photo-link { margin-top: 0.9rem; }
+.photo-btn { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.9rem; border-radius: 999px; border: 1px solid var(--line); background: var(--bg-alt); color: var(--crimson-text); font-weight: 600; font-size: 0.85rem; cursor: zoom-in; }
+.photo-btn:hover { border-color: var(--crimson-text); background: color-mix(in srgb, var(--crimson) 8%, var(--card)); }
 .nitem .meta { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; font-size: 0.85rem; color: var(--muted); font-weight: 600; }
 .nitem h3 { font-size: 1.1rem; font-weight: 800; margin-top: 0.55rem; }
 .nitem .bd { margin-top: 0.5rem; font-size: 0.94rem; color: var(--muted); display: grid; gap: 0.35rem; }
@@ -344,7 +346,6 @@ button { font-family: inherit; }
 .nitem .pics button { all: unset; cursor: zoom-in; display: block; border-radius: 10px; overflow: hidden; background: var(--figure-bg); border: 1px solid var(--line); }
 .nitem .pics button:focus-visible { outline: 2px solid var(--orange); }
 .nitem .pics img { display: block; width: 100%; }
-@media (max-width: 760px) { .nitem { grid-template-columns: minmax(0, 1fr); } .nitem .pics { order: -1; } }
 
 /* ---------- photo ---------- */
 .album { display: grid; gap: 3rem; }

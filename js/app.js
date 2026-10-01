@@ -230,10 +230,11 @@ safe("News", () => {
       const yr = String(n.date).slice(0, 4);
       if (yr !== y) { y = yr; html += `<div class="nyear">${esc(y)}</div>`; }
       const imgs = n.images || [];
-      html += `<article class="nitem${imgs.length ? "" : " noimg"}">
-        <div><div class="meta"><span class="num">${esc(n.date)}</span>${kindPill(n.type)}</div>
-        <h3>${esc(n.title)}</h3><div class="bd">${md(n.text, true)}</div></div>
-        ${imgs.length ? `<div class="pics" data-gallery>${imgs.map(p => thumb(p, n.date + " · " + n.title)).join("")}</div>` : ""}
+      const cap = esc(n.date + " · " + n.title);
+      html += `<article class="nitem">
+        <div class="meta"><span class="num">${esc(n.date)}</span>${kindPill(n.type)}</div>
+        <h3>${esc(n.title)}</h3><div class="bd">${md(n.text, true)}</div>
+        ${imgs.length ? `<div class="photo-link" data-gallery><button type="button" class="photo-btn" data-lb="${esc(imgs[0])}" data-cap="${cap}"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm0 2v7.6l4.3-4.3a1 1 0 0 1 1.4 0l4.3 4.3 1.8-1.8a1 1 0 0 1 1.4 0L20 15.6V7H4zm11 1.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>${imgs.length > 1 ? `View photos (${imgs.length})` : "View photo"}</button>${imgs.slice(1).map(p => `<span hidden data-lb="${esc(p)}" data-cap="${cap}"></span>`).join("")}</div>` : ""}
       </article>`;
     });
     $("#newsList").innerHTML = html;
