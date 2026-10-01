@@ -82,11 +82,14 @@ button { font-family: inherit; }
 .brand { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; flex-shrink: 0; }
 .brand img { height: 2.5rem; width: auto; display: block; }
 .brand .sep { width: 1px; height: 1.6rem; background: rgba(255,255,255,0.3); }
-/* cover title: drawn larger at the top of the page and scaled back to its normal size as the page scrolls (see js/app.js) */
-.hero h1, .hero .eyebrow { transform-origin: left bottom; will-change: transform; }
-.hero h1 { animation: title-in 1s cubic-bezier(.2,.7,.2,1) both; }
-@keyframes title-in { from { opacity: 0; } to { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .hero h1 { animation: none; } }
+/* at the very top the lab logo is shown large; it shrinks into the bar once the page scrolls */
+.top .bar, .brand img.incode { transition: height .45s cubic-bezier(.2,.7,.2,1); }
+.top:not(.solid) .bar { height: 7rem; }
+.top:not(.solid) .brand img.incode { height: 4.6rem; }
+.brand img.incode { animation: logo-in .9s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes logo-in { from { opacity: 0; transform: translateY(-6px) scale(.96); } to { opacity: 1; transform: none; } }
+@media (max-width: 920px) { .top:not(.solid) .bar { height: 5.6rem; } .top:not(.solid) .brand img.incode { height: 3.4rem; } }
+@media (prefers-reduced-motion: reduce) { .top .bar, .brand img.incode { transition: none; animation: none; } }
 .nav { display: flex; gap: 0.15rem; margin-left: auto; }
 .nav a { color: rgba(255,255,255,0.86); text-decoration: none; font-size: 0.9rem; font-weight: 600; padding: 0.5rem 0.75rem; border-radius: 999px; white-space: nowrap; }
 .nav a:hover { color: #fff; background: rgba(255,255,255,0.1); }

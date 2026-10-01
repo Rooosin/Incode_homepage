@@ -68,28 +68,8 @@ function route() {
   window.scrollTo(0, 0); onScroll();
   if (hero) hero.setActive(page === "home");
 }
-function onScroll() { $("#top").classList.toggle("solid", scrollY > 40 || $("#nav").classList.contains("open")); heroTitle(); }
+function onScroll() { $("#top").classList.toggle("solid", scrollY > 40 || $("#nav").classList.contains("open")); }
 addEventListener("scroll", onScroll, { passive: true });
-addEventListener("resize", () => heroTitle(true), { passive: true });
-
-/* cover title: up to MAX× larger at the top, back to 1× after scrolling RANGE px.
-   It grows from its bottom-left corner, and the eyebrow line above moves up to make room. */
-const heroH1 = $(".hero h1"), heroEyebrow = $(".hero .eyebrow");
-let heroBase = null;
-function heroTitle(remeasure) {
-  if (reduceMotion || !heroH1 || heroH1.offsetParent === null) return;
-  if (remeasure || !heroBase) {
-    heroH1.style.transform = ""; heroEyebrow.style.transform = "";
-    const room = heroH1.parentElement.clientWidth - parseFloat(getComputedStyle(heroH1.parentElement).paddingLeft) * 2;
-    const r = document.createRange(); r.selectNodeContents(heroH1);
-    const w = r.getBoundingClientRect().width, h = heroH1.getBoundingClientRect().height;
-    heroBase = { h, max: Math.max(1, Math.min(1.6, (room * 0.98) / w)), range: Math.max(260, innerHeight * 0.45) };
-  }
-  const p = Math.min(1, Math.max(0, scrollY / heroBase.range)), e = 1 - Math.pow(1 - p, 2);
-  const s = heroBase.max - (heroBase.max - 1) * e;
-  heroH1.style.transform = `scale(${s.toFixed(4)})`;
-  heroEyebrow.style.transform = `translateY(${(-(s - 1) * heroBase.h).toFixed(1)}px)`;
-}
 $("#menuBtn").onclick = () => { const o = $("#nav").classList.toggle("open"); $("#menuBtn").setAttribute("aria-expanded", o); onScroll(); };
 
 /* ---------- lightbox ---------- */
