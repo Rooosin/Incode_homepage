@@ -192,21 +192,22 @@ safe("Team", () => {
 
 /* ---------- PUBLICATIONS ---------- */
 safe("Publications", () => {
-  subnav($("#pubNav"), [["p-prep", "In preparation"], ["p-journals", "International journals"], ["p-early", "2009 – 2017"]]);
+  subnav($("#pubNav"), [["p-prep", "In preparation"], ["p-journals", "International journals"]]);
   $("#prepList").innerHTML = (PUBS.IN_PREPARATION || []).map((p, i) => `<li><span class="n">P${i + 1}</span><div><div class="t">${esc(p.title)}</div><div class="a">${fmtAuthors(p.authors)}</div></div></li>`).join("");
-  const early = PUBS.EARLY || [];
-  $("#earlyList").innerHTML = early.map((p, i) => `<li><span class="n">${early.length - i}</span><div><div class="t">${esc(p.title)}</div><div class="a">${esc(p.info)}</div></div></li>`).join("");
-  const J = PUBS.JOURNALS || [];
+  /* 2009–2017 papers are listed as one more year group after the dated journals */
+  const early = (PUBS.EARLY || []).map((p, i, a) => ({ no: a.length - i, year: "2009 – 2017", title: p.title, info: p.info }));
+  const J = (PUBS.JOURNALS || []).concat(early);
   let yearSel = "All", query = "";
   chipGroup($("#years"), [["All", "All"], ...[...new Set(J.map(p => String(p.year)))].map(y => [y, y])], v => { yearSel = v; render(); });
   $("#pubSearch").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); render(); });
   function render() {
-    const list = J.filter(p => (yearSel === "All" || String(p.year) === yearSel) && (!query || `${p.title} ${p.authors} ${p.journal}`.toLowerCase().includes(query)));
+    const list = J.filter(p => (yearSel === "All" || String(p.year) === yearSel) && (!query || `${p.title} ${p.authors || ""} ${p.journal || ""} ${p.info || ""}`.toLowerCase().includes(query)));
     if (!list.length) { $("#pubList").innerHTML = `<p class="empty">No papers match “${esc(query)}”. Try an author surname or a journal name.</p>`; return; }
     const count = y => list.filter(p => p.year === y).length;
     let html = "", cur = null;
     list.forEach(p => {
       if (p.year !== cur) { cur = p.year; html += `<div class="ylabel">${esc(p.year)}<small>${count(p.year)} paper${count(p.year) > 1 ? "s" : ""}</small></div>`; }
+      if (p.info) { html += `<div class="pub"><span class="n num">${esc(p.no)}</span><div><div class="t">${esc(p.title)}</div><div class="a">${esc(p.info)}</div></div></div>`; return; }
       const review = p.journal === "Under review";
       html += `<div class="pub"><span class="n num">${esc(p.no)}</span><div>
         <div class="t">${p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>` : esc(p.title)}</div>
