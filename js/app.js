@@ -266,10 +266,21 @@ safe("Photo", () => {
 
 /* ---------- LECTURES ---------- */
 safe("Lectures", () => {
-  const abbr = n => (n.match(/[A-Z]/g) || [n[0]]).slice(0, 2).join("");
+  /* course icons (Lucide, ISC licence); picked by course.icon or by keywords in the course name */
+  const ICONS = {
+    math: '<path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/>',
+    factory: '<path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1M12 18h1M7 18h1"/>',
+    tools: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+    code: '<path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/>',
+    book: '<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>'
+  };
+  const pick = c => ICONS[c.icon] ? c.icon
+    : /math|수학/i.test(c.name + c.sub) ? "math" : /생산|공정|manufactur/i.test(c.name + c.sub) ? "factory"
+    : /제작|실습|fabricat|machin/i.test(c.name + c.sub) ? "tools" : /program|프로그래밍|coding/i.test(c.name + c.sub) ? "code" : "book";
+  const icon = c => `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[pick(c)]}</svg>`;
   $("#lects").innerHTML = (SITE.lectures || []).map(s => `
     <div class="lect"><p class="eyebrow">${esc(s.semester)}</p><h2>Undergraduate courses</h2><ul>
-      ${(s.courses || []).map(c => `<li><span class="i">${esc(abbr(c.name))}</span><span class="ko"><b>${esc(c.name)}</b><small>${esc(c.sub || "")}</small></span></li>`).join("")}
+      ${(s.courses || []).map(c => `<li><span class="i">${icon(c)}</span><span class="ko"><b>${esc(c.name)}</b><small>${esc(c.sub || "")}</small></span></li>`).join("")}
     </ul></div>`).join("");
 });
 

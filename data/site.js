@@ -3,6 +3,7 @@
 //  - homeNewsCount: Home의 Group News에 보여줄 최신 소식 개수. 전체 기록은 News 페이지에 모두 나와요.
 //  - hiring: 박사후 연구원 등 모집 공고. show: false 로 바꾸면 숨겨져요.
 //  - lectures: Lectures 페이지 강의 목록.
+//    아이콘은 과목 이름으로 자동 선택돼요. 직접 고르려면 icon: "math" "factory" "tools" "code" "book" 중 하나를 넣으세요.
 //  - coverScenes: Home 커버에 랜덤으로 나오는 연구 애니메이션.
 //    "energy" "spheroid" "plasmonic" "neural" 중 원하는 것만 남기세요.
 // =====================================================================
