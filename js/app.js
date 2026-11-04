@@ -192,7 +192,7 @@ safe("Team", () => {
 
 /* ---------- PUBLICATIONS ---------- */
 safe("Publications", () => {
-  subnav($("#pubNav"), [["p-journals", "International journals"], ["p-prep", "In preparation"], ["p-early", "2009 – 2017"]]);
+  subnav($("#pubNav"), [["p-prep", "In preparation"], ["p-journals", "International journals"], ["p-early", "2009 – 2017"]]);
   $("#prepList").innerHTML = (PUBS.IN_PREPARATION || []).map((p, i) => `<li><span class="n">P${i + 1}</span><div><div class="t">${esc(p.title)}</div><div class="a">${fmtAuthors(p.authors)}</div></div></li>`).join("");
   const early = PUBS.EARLY || [];
   $("#earlyList").innerHTML = early.map((p, i) => `<li><span class="n">${early.length - i}</span><div><div class="t">${esc(p.title)}</div><div class="a">${esc(p.info)}</div></div></li>`).join("");
