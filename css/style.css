@@ -388,3 +388,6 @@ footer .bottom { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rg
 .lb button { font-weight: 600; font-size: 0.875rem; color: #fff; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); border-radius: 999px; padding: 0.5rem 1.1rem; cursor: pointer; }
 .lb button:hover { background: rgba(255,255,255,0.2); }
 .lb .cnt { font-size: 0.8rem; opacity: 0.7; }
+
+/* images: square corners everywhere (person cards included, since the card clips the photo) */
+.hn-pics button, .join .photo, .thrust-top .vis, .pi .photo, .person, .gal button, .lb .stage img { border-radius: 0; }
