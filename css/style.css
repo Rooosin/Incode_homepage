@@ -391,3 +391,4 @@ footer .bottom { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rg
 
 /* images: square corners everywhere (person cards included, since the card clips the photo) */
 .hn-pics button, .join .photo, .thrust-top .vis, .pi .photo, .person, .gal button, .lb .stage img { border-radius: 0; }
+.hn-pics button, .proj .fig, .proj:nth-child(even) .fig, .person { border: 0; }
