@@ -118,6 +118,8 @@ window.NEWS = [
      images: ["photos/2026/2026-10-20.jpg", "photos/2026/2026-10-20-2.jpg"]
    },
    ```
+- 행사 종류 태그(Conference / Milestone / Celebration / Lab life)는 제목을 보고 자동으로 붙어요. 틀리게 붙으면 `tag: "conf"`(학회) `"milestone"`(입학·졸업·환영·송별) `"celebrate"`(생일·기념일) `"life"`(연구실 일상) 중 하나를 적어 주세요.
+- 여러 장을 흰 틈으로 이어 붙인 사진은 `python tools/split-collages.py`로 몇 장으로 나뉠지 먼저 보고, `--apply`를 붙여 실행하면 낱장 파일로 나누고 `photos.js`도 고쳐 줘요.
 - 새해가 되면 `window.ALBUMS = [` 아래 맨 위에 `{ label: "2027", events: [ ... ] },`를 추가하세요.
 
 ### 5. 모집 공고 · 강의 · 커버 · Home 뉴스 개수 — `data/site.js`

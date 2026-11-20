@@ -1,6 +1,7 @@
 // =====================================================================
-//  PHOTO  (Photo 페이지 앨범 + Home의 'Life in the lab')
-//  - 앨범(탭) 순서대로 보여요. 첫 번째 앨범의 앞쪽 사진들이 Home에 나와요.
+//  PHOTO  (Photo 페이지 앨범)
+//  - 앨범(탭) 순서대로 보여요.
+//  - 종류 태그는 제목으로 자동 분류돼요. 바꾸려면 tag: "conf" | "milestone" | "celebrate" | "life" 를 적으세요.
 //  - 새 행사는 해당 앨범 events 맨 위에 추가하세요.
 //  - 사진은 img/photos/<앨범폴더>/ 에 넣고 경로를 적으세요.
 //  - 새 해가 되면 { label: "2027", events: [ ... ] } 를 맨 위에 추가하면 돼요.
@@ -13,12 +14,12 @@ window.ALBUMS = [
       {
         date: "2026.08.28",
         title: "Lab Lunch",
-        images: ["photos/2026/2026-08-28.jpg"]
+        images: ["photos/2026/2026-08-28-a.jpg", "photos/2026/2026-08-28-b.jpg"]
       },
       {
         date: "2026.06.24",
         title: "Happy birthday Gayeon!",
-        images: ["photos/2026/2026-06-24.jpg"]
+        images: ["photos/2026/2026-06-24-a.jpg", "photos/2026/2026-06-24-b.jpg"]
       },
       {
         date: "2026.05.20",
@@ -33,22 +34,22 @@ window.ALBUMS = [
       {
         date: "2026.05.06-05.09",
         title: "KSME Spring Meeting in Yeosu",
-        images: ["photos/2026/2026-05-06.jpg"]
+        images: ["photos/2026/2026-05-06-a.jpg", "photos/2026/2026-05-06-b.jpg", "photos/2026/2026-05-06-c.jpg", "photos/2026/2026-05-06-e.jpg", "photos/2026/2026-05-06-d.jpg"]
       },
       {
         date: "2026.04.15",
         title: "Happy birthday Minjeong!",
-        images: ["photos/2026/2026-04-15.jpg"]
+        images: ["photos/2026/2026-04-15-a.jpg", "photos/2026/2026-04-15-b.jpg"]
       },
       {
         date: "2026.04.02",
         title: "Spring campus walk with lab members.",
-        images: ["photos/2026/2026-04-02.jpg"]
+        images: ["photos/2026/2026-04-02-a.jpg", "photos/2026/2026-04-02-b.jpg"]
       },
       {
         date: "2026.03.13",
         title: "Farewell party for Minjoong and Jiseok.",
-        images: ["photos/2026/2026-03-13.jpg"]
+        images: ["photos/2026/2026-03-13-a.jpg", "photos/2026/2026-03-13-b.jpg"]
       },
       {
         date: "2026.02.16",
@@ -63,17 +64,17 @@ window.ALBUMS = [
       {
         date: "2025.12.10-12.13",
         title: "KSME Fall Meeting in Gangwon.",
-        images: ["photos/2025/2025-12-10.jpg"]
+        images: ["photos/2025/2025-12-10-a.jpg", "photos/2025/2025-12-10-b.jpg", "photos/2025/2025-12-10-c.jpg", "photos/2025/2025-12-10-d.jpg", "photos/2025/2025-12-10-e.jpg", "photos/2025/2025-12-10-f.jpg", "photos/2025/2025-12-10-g.jpg", "photos/2025/2025-12-10-h.jpg", "photos/2025/2025-12-10-i.jpg", "photos/2025/2025-12-10-j.jpg"]
       },
       {
         date: "2025.06.25-06.27",
         title: "KSME Spring Meeting in Jeju.",
-        images: ["photos/2025/2025-06-25.jpg"]
+        images: ["photos/2025/2025-06-25-a.jpg", "photos/2025/2025-06-25-b.jpg", "photos/2025/2025-06-25-c.jpg"]
       },
       {
         date: "2025.05.14-05.16",
         title: "KBCS Spring Meeting in Yeosu.",
-        images: ["photos/2025/2025-05-14.jpg"]
+        images: ["photos/2025/2025-05-14-a.jpg", "photos/2025/2025-05-14-b.jpg"]
       },
       {
         date: "2025.04.02-04.04",
@@ -143,16 +144,10 @@ window.ALBUMS = [
         images: [
           "photos/before-2025/2024-06-27.jpg",
           "photos/before-2025/2024-06-27-2.jpg",
-          "photos/before-2025/2024-06-27-3.jpg"
-        ]
-      },
-      {
-        date: "2024.05.01-05.04",
-        title: "KSME Spring Meeting",
-        images: [
-          "photos/before-2025/2024-05-01.jpg",
-          "photos/before-2025/2024-05-01-2.jpg",
-          "photos/before-2025/2024-05-01-3.jpg"
+          "photos/before-2025/2024-06-27-3.jpg",
+          "photos/before-2025/2024-06-27-4.jpg",
+          "photos/before-2025/2024-06-27-5.jpg",
+          "photos/before-2025/2024-06-27-6.jpg"
         ]
       },
       {

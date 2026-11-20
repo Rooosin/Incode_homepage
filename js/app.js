@@ -123,28 +123,34 @@ safe("Home", () => {
 /* ---------- RESEARCH ---------- */
 safe("Research", () => {
   subnav($("#thrustNav"), RESEARCH.map(t => ["th-" + t.id, t.title]));
-  $("#thrusts").innerHTML = RESEARCH.map((t, ti) => `
-    <section class="thrust" id="th-${esc(t.id)}"><div class="wrap">
-      <div class="thrust-top">
-        <div class="vis">${IMG(t.image, t.title)}</div>
-        <div>
-          <p class="eyebrow">Research ${String(ti + 1).padStart(2, "0")}</p>
-          <h2>${esc(t.title)}</h2>
-          <div class="txt">${(t.overview || []).map(p => `<p>${md(p)}</p>`).join("")}<ul>${(t.bullets || []).map(l => `<li><span>${md(l)}</span></li>`).join("")}</ul>${(t.closing || []).map(p => `<p>${md(p)}</p>`).join("")}</div>
+  $("#thrusts").innerHTML = RESEARCH.map((t, ti) => {
+    const no = String(ti + 1).padStart(2, "0");
+    return `<section class="thrust" id="th-${esc(t.id)}">
+      <div class="th-hero">${IMG(t.image, "")}
+        <div class="wrap"><span class="th-no num" aria-hidden="true">${no}</span>
+          <p class="eyebrow on-dark">Research thrust ${no}</p><h2>${esc(t.title)}</h2><p class="th-lead">${esc(t.homeTitle)}</p>
+          <p class="th-tags">${esc(t.homeTags).split(" · ").map(x => `<span>${x}</span>`).join("")}</p></div>
+      </div>
+      <div class="wrap">
+        <div class="th-intro">
+          <div class="txt">${(t.overview || []).map(p => `<p>${md(p)}</p>`).join("")}</div>
+          <ol class="th-points">${(t.bullets || []).map((l, i) => `<li><span class="n num">${String(i + 1).padStart(2, "0")}</span><span>${md(l)}</span></li>`).join("")}</ol>
+          ${(t.closing || []).length ? `<div class="th-closing">${t.closing.map(p => `<p>${md(p)}</p>`).join("")}</div>` : ""}
+        </div>
+        <div class="projects">${(t.projects || []).map((p, i) => `
+          <article class="proj">
+            <div class="fig" data-gallery>${thumb(p.image, p.title, 'class="zoom"')}</div>
+            <div class="body">
+              <span class="k num">${ti + 1}.${i + 1} <i>Project</i></span>
+              <h3>${esc(p.title)}</h3>
+              <div class="txt">${(p.text || []).map(x => `<p>${md(x)}</p>`).join("")}</div>
+              ${(p.refs || []).length ? `<div class="refs">${p.refs.map(r => `<div class="ref"><span class="pill">${esc(r.label)}</span>${r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener">${esc(r.title)} ↗</a>` : `<b>${esc(r.title)}</b>`}<i>${esc(r.venue)}</i></div>`).join("")}</div>` : ""}
+            </div>
+          </article>`).join("")}
         </div>
       </div>
-      <div class="projects">${(t.projects || []).map((p, i) => `
-        <article class="proj">
-          <div class="fig" data-gallery>${thumb(p.image, p.title)}</div>
-          <div class="body">
-            <span class="k">Project ${i + 1}</span>
-            <h3>${esc(p.title)}</h3>
-            <div class="txt">${(p.text || []).map(x => `<p>${md(x)}</p>`).join("")}</div>
-            ${(p.refs || []).length ? `<div class="refs">${p.refs.map(r => `<div class="ref"><span class="pill">${esc(r.label)}</span>${r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener">${esc(r.title)} ↗</a>` : `<b>${esc(r.title)}</b>`}<i>${esc(r.venue)}</i></div>`).join("")}</div>` : ""}
-          </div>
-        </article>`).join("")}
-      </div>
-    </div></section>`).join("");
+    </section>`;
+  }).join("");
 });
 
 /* ---------- TEAM ---------- */
@@ -245,21 +251,82 @@ safe("News", () => {
 
 /* ---------- PHOTO ---------- */
 safe("Photo", () => {
-  let sel = 0;
-  chipGroup($("#albumTabs"), ALBUMS.map((a, i) => [i, a.label, (a.events || []).reduce((s, e) => s + (e.images || []).length, 0)]), v => { sel = +v; render(); });
+  /* event kind: an optional `tag` in data/photos.js wins, otherwise guessed from the title */
+  const KINDS = { conf: "Conference", milestone: "Milestone", celebrate: "Celebration", life: "Lab life" };
+  const kindOf = ev => KINDS[ev.tag] ? ev.tag : /meeting|conference|symposium|학회/i.test(ev.title) ? "conf" : /graduat|farewell|welcome|opening|졸업|환영|송별/i.test(ev.title) ? "milestone" : /birthday|teacher|christmas|생일|스승/i.test(ev.title) ? "celebrate" : "life";
+  const allEvents = ALBUMS.flatMap(a => a.events || []);
+  let sel = "0";
+  chipGroup($("#albumTabs"), ALBUMS.map((a, i) => [i, a.label]).concat([["wall", "Photo wall"]]), v => {
+    sel = v; render();
+    if (v === "wall") $("#album").closest(".sec").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+  });
+  addEventListener("resize", () => { if (sel === "wall") fitWall(); });
   function render() {
-    const a = ALBUMS[sel]; if (!a) return;
-    $("#album").innerHTML = (a.events || []).map(ev => `
-      <div class="event">
-        <div class="hd"><h3>${esc(ev.title)}</h3><span class="d num">${esc(ev.date)}</span></div>
-        <div class="gal${(ev.images || []).length === 1 ? " single" : ""}" data-gallery>${(ev.images || []).map(p => thumb(p, ev.date + " · " + ev.title, 'class="zoom" style="flex:1.5 1 18rem;aspect-ratio:1.5"')).join("")}</div>
-      </div>`).join("");
+    $("#album").closest(".sec").classList.toggle("dark-wall", sel === "wall");
+    if (sel === "wall") return renderWall();
+    const a = ALBUMS[+sel]; if (!a) return;
+    const evs = (a.events || []).map(ev => ({ ...ev, k: kindOf(ev) }));
+    $("#album").innerHTML = `
+      <div class="album-head"><span class="album-year num" aria-hidden="true">${esc(a.label)}</span></div>
+      <div class="timeline">${evs.map(ev => {
+        const d = String(ev.date), k = d.indexOf(".");
+        return `<article class="ev">
+          <div class="ev-meta"><span class="ev-tag" data-k="${ev.k}">${KINDS[ev.k]}</span>
+            <p class="ev-date num"><b>${esc(k > 0 ? d.slice(k + 1) : d)}</b> ${esc(k > 0 ? d.slice(0, k) : "")}</p>
+            <h3>${esc(ev.title)}</h3></div>
+          <div class="gal">${(ev.images || []).map(p => `<span class="ph" style="flex:1.5 1 18rem;aspect-ratio:1.5">${IMG(p, ev.date + " · " + ev.title)}</span>`).join("")}</div>
+        </article>`; }).join("")}</div>`;
     /* size each tile by its real aspect ratio once it loads (justified rows) */
     $("#album").querySelectorAll(".gal img").forEach(img => {
-      const fit = () => { if (!img.naturalWidth) return; const r = img.naturalWidth / img.naturalHeight, b = img.parentElement, single = b.parentElement.classList.contains("single");
-        b.style.flex = `${r.toFixed(3)} 1 ${Math.round(r * 12)}rem`; b.style.aspectRatio = r.toFixed(3); if (single) b.style.maxWidth = `${Math.min(100, Math.round(r * 36))}rem`; };
+      const fit = () => { if (!img.naturalWidth) return; const r = img.naturalWidth / img.naturalHeight, b = img.parentElement;
+        b.style.flex = `${r.toFixed(3)} 1 ${Math.round(r * 12)}rem`; b.style.aspectRatio = r.toFixed(3); };
       img.complete ? fit() : img.addEventListener("load", fit, { once: true });
     });
+  }
+  /* Photo wall ("Our journey"): all photos as one dim mosaic filling a single screen.
+     Hovering (or tapping) a photo lights it up and the middle tells when it was. */
+  function renderWall() {
+    const shots = allEvents.flatMap(ev => (ev.images || []).map(p => ({ p, ev })));
+    const years = shots.map(x => String(x.ev.date).slice(0, 4)).sort();
+    /* random order on every visit */
+    for (let i = shots.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shots[i], shots[j]] = [shots[j], shots[i]]; }
+    $("#album").innerHTML = `
+      <div class="jn-stage" id="jnStage"><div class="jn-grid" id="jnGrid"></div>
+        <div class="jn-center"><p class="eyebrow on-dark">${years[0]} — ${years[years.length - 1]}</p><h2>Our journey</h2>
+          <p class="jn-cap" id="jnCap" aria-live="off"></p></div></div>`;
+    Promise.all(shots.map(x => new Promise(ok => { const im = new Image(); im.onload = () => { x.r = im.naturalWidth / im.naturalHeight; ok(); }; im.onerror = ok; im.src = "img/" + x.p; }))).then(() => { if (sel === "wall") fitWall(shots); });
+    const cap = $("#jnCap"), idle = `<span>Hover over a photo</span>`;
+    cap.innerHTML = idle;
+    /* hover (or tap) a photo: it lights up and the middle shows when it was */
+    const show = t => {
+      $("#jnGrid").querySelectorAll(".lit").forEach(x => x.classList.remove("lit"));
+      if (!t) { cap.innerHTML = idle; return; }
+      t.classList.add("lit"); const x = wallShots[+t.dataset.i];
+      cap.innerHTML = `<b class="num">${esc(x.ev.date)}</b>${esc(x.ev.title)}`;
+    };
+    const grid = $("#jnGrid");
+    grid.onmouseover = e => { const t = e.target.closest(".jn-tile"); if (t && !t.classList.contains("lit")) show(t); };
+    grid.onclick = e => show(e.target.closest(".jn-tile"));
+    grid.onmouseleave = () => show(null);
+  }
+  /* "tetris" packing: photos keep their own shape (no cropping) in justified rows; the row height is the
+     largest one that still fits every photo on one screen. Edges may stay a little empty. */
+  let wallShots = [];
+  function fitWall(shots) {
+    if (shots) wallShots = shots;
+    const stage = $("#jnStage"), grid = $("#jnGrid"); if (!stage || !grid || !wallShots.length) return;
+    const GAP = 4, W = stage.clientWidth - 16, H = stage.clientHeight - 16, rs = wallShots.map(x => x.r || 1.5);
+    const pack = h => {
+      const rows = []; let row = [], sum = 0;
+      rs.forEach((r, i) => { row.push(i); sum += r;
+        if (sum * h + GAP * (row.length - 1) >= W) { rows.push({ row, h: (W - GAP * (row.length - 1)) / sum }); row = []; sum = 0; } });
+      if (row.length) rows.push({ row, h });
+      return { rows, total: rows.reduce((t, x) => t + x.h, 0) + GAP * (rows.length - 1) };
+    };
+    let lo = 20, hi = H;
+    for (let k = 0; k < 30; k++) { const mid = (lo + hi) / 2; pack(mid).total <= H ? lo = mid : hi = mid; }
+    grid.innerHTML = pack(lo).rows.map(({ row, h }) => `<div class="jn-row">${row.map(i => { const x = wallShots[i];
+      return `<span class="jn-tile" data-i="${i}" style="width:${(rs[i] * h).toFixed(1)}px;height:${h.toFixed(1)}px">${IMG(x.p, x.ev.date + " · " + x.ev.title)}</span>`; }).join("")}</div>`).join("");
   }
   render();
 });

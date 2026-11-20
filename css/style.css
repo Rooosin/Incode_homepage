@@ -224,35 +224,39 @@ button { font-family: inherit; }
 @media (max-width: 760px) { .mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 9rem; } }
 
 /* ---------- research ---------- */
-.thrust { padding-block: clamp(3.5rem, 8vw, 5.5rem); }
-.thrust:nth-child(even) { background: var(--bg-alt); }
-.thrust-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 2.5rem 4rem; align-items: center; }
-.thrust-top .vis { border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 3; box-shadow: var(--shadow); background: var(--night); }
-.thrust-top .vis img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.thrust-top h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800; margin-top: 0.5rem; }
-.thrust-top .txt { display: grid; gap: 0.9rem; margin-top: 1.1rem; color: var(--muted); }
-.thrust-top ul { display: grid; gap: 0.55rem; color: var(--ink); }
-.thrust-top li { display: grid; grid-template-columns: 1.4rem minmax(0, 1fr); }
-.thrust-top li::before { content: ""; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--orange); margin-top: 0.55em; }
-@media (max-width: 860px) { .thrust-top { grid-template-columns: minmax(0, 1fr); } }
-.projects { display: grid; gap: 1.5rem; margin-top: 3.5rem; }
-.proj { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
-.proj .fig { background: var(--figure-bg); display: grid; place-items: center; padding: 1.25rem; border-right: 1px solid var(--line); }
-.proj:nth-child(even) .fig { order: 2; border-right: 0; border-left: 1px solid var(--line); }
-.proj .fig button { all: unset; cursor: zoom-in; display: block; width: 100%; }
+/* each thrust opens with a cinematic photo header, then an editorial body */
+.th-hero { position: relative; color: #fff; background: var(--night); overflow: hidden; isolation: isolate; }
+.th-hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.th-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(12,5,5,0.9) 0%, rgba(12,5,5,0.6) 50%, rgba(12,5,5,0.15) 100%); }
+.th-hero .wrap { position: relative; padding-block: clamp(5rem, 11vw, 8.5rem) clamp(3rem, 6vw, 4.5rem); }
+.th-no { position: absolute; right: clamp(16px, 4vw, 40px); bottom: -0.18em; font-size: clamp(8rem, 22vw, 17rem); font-weight: 800; line-height: 1; letter-spacing: -0.05em; color: transparent; -webkit-text-stroke: 1.5px rgba(255,153,0,0.55); pointer-events: none; }
+.th-hero h2 { font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 800; letter-spacing: -0.035em; margin-top: 0.7rem; }
+.th-lead { font-size: clamp(1.05rem, 1.8vw, 1.3rem); font-weight: 600; color: rgba(255,255,255,0.85); margin-top: 0.8rem; max-width: 40rem; }
+.th-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; max-width: 70%; }
+.th-tags span { font-size: 0.78rem; font-weight: 600; padding: 0.35rem 0.8rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; background: rgba(255,255,255,0.06); }
+.th-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem clamp(2rem, 5vw, 4.5rem); padding-block: clamp(3rem, 6vw, 4.5rem); }
+.th-intro .txt { display: grid; gap: 1rem; color: var(--muted); align-content: start; font-size: 1.02rem; }
+.th-points { display: grid; border-top: 2px solid var(--ink); align-content: start; }
+.th-points li { display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); gap: 0.5rem; padding-block: 0.95rem; border-bottom: 1px solid var(--line); font-weight: 500; }
+.th-points .n { font-weight: 800; color: var(--orange-text); font-size: 0.9rem; padding-top: 0.12em; }
+.th-closing { grid-column: 1 / -1; display: grid; gap: 0.5rem; padding: 1.5rem 0 0 1.5rem; border-left: 2px solid var(--orange); font-size: 1.1rem; font-weight: 600; max-width: 56rem; }
+@media (max-width: 860px) { .th-intro { grid-template-columns: minmax(0, 1fr); } .th-tags { max-width: none; } }
+.projects { display: grid; padding-bottom: clamp(3.5rem, 8vw, 6rem); }
+.proj { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(1.75rem, 4vw, 4rem); align-items: center; padding-block: clamp(2.25rem, 5vw, 3.5rem); border-top: 1px solid var(--line); }
+.proj:nth-child(even) .fig { order: 2; }
+.proj .fig button { all: unset; cursor: zoom-in; display: block; width: 100%; background: var(--figure-bg); }
 .proj .fig img { display: block; width: 100%; }
-.proj .body { padding: clamp(1.4rem, 3vw, 2.2rem); }
-.proj .k { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange-text); }
-.proj h3 { font-size: 1.3rem; font-weight: 800; margin-top: 0.45rem; }
-.proj .txt { display: grid; gap: 0.75rem; margin-top: 0.9rem; font-size: 0.94rem; color: var(--muted); }
-.proj .refs { display: grid; gap: 0.6rem; margin-top: 1.25rem; }
-.proj .ref { display: grid; gap: 0.15rem; padding: 0.8rem 1rem; border-radius: 10px; background: var(--bg-alt); font-size: 0.85rem; }
-.thrust:nth-child(even) .proj .ref { background: var(--bg); }
-.proj .ref .pill { justify-self: start; margin-bottom: 0.2rem; }
+.proj .k { display: flex; align-items: baseline; gap: 0.6rem; font-size: 2.6rem; font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: var(--orange); }
+.proj .k i { font-style: normal; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.proj h3 { font-size: clamp(1.25rem, 2.2vw, 1.55rem); font-weight: 800; margin-top: 0.9rem; letter-spacing: -0.02em; }
+.proj .txt { display: grid; gap: 0.75rem; margin-top: 0.9rem; font-size: 0.95rem; color: var(--muted); }
+.proj .refs { display: grid; gap: 0.9rem; margin-top: 1.4rem; }
+.proj .ref { display: grid; gap: 0.15rem; padding-left: 1rem; border-left: 2px solid var(--orange); font-size: 0.85rem; }
+.proj .ref .pill { justify-self: start; margin-bottom: 0.25rem; }
 .proj .ref a { font-weight: 600; text-decoration: none; }
 .proj .ref a:hover { color: var(--crimson-text); }
 .proj .ref i { color: var(--muted); }
-@media (max-width: 860px) { .proj { grid-template-columns: minmax(0, 1fr); } .proj .fig, .proj:nth-child(even) .fig { order: 0; border: 0; border-bottom: 1px solid var(--line); } }
+@media (max-width: 860px) { .proj { grid-template-columns: minmax(0, 1fr); } .proj:nth-child(even) .fig { order: 0; } }
 
 /* ---------- team ---------- */
 .pi { display: grid; grid-template-columns: 17rem minmax(0, 1fr); gap: 2.5rem 3.5rem; align-items: start; }
@@ -346,14 +350,51 @@ button { font-family: inherit; }
 .nitem .pics img { display: block; width: 100%; }
 
 /* ---------- photo ---------- */
-.album { display: grid; gap: 3rem; }
-.event h3 { font-size: 1.2rem; font-weight: 800; }
-.event .d { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
-.event .hd { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 1rem; margin-bottom: 1rem; }
-.gal { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-.gal button { all: unset; cursor: zoom-in; display: block; border-radius: 12px; overflow: hidden; background: var(--line); min-width: 0; }
-.gal button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+/* album = giant year + kind filter, then a timeline: sticky date/title on the left, uncropped photos on the right */
+.album-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+.album-year { font-size: clamp(4.5rem, 14vw, 9rem); font-weight: 800; line-height: 0.8; letter-spacing: -0.05em; color: transparent; -webkit-text-stroke: 1.5px var(--crimson-text); }
+.timeline { position: relative; display: grid; }
+.timeline::before { content: ""; position: absolute; left: 0.3rem; top: 0.6rem; bottom: 0; width: 1px; background: var(--line); }
+.ev { display: grid; grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); gap: 1.25rem clamp(1.5rem, 4vw, 3.5rem); padding-bottom: clamp(2.5rem, 5vw, 3.75rem); }
+.ev-meta { position: sticky; top: 9.5rem; align-self: start; padding-left: 2rem; display: grid; gap: 0.55rem; justify-items: start; }
+.ev-meta::before { content: ""; position: absolute; left: 0; top: 0.35rem; width: 0.65rem; height: 0.65rem; border-radius: 50%; background: var(--bg); border: 2px solid var(--k, var(--muted)); }
+.ev-tag { --k: var(--muted); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--k); }
+.ev-tag[data-k="conf"], .ev:has([data-k="conf"]) { --k: var(--crimson-text); }
+.ev-tag[data-k="milestone"], .ev:has([data-k="milestone"]) { --k: var(--orange-text); }
+.ev-tag[data-k="celebrate"], .ev:has([data-k="celebrate"]) { --k: #c2417a; }
+.ev-tag[data-k="life"], .ev:has([data-k="life"]) { --k: #3c7a6e; }
+.ev-date { color: var(--muted); font-size: 0.85rem; }
+.ev-date b { color: var(--ink); font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-right: 0.2rem; }
+.ev-meta h3 { font-size: 1.2rem; font-weight: 800; line-height: 1.3; letter-spacing: -0.015em; }
+.gal { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.gal .ph { display: block; overflow: hidden; background: var(--line); min-width: 0; }
 .gal img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 860px) {
+  .ev { grid-template-columns: minmax(0, 1fr); padding-left: 2rem; }
+  .ev-meta { position: relative; top: 0; padding-left: 0; }
+  .ev-meta::before { left: -2rem; }
+}
+
+/* photo wall ("Our journey"): one screen, a dim mosaic of every photo, lighting up one at a time */
+.dark-wall { overflow-x: clip; background: #0d0606; color: #fff; padding-block: 0; }
+.jn-stage { position: relative; width: 100vw; margin-inline: calc(50% - 50vw); height: calc(100vh - 8rem); min-height: 26rem; overflow: hidden; isolation: isolate; }
+.jn-grid { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
+.jn-row { display: flex; gap: 4px; }
+.jn-tile { position: relative; overflow: hidden; flex: none; }
+.jn-tile img { display: block; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.32) saturate(0.35); transition: filter 1.4s ease; }
+.jn-tile.lit img { filter: brightness(1) saturate(1); transition-duration: 0.25s; }
+/* soft dark pool in the middle so the title stays readable over the photos */
+.jn-stage::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(38% 34% at 50% 50%, rgba(13,6,6,0.82) 0%, rgba(13,6,6,0.5) 55%, transparent 100%); }
+.jn-center { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; justify-items: center; text-align: center; gap: 0.8rem; pointer-events: none; padding: 1rem; }
+.jn-center h2 { font-size: clamp(3rem, 9vw, 7rem); font-weight: 800; letter-spacing: -0.045em; line-height: 0.95; text-shadow: 0 4px 40px rgba(0,0,0,0.6); }
+.jn-cap { min-height: 3.2em; display: grid; gap: 0.2rem; font-size: clamp(0.95rem, 1.5vw, 1.1rem); color: rgba(255,255,255,0.85); text-shadow: 0 2px 16px rgba(0,0,0,0.8); }
+.jn-cap span { color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+.jn-cap b { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; color: var(--orange); }
+
+/* the Photo wall tab is a special page: orange instead of the usual crimson */
+#albumTabs button[data-v="wall"] { border-color: var(--orange); color: var(--orange-text); }
+#albumTabs button[data-v="wall"]::before { content: "✦"; margin-right: 0.35rem; }
+#albumTabs button[data-v="wall"][aria-pressed="true"] { background: var(--orange); border-color: var(--orange); color: #1d1100; }
 
 /* ---------- lectures ---------- */
 .lects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
@@ -390,5 +431,5 @@ footer .bottom { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rg
 .lb .cnt { font-size: 0.8rem; opacity: 0.7; }
 
 /* images: square corners everywhere (person cards included, since the card clips the photo) */
-.hn-pics button, .join .photo, .thrust-top .vis, .pi .photo, .person, .gal button, .lb .stage img { border-radius: 0; }
+.hn-pics button, .join .photo, .thrust-top .vis, .pi .photo, .person, .lb .stage img { border-radius: 0; }
 .hn-pics button, .proj .fig, .proj:nth-child(even) .fig, .person { border: 0; }
