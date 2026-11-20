@@ -1,0 +1,75 @@
+# When someone opens a pull request (a proposed edit): shrink new photos, screenshot the pages the edit
+# changes, and post the screenshots on the pull request. An admin approves and merges it to publish.
+name: Preview changes
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    # pull requests from forks get a read-only token, so this runs for branches of this repository only
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install tools
+        run: |
+          pip install pillow==10.4.0 playwright==1.47.0
+          python -m playwright install --with-deps chromium
+
+      - name: Shrink new photos
+        id: resize
+        run: |
+          git diff --name-only --diff-filter=AM origin/${{ github.base_ref }}...HEAD -- img | tr '\n' '\0' | xargs -0 -r python tools/resize-images.py | tee resized.txt
+          if [ -n "$(git status --porcelain -- img)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -qam "Resize photos for the web"
+            git push -q
+            { echo "text<<EOF"; cat resized.txt; echo "EOF"; } >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Screenshot changed pages
+        env:
+          RESIZED: ${{ steps.resize.outputs.text }}
+        run: |
+          N=${{ github.event.pull_request.number }}
+          S=$(git rev-parse --short HEAD)
+          echo "BASE=https://raw.githubusercontent.com/${{ github.repository }}/previews/pr-$N/$S" >> "$GITHUB_ENV"
+          export BASE=https://raw.githubusercontent.com/${{ github.repository }}/previews/pr-$N/$S
+          git diff --name-only origin/${{ github.base_ref }}...HEAD | python tools/preview-shots.py shots
+
+      - name: Publish screenshots and comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          N=${{ github.event.pull_request.number }}
+          S=$(git rev-parse --short HEAD)
+          if ls shots/*.png >/dev/null 2>&1; then
+            # screenshots live on a separate "previews" branch (never published as the site)
+            if git fetch -q origin previews:previews 2>/dev/null; then git worktree add -q /tmp/pv previews; else git worktree add -q --orphan -b previews /tmp/pv; fi
+            mkdir -p /tmp/pv/pr-$N/$S && cp shots/*.png /tmp/pv/pr-$N/$S/
+            cd /tmp/pv
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A && git commit -qm "Preview for PR #$N ($S)" && git push -q origin previews
+            cd "$GITHUB_WORKSPACE"
+          fi
+          gh pr comment $N --body-file shots/comment.md --edit-last || gh pr comment $N --body-file shots/comment.md

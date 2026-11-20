@@ -139,7 +139,7 @@ window.NEWS = [
 
 - 파일 이름은 **영어 소문자, 숫자, 하이픈(-)만** 쓰세요. 예: `2026-10-20-2.jpg` (한글·공백 X)
 - GitHub Pages는 **대소문자를 구분**합니다. `Photo.JPG`와 `photo.jpg`는 다른 파일이에요.
-- 가로 1600px 이하, 한 장에 500KB 이하를 권장합니다. 큰 사진은 [squoosh.app](https://squoosh.app)에서 줄여서 넣으세요.
+- 사진 크기는 신경 쓰지 않아도 돼요. GitHub에 올리면 자동으로 가로 1600px 이하로 줄여 줘요. (이 컴퓨터에서 직접 줄이려면 `python tools/resize-images.py 파일경로`)
 
 ---
 
@@ -152,12 +152,34 @@ window.NEWS = [
 
 ### 연구실 사람들에게 수정 권한 주기
 
-**Settings → Collaborators → Add people**에서 GitHub 아이디로 초대하세요. 초대받은 사람은 github.com에서 `data/` 파일을 열고 연필 아이콘(✏️)으로 바로 수정 → *Commit changes*를 누르면 1~2분 뒤 사이트에 반영됩니다. 사진은 해당 폴더에서 *Add file → Upload files*로 올립니다.
+**Settings → Collaborators → Add people**에서 GitHub 아이디로 초대하세요.
 
-잘못 고쳤다면 저장소의 **History**에서 이전 버전을 보고 되돌릴 수 있어요.
+### 수정 → 미리보기 → 승인 흐름
+
+`main`에 보호 규칙이 켜져 있으면, 연구실 사람이 고친 내용은 바로 사이트에 반영되지 않고 **승인을 기다리는 수정 요청(Pull Request)** 이 됩니다.
+
+1. github.com에서 `data/` 파일을 열고 연필 아이콘(✏️)으로 고치거나, 사진 폴더에서 *Add file → Upload files*로 사진을 올립니다.
+2. *Commit changes*를 누르면 **"Create a new branch … and start a pull request"** 가 선택돼 있어요. 그대로 *Propose changes* → *Create pull request*.
+3. 2~3분 뒤 GitHub가 자동으로
+   - 새 사진을 **가로 1600px 이하로 줄여서** 다시 저장하고
+   - 바뀐 페이지를 **화면 캡처해서** 수정 요청에 댓글로 붙여 줘요. 데이터 실수가 있으면 "데이터 확인 필요" 경고도 함께 나와요.
+4. 관리자가 캡처를 보고 **Files changed → Review changes → Approve → Merge pull request**를 누르면 1~2분 뒤 사이트에 반영됩니다. 고칠 게 있으면 같은 요청에서 파일을 더 고치면 캡처가 새로 올라와요.
+
+잘못 반영됐다면 저장소의 **History**에서 이전 버전을 보고 되돌릴 수 있어요.
+
+> 이 자동화는 `.github/workflows/`에 있어요 (`preview.yml`: 캡처·사진 줄이기, `resize-images.yml`: main에 바로 올린 사진 줄이기). 캡처 이미지는 사이트와 상관없는 `previews` 브랜치에 쌓여요.
+
+#### 처음 한 번: main 보호 규칙 켜기
+
+**Settings → Rules → Rulesets → New ruleset → New branch ruleset**
+- Ruleset name: `main`, Enforcement status: **Active**
+- Bypass list: **Add bypass → Repository admin** (관리자는 승인 없이 바로 올릴 수 있게)
+- Target branches: **Add target → Include default branch**
+- **Require a pull request before merging** 체크 → Required approvals: **1**
+- 맨 아래 **Create**
 
 > 수정이 사이트에 안 보이면: 브라우저가 이전 파일을 최대 10분간 기억해 두기 때문이에요. **Ctrl + F5**(맥은 Cmd + Shift + R)로 새로고침하면 바로 보여요.
-> `css/`, `js/` 파일이나 `index.html`의 구조를 바꿨다면 `index.html` 아래쪽 `?v=2` 숫자를 모두 하나씩 올려 주세요(예: `?v=3`). 그래야 방문자들도 바로 새 버전을 받아요.
+> `css/`, `js/` 파일이나 `index.html`의 구조를 바꿨다면 `index.html` 아래쪽 `?v=` 숫자를 모두 하나씩 올려 주세요. 그래야 방문자들도 바로 새 버전을 받아요.
 
 ### 학교 주소(incode.sogang.ac.kr) 연결하기
 

@@ -1,0 +1,33 @@
+# Safety net for photos pushed straight to main (pull requests are already handled by preview.yml).
+name: Resize images
+
+on:
+  push:
+    branches: [main]
+    paths: ["img/**"]
+
+permissions:
+  contents: write
+
+jobs:
+  resize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pillow==10.4.0
+      - name: Shrink new photos and save them back
+        run: |
+          BEFORE=${{ github.event.before }}
+          if git cat-file -e "$BEFORE" 2>/dev/null; then RANGE="$BEFORE ${{ github.sha }}"; else RANGE="HEAD~1 HEAD"; fi
+          git diff --name-only --diff-filter=AM $RANGE -- img | tr '\n' '\0' | xargs -0 -r python tools/resize-images.py
+          if [ -n "$(git status --porcelain -- img)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -qam "Resize photos for the web"
+            git push -q
+          fi
