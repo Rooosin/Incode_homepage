@@ -104,20 +104,31 @@ document.addEventListener("click", e => {
 
 /* ---------- HOME ---------- */
 safe("Home", () => {
-  $("#focusList").insertAdjacentHTML("beforeend", `<ul>${RESEARCH.map(t => `
-    <li><a href="#research" data-thrust="${esc(t.id)}"><b>${esc(t.homeTitle)}</b><span>(${esc(t.homeTags).replace(/ · /g, ", ")})</span></a></li>`).join("")}</ul>`);
+  $("#hxResearch").innerHTML = RESEARCH.map((t, i) => `
+    <a class="hx-card" href="#research" data-thrust="${esc(t.id)}" data-rv style="--d:${i * 0.12}s">
+      <span class="hx-fig">${IMG(t.image, "")}</span>
+      <span class="hx-no num">0${i + 1}</span><b>${esc(t.homeTitle)}</b><span class="hx-sub">${esc(t.homeTags)}</span></a>`).join("");
   const h = SITE.hiring || {};
   $("#hiring").innerHTML = h.show ? `<div class="notice ko"><b>${esc(h.title)}</b><p>${md(h.text)}</p></div>` : "";
-  /* Group News: the most recent SITE.homeNewsCount items (the News page keeps the full record) */
-  const list = NEWS.slice(0, SITE.homeNewsCount || 10);
-  $("#homeNews").innerHTML = list.map(n => {
-    const imgs = n.images || [];
-    return `<article class="hn">
-      <div class="hn-head"><span class="num">${esc(n.date)}</span><span class="sep">|</span><b>${esc(n.title)}</b></div>
-      <div class="hn-text">${md(n.text, true)}</div>
-      ${imgs.length ? `<div class="hn-pics" data-gallery>${imgs.map(p => thumb(p, n.date + " · " + n.title)).join("")}</div>` : ""}
-    </article>`;
-  }).join("");
+  /* Join our journey card: opened by the button on the first screen; closes with ✕, Esc or a click outside */
+  const dlg = $("#joinDlg");
+  $("#joinOpen").onclick = () => dlg.showModal();
+  $("#joinClose").onclick = () => dlg.close();
+  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+  /* Group News: the most recent SITE.homeNewsCount items as cards (the News page keeps the full record) */
+  $("#homeNews").innerHTML = NEWS.slice(0, SITE.homeNewsCount || 10).map((n, i) => `
+    <article class="hx-ncard" data-rv style="--d:${(i % 2) * 0.1}s">
+      <span class="hx-fig">${(n.images || [])[0] ? IMG(n.images[0], "") : `<span class="hx-blank">${KIND[n.type] || ""}</span>`}</span>
+      <b>${esc(n.title)}</b><div class="hx-sub">${md(n.text, true)}</div>
+      <span class="hx-meta num">${esc(n.date)} · ${KIND[n.type] || ""}</span></article>`).join("");
+  const pics = ALBUMS.flatMap(a => (a.events || []).flatMap(e => e.images || [])).sort(() => Math.random() - 0.5).slice(0, 8);
+  $("#hxStrip").innerHTML = pics.map(p => IMG(p, "")).join("");
+  $("#hxWall").onclick = () => setTimeout(() => $('#albumTabs [data-v="wall"]')?.click(), 60);
+  /* reveal on scroll; the class that hides things is added here, so content stays visible without JS */
+  const els = document.querySelectorAll('[data-page="home"] [data-rv]');
+  if (reduceMotion || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -10% 0px" });
+  els.forEach(el => { el.classList.add("rv"); io.observe(el); });
 });
 
 /* ---------- RESEARCH ---------- */
@@ -172,6 +183,7 @@ safe("Team", () => {
       <div class="cv"><div><h3>Professional experiences</h3>${tl(pi.experience)}</div><div><h3>Educations</h3>${tl(pi.education)}</div></div>
     </div>`;
   const pubRef = no => { const p = PUBS.JOURNALS.find(x => x.no === no); return p ? (p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>` : esc(p.title)) + ` <span style="color:var(--muted)">· ${esc(p.journal)}${p.date ? ", " + esc(p.date) : ""}</span>` : ""; };
+  /* groups keep their headings; inside each group, wide cards (photo left, details right) */
   $("#people").innerHTML = (PEOPLE.MEMBERS || []).map(g => `
     <h3 class="group-title">${esc(g.group)}</h3>
     <div class="people">${(g.people || []).map(p => `
@@ -179,12 +191,12 @@ safe("Team", () => {
         <div class="av">${IMG(p.photo, p.name)}</div>
         <div class="in">
           <span class="nm">${esc(p.name)}</span><span class="pill crimson">${esc(p.position)}</span>
+          ${p.email ? `<span class="em">${esc(p.email)}</span>` : ""}
           <dl>
             ${(p.interests || []).length ? `<div><dt>Research interests</dt>${p.interests.map(r => `<dd>${esc(r)}</dd>`).join("")}</div>` : ""}
             ${(p.education || []).length ? `<div><dt>Education</dt>${p.education.map(r => `<dd>${esc(r)}</dd>`).join("")}</div>` : ""}
-            ${(p.publications || []).length ? `<div><dt>Publications &amp; honors</dt>${p.publications.map(x => `<dd>${typeof x === "number" ? pubRef(x) : md(x)}</dd>`).join("")}</div>` : ""}
           </dl>
-          ${p.email ? `<span class="em">${esc(p.email)}</span>` : ""}
+          ${(p.publications || []).length ? `<details class="pubs"><summary>Publications &amp; honors (${p.publications.length})</summary><ol>${p.publications.map(x => `<li>${typeof x === "number" ? pubRef(x) : md(x)}</li>`).join("")}</ol></details>` : ""}
         </div>
       </article>`).join("")}</div>`).join("");
   $("#alumni").innerHTML = (PEOPLE.ALUMNI || []).map(a => `
