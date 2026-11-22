@@ -151,7 +151,7 @@ window.ALBUMS = [
       {
         date: "2024.07.17",
         title: "Lab dinner",
-        images: ["photos/before-2025/2024-07-17-2.jpg", "photos/before-2025/2024-07-17-3.jpg"]
+        images: ["photos/before-2025/2024-07-17-2.jpg", "photos/before-2025/2024-07-17-3-a.jpg", "photos/before-2025/2024-07-17-3-b.jpg", "photos/before-2025/2024-07-17-3-c.jpg", "photos/before-2025/2024-07-17-3-d.jpg"]
       },
       {
         date: "2024.06.27",
