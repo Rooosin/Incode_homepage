@@ -98,6 +98,11 @@ window.NEWS = [
   },
   ```
   `publications`에는 논문 번호(`no`)를 적으면 제목이 자동으로 연결돼요.
+- **사진은 모든 멤버가 같은 모양**(동그란 사진, 연한 회색 배경, 얼굴 높이·크기 동일)이에요. 새 사진을 넣은 뒤 아래 명령으로 맞춰 주세요. 증명사진처럼 단색 배경 사진이 가장 잘 돼요.
+  ```
+  python tools/fit-portrait.py img/people/gildong-hong.jpg
+  ```
+- 석사·박사과정은 논문이 없어도 `Publications & honors` 칸이 보이고("To be updated."), 다른 과정은 논문이 생기면 나타나요.
 - **졸업**: `MEMBERS`에서 지우고 `ALUMNI` 맨 위에 추가하세요.
   ```js
   {
@@ -119,7 +124,7 @@ window.NEWS = [
      images: ["photos/2026/2026-10-20.jpg", "photos/2026/2026-10-20-2.jpg"]
    },
    ```
-- 행사 종류 태그(Conference / Milestone / Celebration / Lab life)는 제목을 보고 자동으로 붙어요. 틀리게 붙으면 `tag: "conf"`(학회) `"milestone"`(입학·졸업·환영·송별) `"celebrate"`(생일·기념일) `"life"`(연구실 일상) 중 하나를 적어 주세요.
+- 행사 종류 태그(Conference / Celebration / Lab life)는 제목을 보고 자동으로 붙어요. 틀리게 붙으면 `tag: "conf"`(학회) `"celebrate"`(생일·스승의 날·졸업 등 축하하는 날) `"life"`(회식·환영회·송별회 등 연구실 일상) 중 하나를 적어 주세요.
 - 여러 장을 흰 틈으로 이어 붙인 사진은 `python tools/split-collages.py`로 몇 장으로 나뉠지 먼저 보고, `--apply`를 붙여 실행하면 낱장 파일로 나누고 `photos.js`도 고쳐 줘요.
 - 새해가 되면 `window.ALBUMS = [` 아래 맨 위에 `{ label: "2027", events: [ ... ] },`를 추가하세요.
 

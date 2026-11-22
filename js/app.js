@@ -201,7 +201,7 @@ safe("Team", () => {
             ${(p.interests || []).length ? `<div><dt>Research interests</dt>${p.interests.map(r => `<dd>${esc(r)}</dd>`).join("")}</div>` : ""}
             ${(p.education || []).length ? `<div><dt>Education</dt>${p.education.map(r => `<dd>${esc(r)}</dd>`).join("")}</div>` : ""}
           </dl>
-          ${(p.publications || []).length ? `<details class="pubs"><summary>Publications &amp; honors (${p.publications.length})</summary><ol>${p.publications.map(x => `<li>${typeof x === "number" ? pubRef(x) : md(x)}</li>`).join("")}</ol></details>` : ""}
+          ${(p.publications || []).length || /ph\.?d|m\.?s/i.test(g.group) ? `<details class="pubs"><summary>Publications &amp; honors${(p.publications || []).length ? ` (${p.publications.length})` : ""}</summary>${(p.publications || []).length ? `<ol>${p.publications.map(x => `<li>${typeof x === "number" ? pubRef(x) : md(x)}</li>`).join("")}</ol>` : `<p class="none">To be updated.</p>`}</details>` : ""}
         </div>
       </article>`).join("")}</div>`).join("");
   $("#alumni").innerHTML = (PEOPLE.ALUMNI || []).map(a => `
@@ -265,8 +265,8 @@ safe("News", () => {
 /* ---------- PHOTO ---------- */
 safe("Photo", () => {
   /* event kind: an optional `tag` in data/photos.js wins, otherwise guessed from the title */
-  const KINDS = { conf: "Conference", milestone: "Milestone", celebrate: "Celebration", life: "Lab life" };
-  const kindOf = ev => KINDS[ev.tag] ? ev.tag : /meeting|conference|symposium|학회/i.test(ev.title) ? "conf" : /graduat|farewell|welcome|opening|졸업|환영|송별/i.test(ev.title) ? "milestone" : /birthday|teacher|christmas|생일|스승/i.test(ev.title) ? "celebrate" : "life";
+  const KINDS = { conf: "Conference", celebrate: "Celebration", life: "Lab life" };
+  const kindOf = ev => KINDS[ev.tag] ? ev.tag : /meeting|conference|symposium|학회/i.test(ev.title) ? "conf" : /birthday|teacher|christmas|graduat|생일|스승|졸업/i.test(ev.title) ? "celebrate" : "life";
   const allEvents = ALBUMS.flatMap(a => a.events || []);
   let sel = "0";
   chipGroup($("#albumTabs"), ALBUMS.map((a, i) => [i, a.label]).concat([["wall", "Photo wall"]]), v => {
@@ -274,6 +274,21 @@ safe("Photo", () => {
     if (v === "wall") $("#album").closest(".sec").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
   });
   addEventListener("resize", () => { if (sel === "wall") fitWall(); });
+  /* timeline: only the event being read has a filled dot; it moves down as you scroll */
+  const markCurrent = () => {
+    const evs = [...$("#album").querySelectorAll(".ev")]; if (!evs.length || $('[data-page="photo"]').hidden) return;
+    /* the event whose photos sit closest to the middle of the screen */
+    const mid = innerHeight / 2;
+    let cur = evs[0], best = Infinity;
+    for (const ev of evs) {
+      const r = (ev.querySelector(".gal") || ev).getBoundingClientRect();
+      const d = r.top <= mid && r.bottom >= mid ? 0 : Math.min(Math.abs(r.top - mid), Math.abs(r.bottom - mid));
+      if (d < best) { best = d; cur = ev; }
+    }
+    evs.forEach(ev => ev.classList.toggle("cur", ev === cur));
+  };
+  addEventListener("scroll", markCurrent, { passive: true });
+  addEventListener("hashchange", () => setTimeout(markCurrent, 60));
   function render() {
     $("#album").closest(".sec").classList.toggle("dark-wall", sel === "wall");
     if (sel === "wall") return renderWall();
@@ -295,6 +310,7 @@ safe("Photo", () => {
         b.style.flex = `${r.toFixed(3)} 1 ${Math.round(r * 12)}rem`; b.style.aspectRatio = r.toFixed(3); };
       img.complete ? fit() : img.addEventListener("load", fit, { once: true });
     });
+    markCurrent();
   }
   /* Photo wall ("Our journey"): all photos as one dim mosaic filling a single screen.
      Hovering (or tapping) a photo lights it up and the middle tells when it was. */
