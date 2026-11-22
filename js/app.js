@@ -32,7 +32,8 @@ const $ = (s, r = document) => r.querySelector(s);
 function esc(s) { return String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
 /* text with [label](url) links -> safe HTML; each line becomes a paragraph when `paras` is true */
 function md(text, paras = false) {
-  const one = t => esc(t).replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (m, l, u) => `<a href="${u.replace(/&amp;/g, "&").replace(/"/g, "%22")}" target="_blank" rel="noopener">${l}</a>`);
+  const one = t => esc(t).replace(/[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g, m => `<span class="mail">${m}</span>`)
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (m, l, u) => `<a href="${u.replace(/&amp;/g, "&").replace(/"/g, "%22")}" target="_blank" rel="noopener">${l}</a>`);
   const lines = String(text ?? "").split("\n").filter(Boolean);
   return paras ? lines.map(l => `<p>${one(l)}</p>`).join("") : lines.map(one).join("<br>");
 }
@@ -363,6 +364,19 @@ safe("Lectures", () => {
     <div class="lect"><p class="eyebrow">${esc(s.semester)}</p><h2>Undergraduate courses</h2><ul>
       ${(s.courses || []).map(c => `<li><span class="i">${icon(c)}</span><span class="ko"><b>${esc(c.name)}</b><small>${esc(c.sub || "")}</small></span></li>`).join("")}
     </ul></div>`).join("");
+});
+
+/* ---------- every e-mail address copies itself on click ---------- */
+document.addEventListener("click", async e => {
+  const el = e.target.closest(".mail, .em, #mail"); if (!el) return;
+  const addr = el.textContent.trim(); let ok = true;
+  try { await navigator.clipboard.writeText(addr); } catch { ok = false; const r = document.createRange(); r.selectNodeContents(el); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); }
+  /* a modal dialog sits in the top layer, so the toast goes inside it when one is open */
+  const host = el.closest("dialog") || document.body;
+  let t = host.querySelector(":scope > .toast");
+  if (!t) { t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); host.appendChild(t); }
+  t.textContent = ok ? `메일 주소를 복사했어요 · ${addr}` : `주소를 선택했어요. Ctrl+C로 복사하세요`;
+  t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 1800);
 });
 
 /* ---------- footer ---------- */

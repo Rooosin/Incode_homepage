@@ -484,3 +484,8 @@ footer .bottom { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rg
 /* images: square corners everywhere (person cards included, since the card clips the photo) */
 .hn-pics button, .join .photo, .thrust-top .vis, .pi .photo, .person, .lb .stage img { border-radius: 0; }
 .hn-pics button, .proj .fig, .proj:nth-child(even) .fig, .person { border: 0; }
+
+/* click-to-copy e-mail addresses */
+.mail, .em, #mail { cursor: copy; }
+.toast { position: fixed; left: 50%; bottom: 2rem; transform: translate(-50%, 1rem); z-index: 100; padding: 0.7rem 1.2rem; border-radius: 999px; background: #141413; color: #f0eee6; font: 600 0.9rem/1.3 var(--font-ko); box-shadow: 0 12px 30px -10px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; white-space: nowrap; max-width: calc(100% - 32px); overflow: hidden; text-overflow: ellipsis; }
+.toast.on { opacity: 1; transform: translate(-50%, 0); }
