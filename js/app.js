@@ -38,7 +38,9 @@ function md(text, paras = false) {
   return paras ? lines.map(l => `<p>${one(l)}</p>`).join("") : lines.map(one).join("<br>");
 }
 const plain = t => String(t ?? "").replace(/\[([^\]]+)\]\([^)]+\)/g, "").replace(/\s+/g, " ").trim();
-const IMG = (path, alt = "") => path ? `<img src="img/${esc(path)}" alt="${esc(alt)}" loading="lazy" decoding="async">` : "";
+/* images carry the site version (app.js?v=N) so an edited photo with the same file name is fetched again */
+const IMGV = (document.currentScript && document.currentScript.src.match(/[?&]v=(\w+)/) || [])[1] || "";
+const IMG = (path, alt = "") => path ? `<img src="img/${esc(path)}${IMGV ? "?v=" + IMGV : ""}" alt="${esc(alt)}" loading="lazy" decoding="async">` : "";
 function fmtAuthors(a) {
   let s = esc(a).replace(/Jihwan Song/g, "<b>Jihwan Song</b>");
   (PUBS.GROUP_MEMBERS || []).forEach(m => { s = s.replace(new RegExp(`(^|, |and )(${m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})(?=[†*,]|$| and)`, "g"), "$1<u>$2</u>"); });
@@ -77,7 +79,7 @@ $("#menuBtn").onclick = () => { const o = $("#nav").classList.toggle("open"); $(
 const lb = { list: [], i: 0 };
 function showLB() {
   const it = lb.list[lb.i]; if (!it) return;
-  $("#lbImg").src = "img/" + it.p; $("#lbImg").alt = it.c || "";
+  $("#lbImg").src = "img/" + it.p + (IMGV ? "?v=" + IMGV : ""); $("#lbImg").alt = it.c || "";
   $("#lbCap").textContent = it.c || ""; $("#lbCnt").textContent = `${lb.i + 1} / ${lb.list.length}`;
   $("#lbPrev").hidden = $("#lbNext").hidden = lb.list.length < 2;
 }
@@ -124,7 +126,7 @@ safe("Home", () => {
       <span class="hx-meta num">${esc(n.date)} · ${KIND[n.type] || ""}</span></article>`).join("");
   /* photo strip drifts sideways forever: the set is drawn twice and the track slides by exactly one set */
   const pics = ALBUMS.flatMap(a => (a.events || []).flatMap(e => e.images || [])).sort(() => Math.random() - 0.5).slice(0, 14);
-  const set = pics.map(p => `<img src="img/${esc(p)}" alt="" decoding="async">`).join("");
+  const set = pics.map(p => IMG(p, "").replace(' loading="lazy"', "")).join("");
   $("#hxStrip").innerHTML = `<div class="hx-track" style="--dur:${pics.length * 8}s">${set}${set}</div>`;
   $("#hxWall").onclick = () => setTimeout(() => $('#albumTabs [data-v="wall"]')?.click(), 60);
   /* reveal on scroll; the class that hides things is added here, so content stays visible without JS */
@@ -243,25 +245,21 @@ safe("Publications", () => {
 
 /* ---------- NEWS ---------- */
 safe("News", () => {
-  let kindSel = "all";
-  const kinds = Object.keys(KIND).filter(k => NEWS.some(n => n.type === k));
-  chipGroup($("#newsKinds"), [["all", "All", NEWS.length], ...kinds.map(k => [k, KIND[k], NEWS.filter(n => n.type === k).length])], v => { kindSel = v; render(); });
-  function render() {
-    let html = "", y = null;
-    NEWS.filter(n => kindSel === "all" || n.type === kindSel).forEach(n => {
-      const yr = String(n.date).slice(0, 4);
-      if (yr !== y) { y = yr; html += `<div class="nyear">${esc(y)}</div>`; }
-      const imgs = n.images || [];
-      const cap = esc(n.date + " · " + n.title);
-      html += `<article class="nitem">
-        <div class="meta"><span class="num">${esc(n.date)}</span>${kindPill(n.type)}</div>
-        <h3>${esc(n.title)}</h3><div class="bd">${md(n.text, true)}</div>
-        ${imgs.length ? `<div class="photo-link" data-gallery><button type="button" class="photo-btn" data-lb="${esc(imgs[0])}" data-cap="${cap}"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm0 2v7.6l4.3-4.3a1 1 0 0 1 1.4 0l4.3 4.3 1.8-1.8a1 1 0 0 1 1.4 0L20 15.6V7H4zm11 1.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>${imgs.length > 1 ? `View photos (${imgs.length})` : "View photo"}</button>${imgs.slice(1).map(p => `<span hidden data-lb="${esc(p)}" data-cap="${cap}"></span>`).join("")}</div>` : ""}
-      </article>`;
-    });
-    $("#newsList").innerHTML = html;
-  }
-  render();
+  /* a plain record: year headings, then one row per item (date | title, text, photo toggle); year buttons jump to each year */
+  let html = "", y = null;
+  NEWS.forEach(n => {
+    const yr = String(n.date).slice(0, 4);
+    if (yr !== y) { y = yr; html += `<h2 class="nlog-year num" id="ny-${esc(y)}">${esc(y)}</h2>`; }
+    const imgs = n.images || [];
+    html += `<article class="nlog-row">
+      <p class="nlog-date num">${esc(String(n.date).slice(5) || n.date)}</p>
+      <div class="nlog-body"><h3>${esc(n.title)}</h3><div class="nlog-text">${md(n.text, true)}</div>
+        ${imgs.length ? `<details class="nlog-pics"><summary class="nlog-photo">${imgs.length > 1 ? `View photos (${imgs.length})` : "View photo"}</summary><div>${imgs.map(p => IMG(p, n.date + " · " + n.title)).join("")}</div></details>` : ""}
+      </div>
+    </article>`;
+  });
+  $("#newsList").innerHTML = html;
+  subnav($("#newsYears"), [...new Set(NEWS.map(n => String(n.date).slice(0, 4)))].map(yr => ["ny-" + yr, yr]));
 });
 
 /* ---------- PHOTO ---------- */
@@ -309,7 +307,7 @@ safe("Photo", () => {
       <div class="jn-stage" id="jnStage"><div class="jn-grid" id="jnGrid"></div>
         <div class="jn-center"><p class="eyebrow on-dark">${years[0]} — ${years[years.length - 1]}</p><h2>Our journey</h2>
           <p class="jn-cap" id="jnCap" aria-live="off"></p></div></div>`;
-    Promise.all(shots.map(x => new Promise(ok => { const im = new Image(); im.onload = () => { x.r = im.naturalWidth / im.naturalHeight; ok(); }; im.onerror = ok; im.src = "img/" + x.p; }))).then(() => { if (sel === "wall") fitWall(shots); });
+    Promise.all(shots.map(x => new Promise(ok => { const im = new Image(); im.onload = () => { x.r = im.naturalWidth / im.naturalHeight; ok(); }; im.onerror = ok; im.src = "img/" + x.p + (IMGV ? "?v=" + IMGV : ""); }))).then(() => { if (sel === "wall") fitWall(shots); });
     const cap = $("#jnCap"), idle = `<span>Hover over a photo</span>`;
     cap.innerHTML = idle;
     /* hover (or tap) a photo: it lights up and the middle shows when it was */

@@ -383,22 +383,27 @@ button { font-family: inherit; }
 .pubsec > h2 { font-size: 1.75rem; font-weight: 800; margin-bottom: 1.25rem; }
 
 /* ---------- news ---------- */
-.nlist { display: grid; gap: 1.25rem; }
-.nyear { font-size: 1.6rem; font-weight: 800; color: var(--crimson-text); padding-top: 1.5rem; }
-.nyear:first-child { padding-top: 0; }
-.nitem { display: grid; gap: 0; padding: 1.4rem 1.5rem; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
-.photo-link { margin-top: 0.9rem; }
-.photo-btn { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.9rem; border-radius: 999px; border: 1px solid var(--line); background: var(--bg-alt); color: var(--crimson-text); font-weight: 600; font-size: 0.85rem; cursor: zoom-in; }
-.photo-btn:hover { border-color: var(--crimson-text); background: color-mix(in srgb, var(--crimson) 8%, var(--card)); }
-.nitem .meta { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; font-size: 0.85rem; color: var(--muted); font-weight: 600; }
-.nitem h3 { font-size: 1.1rem; font-weight: 800; margin-top: 0.55rem; }
-.nitem .bd { margin-top: 0.5rem; font-size: 0.94rem; color: var(--muted); display: grid; gap: 0.35rem; }
-.nitem .bd a { color: var(--crimson-text); font-weight: 600; text-decoration: none; white-space: nowrap; }
-.nitem .bd a:hover { text-decoration: underline; }
-.nitem .pics { display: grid; gap: 0.5rem; }
-.nitem .pics button { all: unset; cursor: zoom-in; display: block; border-radius: 10px; overflow: hidden; background: var(--figure-bg); border: 1px solid var(--line); }
-.nitem .pics button:focus-visible { outline: 2px solid var(--orange); }
-.nitem .pics img { display: block; width: 100%; }
+/* News page: a tidy record on ivory */
+.nlog-sec { background: #f0eee6; }
+.nlog { max-width: 60rem; }
+.nlog-year { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; color: var(--crimson-text); padding-top: clamp(2.5rem, 5vw, 3.5rem); padding-bottom: 0.6rem; border-bottom: 2px solid var(--crimson); }
+.nlog-year:first-child { padding-top: 0; }
+.nlog-row { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: 0.3rem 2rem; padding-block: 1.4rem; border-bottom: 1px solid rgba(20,20,19,0.1); }
+.nlog-date { font-size: 1rem; font-weight: 800; color: var(--crimson-text); padding-top: 0.05rem; }
+.nlog-body h3 { font-size: 1.12rem; font-weight: 800; letter-spacing: -0.01em; }
+.nlog-text { display: grid; gap: 0.35rem; margin-top: 0.45rem; color: #5e5d59; font-size: 0.96rem; }
+.nlog-text a { color: var(--crimson-text); font-weight: 600; }
+@media (max-width: 640px) { .nlog-row { grid-template-columns: minmax(0, 1fr); } }
+/* "View photo" folds the photos open right below the item, like the original site */
+.nlog-pics { margin-top: 0.7rem; }
+.nlog-photo { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.85rem; border-radius: 999px; border: 1px solid transparent; background: color-mix(in srgb, var(--crimson) 9%, #faf9f5); color: var(--crimson-text); font-size: 0.82rem; font-weight: 600; cursor: pointer; list-style: none; }
+.nlog-photo::-webkit-details-marker { display: none; }
+.nlog-photo::after { content: "▾"; font-size: 0.75rem; transition: transform .2s; }
+.nlog-pics[open] .nlog-photo::after { transform: rotate(180deg); }
+.nlog-photo:hover { border-color: var(--crimson-text); }
+.nlog-pics > div { display: grid; gap: 0.6rem; margin-top: 0.8rem; }
+.nlog-pics img { display: block; width: 100%; height: auto; }
+@media (max-width: 640px) { .nlog-row { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- photo ---------- */
 /* album = giant year + kind filter, then a timeline: sticky date/title on the left, uncropped photos on the right */
