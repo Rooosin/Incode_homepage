@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Sans+KR:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="css/style.css?v=117">
+<link rel="stylesheet" href="css/style.css?v=168">
 </head>
 <body>
 <!--
@@ -30,6 +30,7 @@
       <a href="#news">News</a>
       <a href="#photo">Photo</a>
       <a href="#lectures">Lectures</a>
+      <p class="nav-foot"><b>INCODE Lab · Sogang University</b><br><span class="mail">jsong@sogang.ac.kr</span></p>
     </nav>
   </div>
 </header>
@@ -43,7 +44,7 @@
     <div class="hero-cap" aria-hidden="true"><span class="dot"></span><span id="heroCapText"></span><span class="scalebar" id="heroScale"></span><button type="button" id="heroNext" aria-label="Show another research simulation">Next ↻</button></div>
     <div class="wrap hx-hero-in" data-rv>
       <p class="hx-kicker"><span class="o">INCODE Lab</span> · SONG Research Group · Sogang University</p>
-      <h1 class="hx-big"><span class="ln"><span>We design the future</span></span><span class="ln"><span>of energy and life.</span></span></h1>
+      <h1 class="hx-big"><span class="ln"><span>We design the future</span></span><span class="ln"><span>of energy and life<span class="hx-dot" id="heroDot">.</span></span></span></h1>
       <button type="button" class="hx-cta" id="joinOpen">Join our journey <span aria-hidden="true">→</span><svg class="cta-ring" aria-hidden="true"></svg></button>
     </div>
   </section>
@@ -77,16 +78,18 @@
   </section>
 
   <!-- "Join our journey" opens as a card over the page (button on the first screen) -->
-  <dialog class="hx-dlg" id="joinDlg" aria-labelledby="joinTitle">
+  <dialog class="hx-dlg" id="joinDlg" aria-labelledby="joinTitle" data-lang="ko">
     <button type="button" class="hx-x" id="joinClose" aria-label="Close">✕</button>
     <div class="join">
       <div class="txt">
         <h2 class="hx-h" id="joinTitle">Join our journey!</h2>
+        <div class="lang" role="group" aria-label="Language"><button type="button" data-l="ko" aria-pressed="true">한국어</button><button type="button" data-l="en" aria-pressed="false">English</button></div>
         <p class="ko lead">우리 연구실은 도전적이고 창의적인 문제 해결에 열정을 가진 학부생 및 대학원생과 함께 하기를 기다립니다. 기계공학, 바이오, 에너지, 인공지능 등 다양한 융합 분야에 관심이 있다면 누구든지 지원 가능합니다.</p>
         <p class="ko">연구 내용이나 진학, 인턴십, 연구실 생활 등에 대해 궁금한 점이 있다면 편하게 <span class="mail">jsong@sogang.ac.kr</span>로 연락 주세요.</p>
         <div id="hiring"></div>
         <p class="en">We welcome motivated and curious students to explore new frontiers in intelligent system design, nano-bio systems, and energy technologies. If you're ready to learn, create, and grow together, reach out to <span class="mail">jsong@sogang.ac.kr</span> for more information!</p>
         <p class="closing">At SONG group, we are building an open, collaborative environment where industry and academia meet to drive real-world innovation. We invite you to explore the future of simulation-driven, AI-enhanced engineering for energy and healthcare systems with us.</p>
+        <div id="hiringEn"></div>
       </div>
       <div class="photo"><img src="img/home/join-photo.jpg" alt="INCODE Lab members in a photo booth strip" loading="lazy"></div>
     </div>
@@ -194,14 +197,14 @@
 </div>
 
 <!-- 내용 데이터 (여기를 수정하세요) -->
-<script src="data/site.js?v=117"></script>
-<script src="data/research.js?v=117"></script>
-<script src="data/people.js?v=117"></script>
-<script src="data/publications.js?v=117"></script>
-<script src="data/news.js?v=117"></script>
-<script src="data/photos.js?v=117"></script>
+<script src="data/site.js?v=168"></script>
+<script src="data/research.js?v=168"></script>
+<script src="data/people.js?v=168"></script>
+<script src="data/publications.js?v=168"></script>
+<script src="data/news.js?v=168"></script>
+<script src="data/photos.js?v=168"></script>
 <!-- 사이트 동작 코드 (디자인/코드를 바꾸면 ?v= 숫자를 하나 올려 주세요. 방문자 브라우저가 새 파일을 받아요) -->
-<script src="js/scenes.js?v=117"></script>
-<script src="js/app.js?v=117"></script>
+<script src="js/scenes.js?v=168"></script>
+<script src="js/app.js?v=168"></script>
 </body>
 </html>

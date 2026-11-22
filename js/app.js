@@ -67,13 +67,13 @@ function route() {
   const h = location.hash.slice(1), page = PAGES.includes(h) ? h : "home";
   document.querySelectorAll(".page").forEach(p => p.hidden = p.dataset.page !== page);
   document.querySelectorAll(".nav a").forEach(a => a.getAttribute("href") === "#" + page ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
-  $("#nav").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded", "false");
+  $("#nav").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded", "false"); $("#menuBtn").textContent = "Menu";
   window.scrollTo(0, 0); onScroll();
   if (hero) hero.setActive(page === "home");
 }
 function onScroll() { $("#top").classList.toggle("solid", scrollY > 40 || $("#nav").classList.contains("open")); }
 addEventListener("scroll", onScroll, { passive: true });
-$("#menuBtn").onclick = () => { const o = $("#nav").classList.toggle("open"); $("#menuBtn").setAttribute("aria-expanded", o); onScroll(); };
+$("#menuBtn").onclick = () => { const o = $("#nav").classList.toggle("open"); $("#menuBtn").setAttribute("aria-expanded", o); $("#menuBtn").textContent = o ? "Close" : "Menu"; onScroll(); };
 
 /* ---------- lightbox ---------- */
 const lb = { list: [], i: 0 };
@@ -107,12 +107,59 @@ document.addEventListener("click", e => {
 
 /* ---------- HOME ---------- */
 safe("Home", () => {
+  /* seasonal full stop: the "." after "life" turns into a small icon on special days (dates in SITE.seasons) */
+  const ICONS = {
+    halloween: ["Happy Halloween", '<path d="M12 7c-.6-2.4.4-4.2 2.6-5" stroke="#6d8f3e" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="7.6" cy="15" rx="5.8" ry="7.2" fill="#d4621c"/><ellipse cx="16.4" cy="15" rx="5.8" ry="7.2" fill="#d4621c"/><ellipse cx="12" cy="15" rx="4.8" ry="7.8" fill="#f0892b"/><path d="M8 12.5l2 2.2H6zM16 12.5l2 2.2h-4zM8 17.5q4 2.6 8 0q-4 1.2-8 0z" fill="#2a160b"/>'],
+    christmas: ["Merry Christmas", '<path d="M3.5 17Q5.5 6 14 4.2q5.6-1 6.6 5.8l-2.6.4q-.8-3-2.8-2.4Q12 9.4 14 17z" fill="#d23a2f"/><rect x="2" y="15.6" width="15" height="5.4" rx="2.7" fill="#fbf7ef"/><circle cx="19.4" cy="11" r="2.7" fill="#fbf7ef"/>'],
+    seollal: ["새해 복 많이 받으세요", '<path d="M8.4 13.4L.8 18.8l1 1.4 8.2-4.6z" fill="#2c3f6b"/><ellipse cx="12" cy="13" rx="6.2" ry="4" transform="rotate(-20 12 13)" fill="#2c3f6b"/><ellipse cx="14.2" cy="14.6" rx="3.3" ry="1.9" transform="rotate(-30 14.2 14.6)" fill="#fbf7ef"/><ellipse class="fold" cx="9.8" cy="11.9" rx="2.5" ry=".95" transform="rotate(-20 9.8 11.9)" fill="#fbf7ef"/><circle cx="17" cy="8.4" r="2.9" fill="#2c3f6b"/><path d="M19.6 7.7l3.2.8-3.2.8z" fill="#e8e4da"/><circle cx="17.9" cy="7.8" r=".6" fill="#fbf7ef"/><path d="M12.2 16.6l-.5 3M14.2 16.2v3" stroke="#c9c3b6" stroke-width=".8" stroke-linecap="round"/><g class="wing"><g class="wu"><path d="M9 11.4C8.2 8 7.4 5.4 6.4 3C9 3.2 11.6 4.6 13 6.6C13.9 8 14.3 9.4 14.2 10.6z" fill="#34497c"/><path d="M6.4 3C7.6 3.1 8.8 3.6 9.8 4.3C9.4 5.4 8.6 6.2 7.6 6.4C7.2 5.2 6.8 4 6.4 3z" fill="#fbf7ef"/></g><g class="wd"><path d="M9.2 11C8.6 13.8 7.8 16.4 6.6 18.8C9.2 18.4 11.6 16.8 13 14.6C13.8 13.3 14.2 12 14.2 10.8z" fill="#34497c"/><path d="M6.6 18.8C7.8 18.6 9 18 10 17.2C9.6 16.2 8.8 15.4 7.8 15.2C7.4 16.4 7 17.6 6.6 18.8z" fill="#fbf7ef"/></g></g>'],
+    teachers: ["스승의 은혜에 감사드립니다", '<rect x="11.45" y="15" width="1.1" height="7.6" fill="#7a9568"/><path d="M7 9.6 L7.1 3.6 Q7.92 1.40 8.73 2.76 Q9.55 1.40 10.37 3.00 Q11.18 1.40 12.00 2.76 Q12.82 1.40 13.63 3.00 Q14.45 1.40 15.27 2.76 Q16.08 1.40 16.90 3.00 L17 9.6 Z" fill="#ee6a5c"/><path d="M8.4 10.4 Q5 9.8 3.7 7.6 Q3.2 6.4 4.4 6.1 Q4.5 4.6 5.9 4.8 Q6.8 4.1 7.6 5 L8.6 6.2 Z" fill="#e9503f"/><path d="M 15.60 10.40 Q 19.00 9.80 20.30 7.60 Q 20.80 6.40 19.60 6.10 Q 19.50 4.60 18.10 4.80 Q 17.20 4.10 16.40 5.00 L 15.40 6.20 Z" fill="#e9503f"/><path d="M8 10.6 L8.1 6.1 Q8.75 4.15 9.40 5.30 Q10.05 4.15 10.70 5.50 Q11.35 4.15 12.00 5.30 Q12.65 4.15 13.30 5.50 Q13.95 4.15 14.60 5.30 Q15.25 4.15 15.90 5.50 L16 10.6 Z" fill="#e9503f"/><path d="M11 13.4 Q6.4 13 3.9 10.6 Q3.2 9.6 4.3 9.2 Q4.6 8 6 8.2 Q7 7.6 7.9 8.5 L9.2 9.8 Z" fill="#ee7569"/><path d="M 13.00 13.40 Q 17.60 13.00 20.10 10.60 Q 20.80 9.60 19.70 9.20 Q 19.40 8.00 18.00 8.20 Q 17.00 7.60 16.10 8.50 L 14.80 9.80 Z" fill="#ee7569"/><path d="M10.8 13.7 Q9 12 8.7 9.2 Q9.52 6.90 10.35 8.18 Q11.18 6.90 12.00 8.40 Q12.82 6.90 13.65 8.18 Q14.48 6.90 15.30 8.40 Q15 12 13.2 13.7 Z" fill="#ea867d"/><path d="M9.6 12.9 Q10.00 12.00 10.40 12.77 Q10.80 12.00 11.20 12.90 Q11.60 12.00 12.00 12.77 Q12.40 12.00 12.80 12.90 Q13.20 12.00 13.60 12.77 Q14.00 12.00 14.40 12.90 Q13.8 14.8 12.6 15.9 L11.4 15.9 Q10.2 14.8 9.6 12.9 Z" fill="#86a077"/><path d="M11.6 16.3 Q9.8 18.6 7.3 19.5 L8.1 19.8 L8.3 21.5 Q10.9 19.7 12 16.8 Z" fill="#e3a52c"/><path d="M 12.40 16.30 Q 14.20 18.60 16.70 19.50 L 15.90 19.80 L 15.70 21.50 Q 13.10 19.70 12.00 16.80 Z" fill="#e3a52c"/><path d="M12 15.3 L7.6 14 Q7 14.5 7 15.9 Q7.1 17.3 7.8 17.5 L12 16.3 Z" fill="#f2c14e"/><path d="M 12.00 15.30 L 16.40 14.00 Q 17.00 14.50 17.00 15.90 Q 16.90 17.30 16.20 17.50 L 12.00 16.30 Z" fill="#f2c14e"/><path d="M12 15.3 L7.6 14 Q7.2 14.2 7.1 14.7 L12 15.9 Z" fill="#e3a52c"/><path d="M 12.00 15.30 L 16.40 14.00 Q 16.80 14.20 16.90 14.70 L 12.00 15.90 Z" fill="#e3a52c"/><rect x="11.1" y="14.7" width="1.8" height="2" rx=".45" fill="#d39522"/>'],
+    chuseok: ["풍성한 한가위 보내세요", '<circle cx="12" cy="16" r="11" fill="#ffe08a" opacity=".14"/><circle cx="12" cy="16" r="9" fill="#ffe08a" opacity=".2"/><circle cx="12" cy="16" r="7.2" fill="#ffe29a"/><circle cx="9.5" cy="14" r="1.6" fill="#f1c867"/><circle cx="14.5" cy="18" r="2" fill="#f1c867"/><circle cx="13.6" cy="12.6" r=".85" fill="#f1c867"/><circle cx="9.4" cy="18.8" r=".75" fill="#f1c867"/>'],
+    birthday: ["Happy birthday, Professor Song!", '<ellipse cx="12" cy="21.6" rx="10.5" ry="1.5" fill="#e9e4da"/><rect x="4" y="12.6" width="16" height="8.6" rx="1.8" fill="#ffd9e2"/><rect x="4" y="16.7" width="16" height="1.3" fill="#f4839f"/><circle cx="6" cy="19.6" r=".45" fill="#fff"/><circle cx="8" cy="19.6" r=".45" fill="#fff"/><circle cx="10" cy="19.6" r=".45" fill="#fff"/><circle cx="12" cy="19.6" r=".45" fill="#fff"/><circle cx="14" cy="19.6" r=".45" fill="#fff"/><circle cx="16" cy="19.6" r=".45" fill="#fff"/><circle cx="18" cy="19.6" r=".45" fill="#fff"/><path d="M4 15.1v-1.5a1.8 1.8 0 0 1 1.8-1.8h12.4a1.8 1.8 0 0 1 1.8 1.8v1.5q-1 2.3-2 0q-1 1.2-2 0q-1 2.3-2 0q-1 1.2-2 0q-1 2.3-2 0q-1 1.2-2 0q-1 2.3-2 0q-1 1.2-2 0z" fill="#fffaf3"/><circle cx="10" cy="12" r="1" fill="#e8364f"/><circle cx="14" cy="12" r="1" fill="#e8364f"/><rect x="7.4" y="7.6" width="1.2" height="4.4" rx=".4" fill="#8ec5ff"/><rect x="11.4" y="7" width="1.2" height="5" rx=".4" fill="#ffd166"/><rect x="15.4" y="7.6" width="1.2" height="4.4" rx=".4" fill="#ff9fb6"/><g class="flame"><g class="fl"><path d="M8 4.199999999999999q1.25 1.5 1.25 2.3a1.25 1.25 0 0 1-2.5 0q0-.8 1.25-2.3z" fill="#ffc94a"/><ellipse cx="8" cy="6.3999999999999995" rx=".5" ry=".75" fill="#fff4bf"/></g></g><g class="flame"><g class="fl"><path d="M12 3.6q1.25 1.5 1.25 2.3a1.25 1.25 0 0 1-2.5 0q0-.8 1.25-2.3z" fill="#ffc94a"/><ellipse cx="12" cy="5.8" rx=".5" ry=".75" fill="#fff4bf"/></g></g><g class="flame"><g class="fl"><path d="M16 4.199999999999999q1.25 1.5 1.25 2.3a1.25 1.25 0 0 1-2.5 0q0-.8 1.25-2.3z" fill="#ffc94a"/><ellipse cx="16" cy="6.3999999999999995" rx=".5" ry=".75" fill="#fff4bf"/></g></g><path class="smoke" d="M8 7.199999999999999q-.9-1.1 0-2.2t0-2.2" stroke="#cfcac0" stroke-width=".55" fill="none" stroke-linecap="round"/><path class="smoke" d="M12 6.6q-.9-1.1 0-2.2t0-2.2" stroke="#cfcac0" stroke-width=".55" fill="none" stroke-linecap="round"/><path class="smoke" d="M16 7.199999999999999q-.9-1.1 0-2.2t0-2.2" stroke="#cfcac0" stroke-width=".55" fill="none" stroke-linecap="round"/>']
+  };
+  const season = (() => {
+    const q = new URLSearchParams(location.search).get("season"); if (ICONS[q]) return q;
+    const now = new Date(), S = SITE.seasons || {}, md = (now.getMonth() + 1) * 100 + now.getDate();
+    const pad = n => String(n).padStart(2, "0");
+    if (S.birthday === `${pad(now.getMonth() + 1)}-${pad(now.getDate())}`) return "birthday";
+    /* Seollal (lunar 1/1) and Chuseok (lunar 8/15) from the browser's Korean (dangi) calendar; shown the day before, on the day and the day after */
+    const lunar = new Intl.DateTimeFormat("ko-KR-u-ca-dangi", { month: "numeric", day: "numeric" });
+    const lunarIs = (m, day) => lunar.resolvedOptions().calendar === "dangi" && [-1, 0, 1].some(off => {
+      const p = lunar.formatToParts(new Date(now.getFullYear(), now.getMonth(), now.getDate() + off, 12)), v = k => (p.find(x => x.type === k) || {}).value;
+      return v("month") === m && v("day") === day; });
+    if (lunarIs("1", "1")) return "seollal";
+    if (lunarIs("8", "15")) return "chuseok";
+    if (md === 515) return "teachers";
+    if (md >= 1025 && md <= 1031) return "halloween";
+    if (md === 1224 || md === 1225) return "christmas";
+    return "";
+  })();
+  /* extra icons for some seasons: one is picked at random per page load and kept until refresh */
+  const MORE = {
+    christmas: ['<g transform="rotate(22 12 16)"><path d="M14.5 22V8.5a4 4 0 0 0-8 0v1.2" stroke="#fbf7ef" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M14.5 22V8.5a4 4 0 0 0-8 0v1.2" stroke="#e03a3e" stroke-width="3.2" fill="none" stroke-dasharray="1.5 3.6" pathLength="30"/><path d="M14.5 13.4l-3.4-1.8v3.6zM14.5 13.4l3.4-1.8v3.6z" fill="#3f9b54"/><circle cx="14.5" cy="13.4" r=".9" fill="#5cb870"/></g>', '<path d="M7.6 15.2L3.4 12.4M3.9 13.6l-.9-1.9M16.4 15.2l4.2-2.8M20.1 13.6l.9-1.9" stroke="#9a6b43" stroke-width=".9" stroke-linecap="round"/><circle cx="12" cy="17.6" r="5" fill="#f7f7f3"/><circle cx="12" cy="9.8" r="3.6" fill="#fbfbf8"/><path d="M8.6 12.4q3.4 1.6 6.8 0l.3 1.5q-3.7 1.4-7.4 0z" fill="#e03a3e"/><path d="M14.2 13.4l1.3 3.4 1.1-.8-.9-3z" fill="#c42e33"/><rect x="9" y="5.4" width="6" height="1.2" rx=".5" fill="#3b3b44"/><rect x="10" y="2" width="4" height="4" rx=".6" fill="#3b3b44"/><rect x="10" y="4.4" width="4" height=".8" fill="#e03a3e"/><circle cx="10.7" cy="9.2" r=".55" fill="#2a2a2e"/><circle cx="13.3" cy="9.2" r=".55" fill="#2a2a2e"/><path d="M12 10.2l2.9.7-2.9.5z" fill="#f08a2b"/><circle cx="12" cy="16" r=".55" fill="#2a2a2e"/><circle cx="12" cy="18.2" r=".55" fill="#2a2a2e"/><circle cx="12" cy="20.4" r=".55" fill="#2a2a2e"/>']
+  };
+  if (season) { const [label, first] = ICONS[season], set = [first, ...(MORE[season] || [])], svg = set[Math.floor(Math.random() * set.length)];
+    $("#heroDot").innerHTML = `<span class="pd">.</span><svg viewBox="0 0 24 24" role="img" aria-label="${label}"><title>${label}</title>${svg}</svg>`; $("#heroDot").classList.add("icon"); const motion = { seollal: "fly" }[season];
+    if (motion) { $("#heroDot").classList.add(motion); setTimeout(() => $("#heroDot").closest(".ln").style.overflow = "visible", 2500); } /* the line clips for the text reveal; let the icon move above it once that is done (first pop is at ~3s) */
+    /* click/tap: jump straight to the next pop (dot -> icon, or icon -> dot); 7s and 14.5s are the pop moments in the 17s CSS cycle, -4s its delay */
+    const dot = $("#heroDot"); dot.setAttribute("role", "button"); dot.tabIndex = 0;
+    const flip = () => dot.getAnimations({ subtree: true }).filter(a => a.effect.getTiming().duration === 17000).forEach(a => {
+      const t = a.currentTime + 4000, local = t % 17000, goal = local >= 7000 && local < 15200 ? 14500 : 7000;
+      a.currentTime = t - local + goal + (goal < local ? 17000 : 0) - 4000; a.play();
+    });
+    dot.onclick = flip; dot.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } }; }
   $("#hxResearch").innerHTML = RESEARCH.map((t, i) => `
     <a class="hx-card" href="#research" data-thrust="${esc(t.id)}" data-rv style="--d:${i * 0.12}s">
       <span class="hx-fig">${IMG(t.image, "")}</span>
       <span class="hx-no num">0${i + 1}</span><b>${esc(t.homeTitle)}</b><span class="hx-sub">${esc(t.homeTags)}</span></a>`).join("");
   const h = SITE.hiring || {};
   $("#hiring").innerHTML = h.show ? `<div class="notice ko"><b>${esc(h.title)}</b><p>${md(h.text)}</p></div>` : "";
+  $("#hiringEn").innerHTML = h.show && h.titleEn ? `<div class="notice en-only"><b>${esc(h.titleEn)}</b><p>${md(h.textEn)}</p></div>` : "";
+  /* phones: Korean / English switch inside the Join card */
+  document.querySelectorAll("#joinDlg .lang button").forEach(b => b.onclick = () => {
+    $("#joinDlg").dataset.lang = b.dataset.l;
+    document.querySelectorAll("#joinDlg .lang button").forEach(o => o.setAttribute("aria-pressed", o === b));
+    $("#joinDlg .join").scrollTop = 0;
+  });
   /* Join our journey card: opened by the button on the first screen; closes with ✕, Esc or a click outside */
   const dlg = $("#joinDlg");
   $("#joinOpen").onclick = () => dlg.showModal();
@@ -311,12 +358,12 @@ safe("Photo", () => {
           <div class="ev-meta"><span class="ev-tag" data-k="${ev.k}">${KINDS[ev.k]}</span>
             <p class="ev-date num"><b>${esc(k > 0 ? d.slice(k + 1) : d)}</b> ${esc(k > 0 ? d.slice(0, k) : "")}</p>
             <h3>${esc(ev.title)}</h3></div>
-          <div class="gal">${(ev.images || []).map(p => `<span class="ph" style="flex:1.5 1 18rem;aspect-ratio:1.5">${IMG(p, ev.date + " · " + ev.title)}</span>`).join("")}</div>
+          <div class="gal">${(ev.images || []).map((p, i) => `<span class="ph${ev.wide ? (ev.wide.some(w => p.endsWith(w)) ? " wide" : "") : i === 0 ? " wide auto" : ""}" style="flex:1.5 1 calc(var(--row) * 1.5);aspect-ratio:1.5">${IMG(p, ev.date + " · " + ev.title)}</span>`).join("")}</div>
         </article>`; }).join("")}</div>`;
     /* size each tile by its real aspect ratio once it loads (justified rows) */
     $("#album").querySelectorAll(".gal img").forEach(img => {
       const fit = () => { if (!img.naturalWidth) return; const r = img.naturalWidth / img.naturalHeight, b = img.parentElement;
-        b.style.flex = `${r.toFixed(3)} 1 ${Math.round(r * 12)}rem`; b.style.aspectRatio = r.toFixed(3); };
+        b.style.flex = `${r.toFixed(3)} 1 calc(var(--row) * ${r.toFixed(3)})`; b.style.aspectRatio = r.toFixed(3); if (r < 1) b.classList.remove("auto", "wide"); /* a portrait first photo (e.g. photo-booth strip) stays small; only a landscape one goes full width on phones */ b.style.maxWidth = `calc(var(--row) * ${r.toFixed(3)} * var(--cap))`; };
       img.complete ? fit() : img.addEventListener("load", fit, { once: true });
     });
     markCurrent();
