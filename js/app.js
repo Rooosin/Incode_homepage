@@ -116,6 +116,15 @@ safe("Home", () => {
   /* Join our journey card: opened by the button on the first screen; closes with ✕, Esc or a click outside */
   const dlg = $("#joinDlg");
   $("#joinOpen").onclick = () => dlg.showModal();
+  /* gold line drawn along the pill-shaped outline of the button */
+  const ring = () => { const b = $("#joinOpen"), w = b.offsetWidth, hgt = b.offsetHeight, svg = b.querySelector(".cta-ring"); if (!w) return;
+    const shape = `pathLength="100" x="0.75" y="0.75" width="${w - 1.5}" height="${hgt - 1.5}" rx="${(hgt - 1.5) / 2}"`;
+    svg.setAttribute("viewBox", `0 0 ${w} ${hgt}`);
+    /* update the existing rect on resize instead of replacing it, so its animation stays in step with the label's */
+    const r = svg.querySelector("rect");
+    if (!r) { svg.innerHTML = `<rect class="trail" ${shape}/>`; return; }
+    Object.entries({ width: w - 1.5, height: hgt - 1.5, rx: (hgt - 1.5) / 2 }).forEach(([k, v]) => r.setAttribute(k, v)); };
+  ring(); addEventListener("resize", ring); addEventListener("hashchange", () => setTimeout(ring, 60));
   $("#joinClose").onclick = () => dlg.close();
   dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
   /* Group News: the most recent SITE.homeNewsCount items as cards (the News page keeps the full record) */
