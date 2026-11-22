@@ -121,8 +121,10 @@ safe("Home", () => {
       <span class="hx-fig">${(n.images || [])[0] ? IMG(n.images[0], "") : `<span class="hx-blank">${KIND[n.type] || ""}</span>`}</span>
       <b>${esc(n.title)}</b><div class="hx-sub">${md(n.text, true)}</div>
       <span class="hx-meta num">${esc(n.date)} · ${KIND[n.type] || ""}</span></article>`).join("");
-  const pics = ALBUMS.flatMap(a => (a.events || []).flatMap(e => e.images || [])).sort(() => Math.random() - 0.5).slice(0, 8);
-  $("#hxStrip").innerHTML = pics.map(p => IMG(p, "")).join("");
+  /* photo strip drifts sideways forever: the set is drawn twice and the track slides by exactly one set */
+  const pics = ALBUMS.flatMap(a => (a.events || []).flatMap(e => e.images || [])).sort(() => Math.random() - 0.5).slice(0, 14);
+  const set = pics.map(p => `<img src="img/${esc(p)}" alt="" decoding="async">`).join("");
+  $("#hxStrip").innerHTML = `<div class="hx-track" style="--dur:${pics.length * 8}s">${set}${set}</div>`;
   $("#hxWall").onclick = () => setTimeout(() => $('#albumTabs [data-v="wall"]')?.click(), 60);
   /* reveal on scroll; the class that hides things is added here, so content stays visible without JS */
   const els = document.querySelectorAll('[data-page="home"] [data-rv]');

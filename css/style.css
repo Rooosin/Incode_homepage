@@ -169,8 +169,12 @@ button { font-family: inherit; }
 /* photo strip on black */
 .hx-dark { background: var(--slate); color: #f0eee6; }
 .hx-dark .dim { color: rgba(240,238,230,0.42); }
-.hx-strip { display: flex; gap: 6px; overflow: hidden; height: clamp(10rem, 19vw, 17rem); }
-.hx-strip img { height: 100%; width: auto; flex: none; display: block; }
+.hx-strip { overflow: hidden; height: clamp(10rem, 19vw, 17rem); -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.hx-track { display: flex; gap: 6px; height: 100%; width: max-content; animation: drift-x var(--dur, 80s) linear infinite; }
+.hx-track img { height: 100%; width: auto; flex: none; display: block; }
+/* gap is included so the second copy lines up exactly where the first began */
+@keyframes drift-x { to { transform: translateX(calc(-50% - 3px)); } }
+@media (prefers-reduced-motion: reduce) { .hx-strip { overflow-x: auto; } .hx-track { animation: none; } }
 /* first-screen button + "Join our journey" card (dialog) on ivory */
 .hx-cta { margin-top: 2.25rem; display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1.6rem; border-radius: 999px; border: 0; background: var(--crimson); color: #fff; font: inherit; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background .25s; }
 .hx-cta:hover { background: #a51616; }
