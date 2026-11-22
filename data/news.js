@@ -55,7 +55,7 @@ window.NEWS = [
     type: "pub",
     title: "Journal Publication",
     text: "Seunggyun Byeon's work was published in journal \"Materials (IF:3.7)\". \"Data-driven prediction of induced voltage in CT-based magnetic energy harvesting systems considering nonlinear B–H characteristics.\" [Link ↗](https://www.mdpi.com/1996-1944/19/14/3002) Congratulations!",
-    images: ["news/2026-07-12.jpg"]
+    images: ["news/2026-07-12-full.jpg"]
   },
   {
     date: "2026.06",
