@@ -1,7 +1,7 @@
 // =====================================================================
 //  PHOTO  (Photo 페이지 앨범)
 //  - 앨범(탭) 순서대로 보여요.
-//  - 종류 태그는 제목으로 자동 분류돼요. 바꾸려면 tag: "conf" | "milestone" | "celebrate" | "life" 를 적으세요.
+//  - 종류 태그는 제목으로 자동 분류돼요. 바꾸려면 tag: "conf" | "celebrate" | "life" 를 적으세요.
 //  - 새 행사는 해당 앨범 events 맨 위에 추가하세요.
 //  - 사진은 img/photos/<앨범폴더>/ 에 넣고 경로를 적으세요.
 //  - 새 해가 되면 { label: "2027", events: [ ... ] } 를 맨 위에 추가하면 돼요.
@@ -151,7 +151,7 @@ window.ALBUMS = [
       {
         date: "2024.07.17",
         title: "Lab dinner",
-        images: ["photos/before-2025/2024-07-17-2.jpg", "photos/before-2025/2024-07-17-3-a.jpg", "photos/before-2025/2024-07-17-3-b.jpg", "photos/before-2025/2024-07-17-3-c.jpg", "photos/before-2025/2024-07-17-3-d.jpg"]
+        images: ["photos/before-2025/2024-07-17-2.jpg", "photos/before-2025/2024-07-17-3.jpg"]
       },
       {
         date: "2024.06.27",
