@@ -12,6 +12,21 @@ window.ALBUMS = [
     label: "2026",
     events: [
       {
+        date: "2026.11.11-11.14",
+        title: "KSME Fall Meeting in Jeju",
+        images: ["photos/2026/2026-11-11-a.jpg", "photos/2026/2026-11-11-b.jpg", "photos/2026/2026-11-11-c.jpg", "photos/2026/2026-11-11-d.jpg"]
+      },
+      {
+        date: "2026.11.10-11.13",
+        title: "KBCS Fall Meeting in Jeju",
+        images: ["photos/2026/2026-11-10-a.jpg", "photos/2026/2026-11-10-b.jpg"]
+      },
+      {
+        date: "2026.11.10",
+        title: "Lab Dinner with Subeen Kim",
+        images: ["photos/2026/2026-11-10-dinner.jpg"]
+      },
+      {
         date: "2026.08.28",
         title: "Lab Lunch",
         images: ["photos/2026/2026-08-28-a.jpg", "photos/2026/2026-08-28-b.jpg"]

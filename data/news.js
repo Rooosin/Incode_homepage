@@ -9,6 +9,13 @@
 
 window.NEWS = [
   {
+    date: "2026.11.11-11.14",
+    type: "conf",
+    title: "Attending a conference",
+    text: "We attended KSME Fall Meeting in Jeju. Seunggyun Byeon, Heesoo Jeong and Minjeong Lee had presentations.",
+    images: ["news/2026-11-11.jpg"]
+  },
+  {
     date: "2026.09.24",
     type: "cover",
     title: "Journal Cover",

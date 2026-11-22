@@ -116,13 +116,6 @@ Dissertation: Development of multi-physics design system based on phase field mo
       group: "Undergraduate interns",
       people: [
         {
-          name: "Gayeon You",
-          photo: "people/gayeon-you.jpg",
-          position: "Undergraduate Intern",
-          education: ["Mar. 2023 – Present, B.S., Mechanical Engineering"],
-          email: "ygy404@sogang.ac.kr"
-        },
-        {
           name: "Minseok Kim",
           photo: "people/minseok-kim.jpg",
           position: "Undergraduate Intern",

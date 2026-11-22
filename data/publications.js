@@ -19,10 +19,18 @@ window.PUBLICATIONS = {
     "Chaeeun Sung",
     "Seunggyun Byeon",
     "Minjeong Lee",
+    "Heesoo Jeong",
     "Jun Keun Chae",
     "Juhyun Park"
   ],
   JOURNALS: [
+    {
+      no: 49,
+      year: 2026,
+      title: "Rapid on-site detection of anionic pollutants in surface water via selective electrostatic lateral flow: SELF G-SERS Platform",
+      authors: "Cho-Hee Yang†, Sung-Kyu Lee†, Heesoo Jeong†, Seunggyun Byeon, Hye-Seong Cho, Yoon-Hee Kim, Yeonghee Jeong, Yeon-A Cho, Jonghyun Shin*, Jihwan Song*, Luke P. Lee*, Bong-Hyun Jun*",
+      journal: "Under review"
+    },
     {
       no: 48,
       year: 2026,

@@ -1,6 +1,7 @@
-# Splits collage photos (several pictures joined with white gutters) into separate files.
+# Splits collage photos (several pictures joined with white or black/transparent gutters) into separate files.
 #   python tools/split-collages.py          -> dry run: shows how each photo would be split
 #   python tools/split-collages.py --apply  -> writes <name>-a.jpg, -b.jpg ... and updates data/photos.js
+#   add photo paths (e.g. photos/2026/2026-11-11.jpg) to split only those
 import re, sys
 import numpy as np
 from PIL import Image
@@ -20,7 +21,8 @@ def gutters(white, axis):
 def split(a, box, depth=0):
     x0, y0, x1, y1 = box
     region = a[y0:y1, x0:x1]
-    white = (region.min(axis=2) > 236)
+    # gutters are white, or black where a transparent PNG gap was flattened
+    white = (region.min(axis=2) > 236) | (region.max(axis=2) < 18)
     for axis in (0, 1):  # try columns first, then rows
         runs = gutters(white, axis)
         n = white.shape[1] if axis == 0 else white.shape[0]
@@ -42,6 +44,8 @@ def split(a, box, depth=0):
 
 data = open("data/photos.js", encoding="utf8").read()
 paths = re.findall(r'"(photos/[^"]+\.jpg)"', data)
+only = [a for a in sys.argv[1:] if not a.startswith("--")]  # optional: limit to these photos (e.g. a photo-booth strip should stay whole)
+if only: paths = [p for p in paths if p in only]
 total = 0
 for p in paths:
     im = Image.open("img/" + p).convert("RGB")
