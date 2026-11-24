@@ -72,7 +72,7 @@ window.NEWS = [
   title: "논문 제목",
   authors: "Minjeong Lee, Jihwan Song*",
   journal: "Lab on a Chip",
-  impact: "IF 6.1 · Q1 10%",
+  impact: "IF 6.1 · Q1-10%",
   volume: "26, 1234",
   date: "2026.10",
   link: "https://doi.org/..."

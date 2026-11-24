@@ -3,8 +3,9 @@
 //  - JOURNALS: 새 논문은 맨 위에 추가하고 no 는 이어지는 번호로 적으세요.
 //    심사 중이면 journal: "Under review" 로 두고 impact/volume/date/link 는 빼도 돼요.
 //    note 는 선택 항목이에요 (예: "Cover Feature").
-//  - 저자 표기: † 공동 1저자, * 교신저자. 'Jihwan Song'은 자동으로 굵게,
-//    GROUP_MEMBERS 에 있는 이름은 자동으로 밑줄 처리돼요.
+//  - 저자 표기: † 공동 1저자, * 교신저자.
+//    교수님과 people.js 에 있는 사람(멤버·졸업생, aka 포함)은 자동으로 밑줄 처리되고, 그 사람 카드에도 논문이 자동으로 붙어요.
+//    GROUP_MEMBERS 에는 people.js 에 없지만 밑줄을 쳐야 하는 이름만 적으면 돼요.
 // =====================================================================
 
 window.PUBLICATIONS = {
@@ -58,7 +59,7 @@ window.PUBLICATIONS = {
       title: "From microstructure to performance through coupled electrochemical and mechanical insights in all-solid-state batteries",
       authors: "Chaeeun Sung, Jihwan Song*, and Yoon Koo Lee*",
       journal: "Journal of Energy Storage",
-      impact: "IF 10.7 · Q1 15%",
+      impact: "IF 10.7 · Q1-15%",
       volume: "180, 124264",
       date: "2026.08",
       link: "https://doi.org/10.1016/j.est.2026.124264"
@@ -69,7 +70,7 @@ window.PUBLICATIONS = {
       title: "A rapid detection of Nipah virus nucleocapsid antigen in inactivated viral cultures",
       authors: "Gyeongmu Choi, Jung Kim, Hansaem Lee, Pyeonghwa Jeon, Jae Hun Jeong, Yujin Jung, Jin Seo Park, Mi Kyoung Lee, Kyung-Chang Kim, Joo-Yeon Lee, Ha Yeon Park, Changwoo Park, Seil Kim, Hana Yi, Jihwan Song, Hyun-Joo Kim*, Jong-Hwan Lee*, and Hong Gi Kim*",
       journal: "Emerging Microbes & Infections",
-      impact: "IF 7.0 · Q1 5%",
+      impact: "IF 7.0 · Q1-5%",
       volume: "15, 2716499",
       date: "2026.08",
       link: "https://doi.org/10.1080/22221751.2026.2716499"
@@ -80,7 +81,7 @@ window.PUBLICATIONS = {
       title: "Mode-dependent energy redistribution in Au nanohole arrays for concurrent photothermal conversion and reduced fluorescence quenching",
       authors: "Jiseok Han, Minki Kim, Jong-Hwan Lee*, Sang Hun Lee*, and Jihwan Song*",
       journal: "Small Structures",
-      impact: "IF 8.9 · Q1 20%",
+      impact: "IF 8.9 · Q1-20%",
       volume: "7",
       date: "2026.08",
       link: "https://doi.org/10.1002/sstr.70590",
@@ -92,7 +93,7 @@ window.PUBLICATIONS = {
       title: "Silica/nano graphene oxide nanocomposites decorated with Au@Ag nanoparticles as surface-enhanced raman scattering tags for highly sensitive quantitative lateral flow immunoassays",
       authors: "Cho-Hee Yang†, Sohyeon Jang†, Seunggyun Byeon†, Jaehi Kim, Hye-Seong Cho, Sungwoo Park, Yoon-Hee Kim, Sung-Kyu Lee, Yeonghee Jeong, Yuna Youn, Hyejin Chang, Homan Kang, Jin-Hyeok Hwang, Jong-chan Lee*, Jihwan Song*, and Bong-Hyun Jun*",
       journal: "Small Structures",
-      impact: "IF 8.9 · Q1 20%",
+      impact: "IF 8.9 · Q1-20%",
       volume: "7",
       date: "2026.08",
       link: "https://doi.org/10.1002/sstr.70569"
@@ -125,7 +126,7 @@ window.PUBLICATIONS = {
       title: "Early Diagnosis of Pancreatic Ductal Adenocarcinoma (PDAC) by using Signal-Enhanced Lateral Flow Immunoassay (SELFI)",
       authors: "Sohyeon Jang†, Minsup Shin†, Jiseok Han†, Han-Joo Bae, Yuna Youn, Hye-Seong Cho, Kwanghee Yoo, Jun-Sik Chu, Jaehyun An, Hyejin Chang, Jaehi Kim*, Jihwan Song*, Jong-chan Lee*, Luke P. Lee*, and Bong-Hyun Jun*",
       journal: "Nature Communications",
-      impact: "IF 18.1 · Q1 5%",
+      impact: "IF 18.1 · Q1-5%",
       volume: "17, 2768",
       date: "2026.02",
       link: "https://www.nature.com/articles/s41467-026-69204-7"
@@ -136,7 +137,7 @@ window.PUBLICATIONS = {
       title: "Comparative analysis of sample loop and counting bead–based methods for size-dependent bias in flow cytometry",
       authors: "Hye Ji Shin†, Subeen Kim†, Minjeong Kwak, Inchul Yang, Sang-Ryoul Park, Jihwan Song*, and Ji Youn Lee*",
       journal: "Analytical Chemistry",
-      impact: "IF 6.7 · Q1 5%",
+      impact: "IF 6.7 · Q1-5%",
       volume: "97, 25999",
       date: "2025.11",
       link: "https://doi.org/10.1021/acs.analchem.5c03537"
@@ -147,7 +148,7 @@ window.PUBLICATIONS = {
       title: "Advanced multiscale modeling of potassium-ion batteries for interplay of electrochemical and mechanical behavior across scales",
       authors: "Subeen Kim, Yun Kim, Yoon Koo Lee*, and Jihwan Song*",
       journal: "Small Structures",
-      impact: "IF 13.9 · Q1 10%",
+      impact: "IF 13.9 · Q1-10%",
       volume: "6, 2400640",
       date: "2025.04",
       link: "https://onlinelibrary.wiley.com/doi/10.1002/sstr.202400640"
@@ -158,7 +159,7 @@ window.PUBLICATIONS = {
       title: "B-H curve estimation and air gap optimization for high-performance split core",
       authors: "Minjoong Kim†, Myungseo Lee†, Sijeong Lee, Jaeyun Lee*, and Jihwan Song*",
       journal: "Materials",
-      impact: "IF 3.1 · Q1 25%",
+      impact: "IF 3.1 · Q1-25%",
       volume: "18, 644",
       date: "2025.01",
       link: "https://www.mdpi.com/1996-1944/18/3/644"
@@ -169,7 +170,7 @@ window.PUBLICATIONS = {
       title: "Nanoplasmonic Rapid Antimicrobial-resistance Point-of-care Identification Device: RAPIDx",
       authors: "Jong-Hwan Lee†, Jihwan Song†, SoonGweon Hong, Yun Kim, Minsun Song, Byungrae Cho, Tiffany Wu, Lee W. Riley, Ulf Landegren, and Luke P. Lee*",
       journal: "Advanced Healthcare Materials",
-      impact: "IF 10.0 · Q1 5%",
+      impact: "IF 10.0 · Q1-5%",
       volume: "14, 2402044",
       date: "2024.08",
       link: "https://doi.org/10.1002/adhm.202402044",
@@ -181,7 +182,7 @@ window.PUBLICATIONS = {
       title: "Modeling and validation of driving performance of electric vehicle converted from internal combustion engine vehicle",
       authors: "Juhyun Park†, Hyunwoo Lim†, Sangjun Kim, Jihwan Song*, and Yoon Koo Lee*",
       journal: "IEEE Transactions on Transportation Electrification",
-      impact: "IF 7.0 · Q1 10%",
+      impact: "IF 7.0 · Q1-10%",
       volume: "11, 486",
       date: "2024.04",
       link: "https://ieeexplore.ieee.org/document/10506683"
@@ -203,7 +204,7 @@ window.PUBLICATIONS = {
       title: "Spatiotemporally controlled drug delivery via photothermally driven conformational change of self-integrated plasmonic hybrid nanogels",
       authors: "Seungki Lee, Subeen Kim, Doyun Kim, Jieun You, Ji Soo Kim, Hakchun Kim, Jungwon Park, Jihwan Song*, and Inhee Choi*",
       journal: "Journal of Nanobiotechnology",
-      impact: "IF 10.2 · Q1 5%",
+      impact: "IF 10.2 · Q1-5%",
       volume: "21, 191",
       date: "2023.06",
       link: "https://doi.org/10.1186/s12951-023-01935-x"
@@ -214,7 +215,7 @@ window.PUBLICATIONS = {
       title: "Ultrasensitive and real-time optical detection of cellular oxidative stress using graphene-covered tunable plasmonic interfaces",
       authors: "Hakchun Kim, Hyun Ji An, Junhee Park, Yohan Lee, Min Seob Kim, Seungki Lee, Nam Dong Kim, Jihwan Song*, and Inhee Choi*",
       journal: "Nano Convergence",
-      impact: "IF 10.038 · Q1 10%",
+      impact: "IF 10.038 · Q1-10%",
       volume: "9, 23",
       date: "2022.05",
       link: "https://nanoconvergencejournal.springeropen.com/articles/10.1186/s40580-022-00315-9"
@@ -236,7 +237,7 @@ window.PUBLICATIONS = {
       title: "High-spatial and colourimetric imaging of histone modifications in single senescent cells using plasmonic nanoprobes",
       authors: "Hyun Ji An†, Yun Kim†, Soojeong Chang†, Hakchun Kim, Jihwan Song*, Hyunsung Park*, and Inhee Choi*",
       journal: "Nature Communications",
-      impact: "IF 17.694 · Q1 5%",
+      impact: "IF 17.694 · Q1-5%",
       volume: "12, 5899",
       date: "2021.10",
       link: "https://www.nature.com/articles/s41467-021-26224-9"
@@ -247,7 +248,7 @@ window.PUBLICATIONS = {
       title: "Free manipulation system for nanorobot cluster based on complicated multi-coil electromagnetic actuator",
       authors: "Yun Kim, Jun Keun Chae, Jong-Hwan Lee, Eunpyo Choi, Yoon Koo Lee, and Jihwan Song*",
       journal: "Scientific Reports",
-      impact: "IF 4.996 · Q1 15%",
+      impact: "IF 4.996 · Q1-15%",
       volume: "11, 19756",
       date: "2021.10",
       link: "https://www.nature.com/articles/s41598-021-98957-y"
@@ -258,7 +259,7 @@ window.PUBLICATIONS = {
       title: "Multi-scale coupled mechanical-electrochemical modeling for study on stress generation and its impact on multi-layered electrodes in Lithium-ion batteries",
       authors: "Yoon Koo Lee*, Jihwan Song, and Jonghyun Park",
       journal: "Electrochimica Acta",
-      impact: "IF 7.336 · Q1 15%",
+      impact: "IF 7.336 · Q1-15%",
       volume: "138682",
       date: "2021.05",
       link: "https://doi.org/10.1016/j.electacta.2021.138682"
@@ -280,7 +281,7 @@ window.PUBLICATIONS = {
       title: "Adjustable and versatile 3D tumor spheroid culture platform with interfacial elastomeric wells",
       authors: "Hyun Ji An, Hyo Sil Kim, Jung A Kwon, Jihwan Song*, and Inhee Choi*",
       journal: "ACS Applied Materials & Interfaces",
-      impact: "IF 10.383 · Q1 15%",
+      impact: "IF 10.383 · Q1-15%",
       volume: "12, 6924",
       date: "2020.02",
       link: "https://doi.org/10.1021/acsami.9b21471"
@@ -291,7 +292,7 @@ window.PUBLICATIONS = {
       title: "Nanophotonic cell lysis and polymerase chain reaction (PCR) with gravity-driven cell enrichment for rapid detection of pathogens",
       authors: "Byungrae Cho, Sang Hun Lee, Jihwan Song, Saptati Bhattacharjee, Jeffrey Feng, SoonGweon Hong, Minsun Song, Wonseok Kim, Jonghwan Lee, Doyeon Bang, Bowen Wang, Lee W. Riley, and Luke P. Lee*",
       journal: "ACS Nano",
-      impact: "IF 18.027 · Q1 5%",
+      impact: "IF 18.027 · Q1-5%",
       volume: "13, 13866",
       date: "2019.12",
       link: "https://doi.org/10.1021/acsnano.9b04685"
@@ -302,7 +303,7 @@ window.PUBLICATIONS = {
       title: "Multifunctional nanorobot system for active therapeutic delivery and synergistic chemo-photothermal therapy",
       authors: "Zhen Jin, Kim Tien Nguyen, Gwangjun Go, Byungjeon Kang, Hyun-Ki Min, Seok-Jae Kim, Yun Kim, Hao Li, Chang-Sei Kim, Seonmin Lee, Sukho Park*, Kyu-Pyo Kim*, Kang Moo Huh*, Jihwan Song*, Jong-Oh Park*, and Eunpyo Choi*",
       journal: "Nano Letters",
-      impact: "IF 12.262 · Q1 5%",
+      impact: "IF 12.262 · Q1-5%",
       volume: "19, 8550",
       date: "2019.11",
       link: "https://doi.org/10.1021/acs.nanolett.9b03051"
@@ -313,7 +314,7 @@ window.PUBLICATIONS = {
       title: "Photothermally-enhanced molecular delivery and cellular positioning on patterned plasmonic interfaces",
       authors: "Tae Ho Kang, Seungki Lee, Jung A Kwon, Jihwan Song, and Inhee Choi*",
       journal: "ACS Applied Materials & Interfaces",
-      impact: "IF 10.383 · Q1 10%",
+      impact: "IF 10.383 · Q1-10%",
       volume: "11, 36420",
       date: "2019.09",
       link: "https://doi.org/10.1021/acsami.9b13576"
@@ -324,7 +325,7 @@ window.PUBLICATIONS = {
       title: "Bubble-free rapid microfluidic PCR",
       authors: "Sang Hun Lee, Jihwan Song, Byungrae Cho, SoonGweon Hong, Ori Hoxha, Taewook Kang, Dongchoul Kim, and Luke P. Lee*",
       journal: "Biosensors and Bioelectronics",
-      impact: "IF 12.545 · Q1 1%",
+      impact: "IF 12.545 · Q1-1%",
       volume: "126, 725",
       date: "2019.02",
       link: "https://doi.org/10.1016/j.bios.2018.10.005"
@@ -335,7 +336,7 @@ window.PUBLICATIONS = {
       title: "Tunable quasi-plasticity of microscale shape memory alloys",
       authors: "Jihwan Song and Dongchoul Kim*",
       journal: "Advanced Theory and Simulations",
-      impact: "IF 4.105 · Q1 20%",
+      impact: "IF 4.105 · Q1-20%",
       volume: "2, 1800147",
       date: "2019.02",
       link: "https://doi.org/10.1002/adts.201800147"
@@ -368,7 +369,7 @@ window.PUBLICATIONS = {
       title: "Microphysiological analysis platform of pancreatic islet β-cell spheroids",
       authors: "Sang Hun Lee, SoonGweon Hong, Jihwan Song, Byungrae Cho, Esther J. Han, Sravani Kondapavulur, Dongchoul Kim, and Luke P. Lee*",
       journal: "Advanced Healthcare Materials",
-      impact: "IF 11.092 · Q1 10%",
+      impact: "IF 11.092 · Q1-10%",
       volume: "7, 1701111",
       date: "2018.01",
       link: "https://doi.org/10.1002/adhm.201701111"

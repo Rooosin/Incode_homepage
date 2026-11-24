@@ -26,21 +26,21 @@ window.NEWS = [
     date: "2026.08.24",
     type: "pub",
     title: "Journal Publication",
-    text: "Chae eun Sung's work was published in journal \"Journal of Energy Storage (IF:10.7, Q1- JIF 15%)\". \"From microstructure to performance through coupled electrochemical and mechanical insights in all-solid-state batteries\" [Link ↗](https://doi.org/10.1016/j.est.2026.124264) Congratulations!",
+    text: "Chae eun Sung's work was published in journal \"Journal of Energy Storage (IF:10.7, Q1-15%)\". \"From microstructure to performance through coupled electrochemical and mechanical insights in all-solid-state batteries\" [Link ↗](https://doi.org/10.1016/j.est.2026.124264) Congratulations!",
     images: ["news/2026-08-24.jpg"]
   },
   {
     date: "2026.08.21",
     type: "pub",
     title: "Journal Publication",
-    text: "Jiseok Han's work was published in journal \"Small Structures (IF:8.9, Q1- JIF 20%)\". \"Mode-dependent energy redistribution in Au nanohole arrays for concurrent photothermal conversion and reduced fluorescence quenching\" [Link ↗](https://doi.org/10.1002/sstr.70590) Congratulations!",
+    text: "Jiseok Han's work was published in journal \"Small Structures (IF:8.9, Q1-20%)\". \"Mode-dependent energy redistribution in Au nanohole arrays for concurrent photothermal conversion and reduced fluorescence quenching\" [Link ↗](https://doi.org/10.1002/sstr.70590) Congratulations!",
     images: ["news/2026-08-21.jpg"]
   },
   {
     date: "2026.08.10",
     type: "pub",
     title: "Journal Publication",
-    text: "Seunggyun Byeon's work collaborating with Konkuk University and Seoul National University Bundang Hospital was published in journal \"Small Structures (IF:8.9, Q1- JIF 20%)\". \"Silica/nano graphene oxide nanocomposites decorated with Au@Ag nanoparticles as surface-enhanced raman scattering tags for highly sensitive quantitative lateral flow immunoassays.\" [Link ↗](https://doi.org/10.1002/sstr.70569) Congratulations!",
+    text: "Seunggyun Byeon's work collaborating with Konkuk University and Seoul National University Bundang Hospital was published in journal \"Small Structures (IF:8.9, Q1-20%)\". \"Silica/nano graphene oxide nanocomposites decorated with Au@Ag nanoparticles as surface-enhanced raman scattering tags for highly sensitive quantitative lateral flow immunoassays.\" [Link ↗](https://doi.org/10.1002/sstr.70569) Congratulations!",
     images: ["news/2026-08-10.jpg"]
   },
   {
@@ -89,7 +89,7 @@ window.NEWS = [
     date: "2026.02.05",
     type: "pub",
     title: "Journal Publication",
-    text: "Jiseok Han's work collaborating with Konkuk University and Harvard Medical School was published in journal \"Nature Communications (IF:15.7, Q1- JCI 5%)\". \"Early Diagnosis of Pancreatic Ductal Adenocarcinoma by Signal-Enhanced Lateral Flow Immunoassay: SELFI\". [Link ↗](https://www.nature.com/articles/s41467-026-69204-7) Congratulations!",
+    text: "Jiseok Han's work collaborating with Konkuk University and Harvard Medical School was published in journal \"Nature Communications (IF:15.7, Q1-5%)\". \"Early Diagnosis of Pancreatic Ductal Adenocarcinoma by Signal-Enhanced Lateral Flow Immunoassay: SELFI\". [Link ↗](https://www.nature.com/articles/s41467-026-69204-7) Congratulations!",
     images: ["news/2026-02-05.jpg"]
   },
   {
@@ -103,7 +103,7 @@ window.NEWS = [
     date: "2025.12.02",
     type: "pub",
     title: "Journal Publication",
-    text: "Subeen Kim's work collaborating with Korea Research Institute of Standards and Science (KRISS) was published in journal \"Analytical Chemistry (IF:6.7, Q1- JCI 5%)\". \"Comparative analysis of sample loop and counting bead–based methods for size-dependent bias in flow cytometry\" [Link ↗](https://doi.org/10.1021/acs.analchem.5c03537) Congratulations!",
+    text: "Subeen Kim's work collaborating with Korea Research Institute of Standards and Science (KRISS) was published in journal \"Analytical Chemistry (IF:6.7, Q1-5%)\". \"Comparative analysis of sample loop and counting bead–based methods for size-dependent bias in flow cytometry\" [Link ↗](https://doi.org/10.1021/acs.analchem.5c03537) Congratulations!",
     images: ["news/2025-12-02.jpg"]
   },
   {
@@ -145,14 +145,14 @@ window.NEWS = [
     date: "2025.02.19",
     type: "pub",
     title: "Journal Publication",
-    text: "Subeen Kim's work was published in journal \"Small Structures (IF:13.9, JCR Top 10%)\". \"Advanced multiscale modeling of potassium-ion batteries for interplay of electrochemical and mechanical behavior across scales.\" [Link ↗](https://doi.org/10.1002/sstr.202400640) Congratulations!",
+    text: "Subeen Kim's work was published in journal \"Small Structures (IF:13.9, Q1-10%)\". \"Advanced multiscale modeling of potassium-ion batteries for interplay of electrochemical and mechanical behavior across scales.\" [Link ↗](https://doi.org/10.1002/sstr.202400640) Congratulations!",
     images: ["news/2025-02-19.jpg"]
   },
   {
     date: "2025.01.31",
     type: "pub",
     title: "Journal Publication",
-    text: "Minjoong Kim's work was published in journal \"Materials (IF:3.1, JCR Top 25%)\". \"B-H Curve Estimation and Air Gap Optimization for High-Performance Split Core.\" [Link ↗](https://www.mdpi.com/1996-1944/18/3/644) Congratulations!",
+    text: "Minjoong Kim's work was published in journal \"Materials (IF:3.1, Q1-25%)\". \"B-H Curve Estimation and Air Gap Optimization for High-Performance Split Core.\" [Link ↗](https://www.mdpi.com/1996-1944/18/3/644) Congratulations!",
     images: ["news/2025-01-31.jpg"]
   },
   {
@@ -264,7 +264,7 @@ window.NEWS = [
     date: "2023.06.14",
     type: "pub",
     title: "Journal Publication",
-    text: "Subeen Kim's first work collaborating with University of Seoul was accepted in journal \"Journal of Nanobiotechnology (IF: 10.2, JCR top 5%)\". \"Spatiotemporally controlled drug delivery via photothermally driven conformational change of self-integrated plasmonic hybrid nanogels\". [Link ↗](https://doi.org/10.1186/s12951-023-01935-x) Congratulations!",
+    text: "Subeen Kim's first work collaborating with University of Seoul was accepted in journal \"Journal of Nanobiotechnology (IF: 10.2, Q1-5%)\". \"Spatiotemporally controlled drug delivery via photothermally driven conformational change of self-integrated plasmonic hybrid nanogels\". [Link ↗](https://doi.org/10.1186/s12951-023-01935-x) Congratulations!",
     images: ["news/2023-06-14.jpg"]
   },
   {
@@ -318,7 +318,7 @@ window.NEWS = [
     date: "2021.09.21",
     type: "pub",
     title: "Journal Publication",
-    text: "Yun Kim's work collaborating with University of Seoul was accepted in journal \"Nature Communications (IF: 14.919, JCR top 5%)\". \"High-Spatial and Colourimetric Imaging of Histone Modifications in Single Senescent Cells Using Plasmonic Nanoprobes\". [Link ↗](https://www.nature.com/articles/s41467-021-26224-9) Congratulations!",
+    text: "Yun Kim's work collaborating with University of Seoul was accepted in journal \"Nature Communications (IF: 14.919, Q1-5%)\". \"High-Spatial and Colourimetric Imaging of Histone Modifications in Single Senescent Cells Using Plasmonic Nanoprobes\". [Link ↗](https://www.nature.com/articles/s41467-021-26224-9) Congratulations!",
     images: ["news/2021-09-21.jpg"]
   },
   {

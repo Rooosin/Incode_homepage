@@ -41,11 +41,23 @@ const plain = t => String(t ?? "").replace(/\[([^\]]+)\]\([^)]+\)/g, "").replace
 /* images carry the site version (app.js?v=N) so an edited photo with the same file name is fetched again */
 const IMGV = (document.currentScript && document.currentScript.src.match(/[?&]v=(\w+)/) || [])[1] || "";
 const IMG = (path, alt = "") => path ? `<img src="img/${esc(path)}${IMGV ? "?v=" + IMGV : ""}" alt="${esc(alt)}" loading="lazy" decoding="async">` : "";
+/* an author name inside "A, B†, and C*" lists */
+const authorRe = n => new RegExp(`(^|, |and )(${n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})(?=[†*,]|$| and)`, "g");
+const PEOPLE_ALL = [...(PEOPLE.MEMBERS || []).flatMap(g => g.people || []), ...(PEOPLE.ALUMNI || [])];
+const namesOf = p => [p.name, ...(p.aka || [])];
+/* underlined in author lists: everyone on the Team page plus the extra GROUP_MEMBERS names */
+const MEMBER_NAMES = [...new Set(["Jihwan Song", ...PEOPLE_ALL.flatMap(namesOf), ...(PUBS.GROUP_MEMBERS || [])])];
 function fmtAuthors(a) {
-  let s = esc(a).replace(/Jihwan Song/g, "<u>Jihwan Song</u>");
-  (PUBS.GROUP_MEMBERS || []).forEach(m => { s = s.replace(new RegExp(`(^|, |and )(${m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})(?=[†*,]|$| and)`, "g"), "$1<u>$2</u>"); });
+  let s = esc(a);
+  MEMBER_NAMES.forEach(m => { s = s.replace(authorRe(m), "$1<u>$2</u>"); });
   return s;
 }
+/* a person's papers are found by name in JOURNALS; numbers/text in their own publications list are added on top */
+const papersOf = p => {
+  const own = p.publications || [];
+  const nos = new Set([...(PUBS.JOURNALS || []).filter(j => namesOf(p).some(n => authorRe(n).test(j.authors || ""))).map(j => j.no), ...own.filter(x => typeof x === "number")]);
+  return [...[...nos].sort((a, b) => b - a), ...own.filter(x => typeof x !== "number")];
+};
 const kindPill = k => `<span class="pill ${k === "pub" || k === "cover" ? "crimson" : k === "conf" || k === "member" || k === "lab" ? "grey" : ""}">${KIND[k] || esc(k)}</span>`;
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 function jump(id) { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" }); }
@@ -244,6 +256,9 @@ safe("Team", () => {
       <div class="cv"><div><h3>Professional experiences</h3>${tl(pi.experience)}</div><div><h3>Educations</h3>${tl(pi.education)}</div></div>
     </div>`;
   const pubRef = no => { const p = PUBS.JOURNALS.find(x => x.no === no); return p ? (p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>` : esc(p.title)) + ` <span style="color:var(--muted)">· ${esc(p.journal)}${p.date ? ", " + esc(p.date) : ""}</span>` : ""; };
+  /* alumni cards keep the full citation line: title, authors, journal (impact), date. Link */
+  const cite = no => { const p = PUBS.JOURNALS.find(x => x.no === no); return p ? md(`${p.title}, ${p.authors}, ${p.journal}${p.impact ? ` (${p.impact})` : ""}${p.date ? ", " + p.date : ""}.${p.link ? ` [Link ↗](${p.link})` : ""}`) : ""; };
+  const pubList = (list, label, always, ref = pubRef) => list.length || always ? `<details class="pubs"><summary>${label}${list.length ? ` (${list.length})` : ""}</summary>${list.length ? `<ol>${list.map(x => `<li>${typeof x === "number" ? ref(x) : md(x)}</li>`).join("")}</ol>` : `<p class="none">To be updated.</p>`}</details>` : "";
   /* groups keep their headings; inside each group, wide cards (photo left, details right) */
   $("#people").innerHTML = (PEOPLE.MEMBERS || []).map(g => `
     <h3 class="group-title">${esc(g.group)}</h3>
@@ -257,7 +272,7 @@ safe("Team", () => {
             ${(p.interests || []).length ? `<div><dt>Research interests</dt>${p.interests.map(r => `<dd>${esc(r)}</dd>`).join("")}</div>` : ""}
             ${(p.education || []).length ? `<div><dt>Education</dt>${p.education.map(r => `<dd>${esc(r)}</dd>`).join("")}</div>` : ""}
           </dl>
-          ${(p.publications || []).length || /ph\.?d|m\.?s/i.test(g.group) ? `<details class="pubs"><summary>Publications &amp; honors${(p.publications || []).length ? ` (${p.publications.length})` : ""}</summary>${(p.publications || []).length ? `<ol>${p.publications.map(x => `<li>${typeof x === "number" ? pubRef(x) : md(x)}</li>`).join("")}</ol>` : `<p class="none">To be updated.</p>`}</details>` : ""}
+          ${pubList(papersOf(p), "Publications &amp; honors", /ph\.?d|m\.?s/i.test(g.group))}
         </div>
       </article>`).join("")}</div>`).join("");
   $("#alumni").innerHTML = (PEOPLE.ALUMNI || []).map(a => `
@@ -265,7 +280,7 @@ safe("Team", () => {
       <span class="nm">${esc(a.name)}</span>
       <span class="pos${a.position ? "" : " none"}">${a.position ? esc(a.position) : "Current position not listed"}</span>
       <div class="edu">${(a.education || []).map(x => `<span>${esc(x)}</span>`).join("")}</div>
-      ${(a.publications || []).length ? `<details><summary>Publications (${a.publications.length})</summary><ol>${a.publications.map(p => `<li>${md(p)}</li>`).join("")}</ol></details>` : ""}
+      ${pubList(papersOf(a), "Publications", false, cite)}
     </article>`).join("");
 });
 
