@@ -42,7 +42,7 @@ const plain = t => String(t ?? "").replace(/\[([^\]]+)\]\([^)]+\)/g, "").replace
 const IMGV = (document.currentScript && document.currentScript.src.match(/[?&]v=(\w+)/) || [])[1] || "";
 const IMG = (path, alt = "") => path ? `<img src="img/${esc(path)}${IMGV ? "?v=" + IMGV : ""}" alt="${esc(alt)}" loading="lazy" decoding="async">` : "";
 function fmtAuthors(a) {
-  let s = esc(a).replace(/Jihwan Song/g, "<b>Jihwan Song</b>");
+  let s = esc(a).replace(/Jihwan Song/g, "<u>Jihwan Song</u>");
   (PUBS.GROUP_MEMBERS || []).forEach(m => { s = s.replace(new RegExp(`(^|, |and )(${m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})(?=[†*,]|$| and)`, "g"), "$1<u>$2</u>"); });
   return s;
 }

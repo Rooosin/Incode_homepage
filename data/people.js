@@ -128,7 +128,7 @@ Dissertation: Development of multi-physics design system based on phase field mo
   ALUMNI: [
     {
       name: "Jiseok Han",
-      position: "University of Utah (Ph.D program)",
+      position: "The University of Utah (Ph.D program)",
       education: [
         "2026 M.S., Mechanical Engineering, Hanbat National University",
         "2024 B.S., Mechanical Engineering, Hanbat National University"
@@ -153,14 +153,14 @@ Dissertation: Development of multi-physics design system based on phase field mo
     },
     {
       name: "Chae eun Sung",
-      position: "",
+      position: "Korea Automotive Technology Institute",
       education: [
         "2025 M.S., Mechanical Engineering, Hanbat National University",
         "2023 B.S., Mechanical Engineering, Hanbat National University"
       ],
       publications: [
         "From microstructure to performance through coupled electrochemical and mechanical insights in all-solid-state batteries, Chaeeun Sung, Jihwan Song*, and Yoon Koo Lee*, Journal of Energy Storage (IF:10.7, Q1- JIF 15%), 2026.08. [Link ↗](https://doi.org/10.1016/j.est.2026.124264)",
-        "Multiphysics modeling of the influence of initial pressure on mechanical and electrochemical performance of all-solid-state batteries, Yoon Koo Lee†, Chaeeun Sung, Jiyeon Kim, Chaemin Hong, Jinnil Choi*, Journal of Energy Storage (IF: 9.4), 2024.04. [Link ↗](https://doi.org/10.1016/j.est.2024.110431)"
+        "Multiphysics modeling of the influence of initial pressure on mechanical and electrochemical performance of all-solid-state batteries, Yoon Koo Lee†, Chaeeun Sung, Jiyeon Kim, Chaemin Hong, Jinnil Choi*, Journal of Energy Storage (IF: 9.4, Q1- JIF 15%), 2024.04. [Link ↗](https://doi.org/10.1016/j.est.2024.110431)"
       ]
     },
     {
@@ -176,14 +176,15 @@ Dissertation: Development of multi-physics design system based on phase field mo
     },
     {
       name: "Subeen Kim",
-      position: "",
+      position: "SIMMTECH Co., Ltd.",
       education: [
         "2025 M.S., Mechanical Engineering, Hanbat National University",
         "2023 B.S., Mechanical Engineering, Hanbat National University"
       ],
       publications: [
         "Comparative analysis of sample loop and counting bead–based methods for size-dependent bias in flow cytometry, Hye Ji Shin†, Subeen Kim†, Minjeong Kwak, Inchul Yang, Sang-Ryoul Park, Jihwan Song*, and Ji Youn Lee*, Analytical Chemistry (IF:6.7, Q1- JCI 5%), 2025.11. [Link ↗](https://doi.org/10.1021/acs.analchem.5c03537)",
-        "Advanced multiscale modeling of potassium-ion batteries for interplay of electrochemical and mechanical behavior across scales, Subeen Kim, Yun Kim, Yoon Koo Lee*, and Jihwan Song*, Small Structures (IF:13.9, Q1- JIF 10%), 2025.04. [Link ↗](https://onlinelibrary.wiley.com/doi/10.1002/sstr.202400640)"
+        "Advanced multiscale modeling of potassium-ion batteries for interplay of electrochemical and mechanical behavior across scales, Subeen Kim, Yun Kim, Yoon Koo Lee*, and Jihwan Song*, Small Structures (IF:13.9, Q1- JIF 10%), 2025.04. [Link ↗](https://onlinelibrary.wiley.com/doi/10.1002/sstr.202400640)",
+        "Spatiotemporally controlled drug delivery via photothermally driven conformational change of self-integrated plasmonic hybrid nanogels, Seungki Lee, Subeen Kim, Doyun Kim, Jieun You, Ji Soo Kim, Hakchun Kim, Jungwon Park, Jihwan Song*, and Inhee Choi*, Journal of Nanobiotechnology (IF:10.2, Q1- JIF 5%), 2023.06. [Link ↗](https://doi.org/10.1186/s12951-023-01935-x)"
       ]
     },
     {
@@ -212,7 +213,7 @@ Dissertation: Development of multi-physics design system based on phase field mo
     },
     {
       name: "Yun Kim",
-      position: "University of Minnesota (Ph.D program)",
+      position: "University of Minnesota Twin Cities (Ph.D program)",
       education: [
         "2022 M.S., Mechanical Engineering, Hanbat National University",
         "2020 B.S., Mechanical Engineering, Hanbat National University"
