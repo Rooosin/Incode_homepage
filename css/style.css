@@ -486,6 +486,10 @@ button { font-family: inherit; }
 .ylabel small { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
 .ylabel:first-child { padding-top: 0; }
 .pub { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 1rem; padding: 1.2rem 0; border-bottom: 1px solid var(--line); }
+.pub.has-cover { grid-template-columns: 3rem minmax(0, 1fr) 6.5rem; }
+.pub .cover { align-self: start; display: block; }
+@media (max-width: 640px) { .pub.has-cover { grid-template-columns: 3rem minmax(0, 1fr) 4.5rem; } }
+.pub .cover img { display: block; width: 100%; height: auto; box-shadow: 0 6px 16px -8px rgba(20, 20, 19, 0.45); }
 .pub .n { font-weight: 800; color: var(--muted); font-size: 0.95rem; opacity: 0.6; }
 .pub .t { font-weight: 700; line-height: 1.45; }
 .pub .t a { text-decoration: none; }

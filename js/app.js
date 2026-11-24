@@ -303,11 +303,11 @@ safe("Publications", () => {
       if (p.year !== cur) { cur = p.year; html += `<div class="ylabel">${esc(p.year)}<small>${count(p.year)} paper${count(p.year) > 1 ? "s" : ""}</small></div>`; }
       if (p.info) { html += `<div class="pub"><span class="n num">${esc(p.no)}</span><div><div class="t">${esc(p.title)}</div><div class="a">${esc(p.info)}</div></div></div>`; return; }
       const review = p.journal === "Under review";
-      html += `<div class="pub"><span class="n num">${esc(p.no)}</span><div>
+      html += `<div class="pub${p.cover ? " has-cover" : ""}"><span class="n num">${esc(p.no)}</span><div>
         <div class="t">${p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>` : esc(p.title)}</div>
         <div class="a">${fmtAuthors(p.authors)}</div>
         <div class="v">${review ? `<span class="pill grey">Under review</span>` : `<i>${esc(p.journal)}</i><span class="vol num">${esc([p.volume, p.date].filter(Boolean).join(" · "))}</span>${p.impact ? `<span class="pill">${esc(p.impact)}</span>` : ""}`}${p.note ? `<span class="pill crimson">${esc(p.note)}</span>` : ""}</div>
-      </div></div>`;
+      </div>${p.cover ? `<a class="cover" href="${esc(p.link || "img/" + p.cover)}" target="_blank" rel="noopener">${IMG(p.cover, p.journal + " cover")}</a>` : ""}</div>`;
     });
     $("#pubList").innerHTML = html;
   }

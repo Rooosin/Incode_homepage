@@ -3,6 +3,7 @@
 //  - JOURNALS: 새 논문은 맨 위에 추가하고 no 는 이어지는 번호로 적으세요.
 //    심사 중이면 journal: "Under review" 로 두고 impact/volume/date/link 는 빼도 돼요.
 //    note 는 선택 항목이에요 (예: "Cover Feature").
+//    저널 표지에 실렸으면 cover: "publications/파일.jpg" 로 표지 사진을 넣으면 논문 옆에 작게 보여요.
 //  - 저자 표기: † 공동 1저자, * 교신저자.
 //    교수님과 people.js 에 있는 사람(멤버·졸업생, aka 포함)은 자동으로 밑줄 처리되고, 그 사람 카드에도 논문이 자동으로 붙어요.
 //    GROUP_MEMBERS 에는 people.js 에 없지만 밑줄을 쳐야 하는 이름만 적으면 돼요.
@@ -85,7 +86,8 @@ window.PUBLICATIONS = {
       volume: "7",
       date: "2026.08",
       link: "https://doi.org/10.1002/sstr.70590",
-      note: "Cover Feature"
+      note: "Cover Feature",
+      cover: "publications/cover-43.jpg"
     },
     {
       no: 42,
@@ -174,7 +176,8 @@ window.PUBLICATIONS = {
       volume: "14, 2402044",
       date: "2024.08",
       link: "https://doi.org/10.1002/adhm.202402044",
-      note: "Inside Back Cover"
+      note: "Inside Back Cover",
+      cover: "publications/cover-35.jpg"
     },
     {
       no: 34,

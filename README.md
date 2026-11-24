@@ -81,7 +81,26 @@ window.NEWS = [
 
 - 심사 중이면 `journal: "Under review"`로 두고 `impact`, `volume`, `date`, `link`는 빼도 됩니다.
 - `note: "Cover Feature"`처럼 강조 문구를 붙일 수 있어요.
-- `Jihwan Song`은 자동으로 굵게, `GROUP_MEMBERS`에 있는 이름은 자동으로 밑줄 처리됩니다. **새 멤버가 들어오면 `GROUP_MEMBERS`에도 이름을 추가하세요.**
+- `impact`는 `Q1-10%`처럼 분위와 %를 붙여 쓰고, JCI·JIF·JCR 같은 말은 넣지 않아요.
+
+#### 저자는 자동으로 알아봐요
+논문을 넣기만 하면, `authors`에서 교수님과 `data/people.js`에 있는 멤버·졸업생 이름을 찾아서
+1. 이름에 **주황 밑줄**을 치고
+2. 그 사람의 **Team 카드에 논문을 자동으로 붙여요.** (사람마다 따로 적을 필요 없어요)
+
+단, 이름이 `people.js`의 `name`과 **글자 하나까지 똑같아야** 해요. († * 표시는 상관없어요)
+
+| 논문 저자 표기 | people.js 이름 | 인식 |
+|---|---|---|
+| `Seunggyun Byeon†` | `Seunggyun Byeon` | ✅ |
+| `Chaeeun Sung` | `Chae eun Sung` | ❌ → `aka`로 해결 |
+| `Seung-gyun Byeon` | `Seunggyun Byeon` | ❌ 하이픈이 다름 |
+| `seunggyun byeon` | `Seunggyun Byeon` | ❌ 대소문자가 다름 |
+
+- **표기가 다를 때**: 그 사람 정보에 `aka`로 다른 표기를 적어 주세요. 예) `aka: ["Chaeeun Sung"]`
+- **people.js에 없는 사람**(예: 카드 없는 학부 졸업생)에게 밑줄만 치고 싶으면 `publications.js` 맨 위 `GROUP_MEMBERS`에 이름을 넣으세요.
+- **동명이인 주의**: 다른 학교 공동저자가 우리 멤버와 이름이 완전히 같으면 그 논문이 우리 멤버 카드에도 붙어요.
+- **확인 방법**: Publications 페이지에서 그 이름에 주황 밑줄이 있으면 카드에도 붙은 거예요.
 
 ### 3. 멤버 추가 / 졸업 처리 — `data/people.js`
 
@@ -93,23 +112,22 @@ window.NEWS = [
     position: "Master's Program",
     interests: ["관심 연구 1", "관심 연구 2"],
     education: ["2027 B.S., Mechanical Engineering"],
-    publications: [49],
     email: "gildong@sogang.ac.kr"
   },
   ```
-  `publications`에는 논문 번호(`no`)를 적으면 제목이 자동으로 연결돼요.
+  논문은 적지 않아도 돼요. `publications.js` 저자 목록에 이름이 있으면 자동으로 붙어요. ([저자는 자동으로 알아봐요](#저자는-자동으로-알아봐요) 참고)
+  `publications.js`에 없는 논문이나 수상은 `publications: ["글자 그대로"]`로 적으면 함께 나와요.
 - **사진은 모든 멤버가 같은 모양**(동그란 사진, 연한 회색 배경, 얼굴 높이·크기 동일)이에요. 새 사진을 넣은 뒤 아래 명령으로 맞춰 주세요. 증명사진처럼 단색 배경 사진이 가장 잘 돼요.
   ```
   python tools/fit-portrait.py img/people/gildong-hong.jpg
   ```
 - 석사·박사과정은 논문이 없어도 `Publications & honors` 칸이 보이고("To be updated."), 다른 과정은 논문이 생기면 나타나요.
-- **졸업**: `MEMBERS`에서 지우고 `ALUMNI` 맨 위에 추가하세요.
+- **졸업**: `MEMBERS`에서 지우고 `ALUMNI` 맨 위에 추가하세요. 논문은 이름으로 자동으로 따라와요.
   ```js
   {
     name: "Gildong Hong",
     position: "Samsung SDI",
-    education: ["2028 M.S., Mechanical Engineering, Sogang University"],
-    publications: ["논문 제목, 저자, 저널, 2027. [Link](https://doi.org/...)"]
+    education: ["2028 M.S., Mechanical Engineering, Sogang University"]
   },
   ```
 
