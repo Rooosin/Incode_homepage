@@ -13,7 +13,7 @@ window.NEWS = [
     type: "conf",
     title: "Attending a conference",
     text: "We attended KSME Fall Meeting in Jeju. Seunggyun Byeon, Heesoo Jeong and Minjeong Lee had presentations.",
-    images: ["news/2026-11-11.jpg"]
+    images: ["news/2026-11-11.webp"]
   },
   {
     date: "2026.09.24",
@@ -55,7 +55,7 @@ window.NEWS = [
     type: "pub",
     title: "Journal Publication",
     text: "Seunggyun Byeon's work was published in journal \"Materials (IF:3.7)\". \"Data-driven prediction of induced voltage in CT-based magnetic energy harvesting systems considering nonlinear B–H characteristics.\" [Link ↗](https://www.mdpi.com/1996-1944/19/14/3002) Congratulations!",
-    images: ["news/2026-07-12-full.jpg"]
+    images: ["news/2026-07-12-full.webp"]
   },
   {
     date: "2026.06",
@@ -69,7 +69,7 @@ window.NEWS = [
     type: "conf",
     title: "Attending a conference",
     text: "We attended KSME Spring Meeting in Yeosu. Seunggyun Byeon, Heesoo Jeong and Minjeong Lee had presentations.",
-    images: ["news/2026-05-06.jpg"]
+    images: ["news/2026-05-06.webp"]
   },
   {
     date: "2026.04",

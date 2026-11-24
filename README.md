@@ -57,7 +57,7 @@ window.NEWS = [
 
 - `type`은 다음 중 하나: `"pub"` 논문, `"cover"` 저널 표지, `"grant"` 과제, `"award"` 수상, `"conf"` 학회, `"member"` 새 멤버, `"alumni"` 졸업생 소식, `"media"` 언론, `"lab"` 연구실
 - 사진이 없으면 `images: []`
-- 학회·수상 소식처럼 여러 장을 흰 판 위에 붙인 사진은 `python tools/cream-gutters.py --apply img/news/파일.jpg`로 흰 판을 페이지 바탕색(크림색)으로 바꿀 수 있어요. (`--apply` 없이 실행하면 미리보기 파일만 만들어요)
+- 학회·수상 소식처럼 여러 장을 흰 판 위에 붙인 사진은 `python tools/clear-gutters.py img/news/파일.jpg`를 실행하면 사진 사이 흰 틈이 투명한 `파일.webp`가 만들어져요. `images`에 `.webp` 파일을 적으면 News 페이지(크림색)와 Home 카드(어두운 색) 어디서든 틈이 배경색으로 보여요.
 - 줄을 나누고 싶으면 `text`를 백틱(`` ` ``)으로 감싸고 엔터로 줄바꿈하면 돼요.
 - Home의 **Group News**에는 최신 소식 10개만 나오고(`data/site.js`의 `homeNewsCount`), **News 페이지에는 모든 소식이 기록으로 남아요.** 오래된 소식도 지우지 말고 그대로 두세요.
 

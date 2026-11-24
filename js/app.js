@@ -186,12 +186,49 @@ safe("Home", () => {
   ring(); addEventListener("resize", ring); addEventListener("hashchange", () => setTimeout(ring, 60));
   $("#joinClose").onclick = () => dlg.close();
   dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
-  /* Group News: the most recent SITE.homeNewsCount items as cards (the News page keeps the full record) */
-  $("#homeNews").innerHTML = NEWS.slice(0, SITE.homeNewsCount || 10).map((n, i) => `
-    <article class="hx-ncard" data-rv style="--d:${(i % 2) * 0.1}s">
-      <span class="hx-fig">${(n.images || [])[0] ? IMG(n.images[0], "") : `<span class="hx-blank">${KIND[n.type] || ""}</span>`}</span>
-      <b>${esc(n.title)}</b><div class="hx-sub">${md(n.text, true)}</div>
-      <span class="hx-meta num">${esc(n.date)} · ${KIND[n.type] || ""}</span></article>`).join("");
+  /* Group News: the latest SITE.homeNewsCount items as rounded photo cards, one at a time, story-style:
+     thin bars under the card fill up and move on by themselves (paused while hovered, off screen, or with reduced motion) */
+  const bgUrl = p => `img/${esc(p)}${IMGV ? "?v=" + IMGV : ""}`;
+  const hn = NEWS.slice(0, SITE.homeNewsCount || 10);
+  $("#homeNews").innerHTML = hn.map((n, i) => {
+    const im = (n.images || [])[0];
+    return `<article class="hn-card${im ? "" : " text-only"}" data-rv>
+      ${im ? `<span class="hn-bg" style="background-image:url('${bgUrl(im)}')"></span>
+      <span class="hn-fig">${IMG(im, "")}</span>` : ""}
+      <div class="hn-txt"><span class="hn-date num">${esc(n.date)}</span>
+      <b>${esc(n.title)}</b><div class="hx-sub">${md(n.text, true)}</div></div>
+    </article>`;
+  }).join("");
+  {
+    const row = $("#homeNews"), bars = document.createElement("div");
+    bars.className = "hn-bars";
+    bars.innerHTML = hn.map((_, i) => `<button type="button" aria-label="News ${i + 1}"><i></i></button>`).join("");
+    row.parentElement.after(bars);
+    let cur = -1;
+    const stride = () => row.children.length > 1 ? row.children[1].offsetLeft - row.children[0].offsetLeft : row.clientWidth; // card width + gap
+    const go = i => row.scrollTo({ left: ((i + hn.length) % hn.length) * stride(), behavior: reduceMotion ? "auto" : "smooth" });
+    const mark = () => {
+      const i = Math.round(row.scrollLeft / stride());
+      if (i === cur) return;
+      cur = i;
+      [...bars.children].forEach((b, k) => {
+        b.className = k < cur ? "done" : k === cur ? "on" : "";
+        if (k === cur) { const t = b.firstChild; t.replaceWith(t.cloneNode()); } // restart the fill
+      });
+    };
+    $(".hn-prev").onclick = () => go(cur - 1);
+    $(".hn-next").onclick = () => go(cur + 1);
+    [...bars.children].forEach((b, k) => b.onclick = () => go(k));
+    bars.addEventListener("animationend", () => go(cur + 1));
+    row.addEventListener("scroll", mark, { passive: true });
+    mark();
+    const sec = row.parentElement, pause = on => bars.classList.toggle("paused", on);
+    let hover = false, seen = false;
+    sec.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") { hover = true; pause(true); } });
+    sec.addEventListener("pointerleave", () => { hover = false; pause(!seen); });
+    if ("IntersectionObserver" in window) new IntersectionObserver(([e]) => { seen = e.isIntersecting; pause(hover || !seen); }, { threshold: 0.4 }).observe(row);
+    pause(true);
+  }
   /* photo strip drifts sideways forever: the set is drawn twice and the track slides by exactly one set */
   const pics = ALBUMS.flatMap(a => (a.events || []).flatMap(e => e.images || [])).sort(() => Math.random() - 0.5).slice(0, 14);
   const set = pics.map(p => IMG(p, "").replace(' loading="lazy"', "")).join("");
