@@ -205,12 +205,20 @@ window.NEWS = [
 > 수정이 사이트에 안 보이면: 브라우저가 이전 파일을 최대 10분간 기억해 두기 때문이에요. **Ctrl + F5**(맥은 Cmd + Shift + R)로 새로고침하면 바로 보여요.
 > `css/`, `js/` 파일이나 `index.html`의 구조를 바꿨다면 `index.html` 아래쪽 `?v=` 숫자를 모두 하나씩 올려 주세요. 그래야 방문자들도 바로 새 버전을 받아요.
 
-### 학교 주소(incode.sogang.ac.kr) 연결하기
+### 학교 주소(incode.sogang.ac.kr) 연결
 
-1. **Settings → Pages → Custom domain**에 `incode.sogang.ac.kr` 입력 → Save
-2. 학교 전산 담당에 *"incode.sogang.ac.kr 을 `<아이디>.github.io` 로 CNAME 연결해 달라"*고 요청합니다. (현재는 Google Sites로 연결되어 있음)
-3. 연결되면 *Enforce HTTPS*를 체크합니다.
+**2026년 11월에 연결을 마쳤어요.** 사이트 주소는 **https://incode.sogang.ac.kr** 이고, 예전 `rooosin.github.io/Incode_homepage` 링크도 이 주소로 자동으로 넘어가요.
+
+지금 설정은 이렇게 되어 있어요. 다시 연결해야 할 때도 같은 순서로 하면 돼요.
+
+1. **학교 DNS:** `incode.sogang.ac.kr` → CNAME → `rooosin.github.io` (예전에는 Google Sites `ghs.googlehosted.com`)
+   - 신청은 원격교육지원센터(02-705-8797)에 학과 행정팀을 통해 **업무협조문**으로 했어요.
+   - 센터 안내 양식은 학교 템플릿 홈페이지 제작용이라, *"템플릿 제작이 아니라 DNS 연결 변경만 요청"*이라고 꼭 적어야 해요.
+2. **저장소 맨 위의 `CNAME` 파일:** 내용은 `incode.sogang.ac.kr` 한 줄. GitHub가 이 파일을 보고 학교 주소로 사이트를 열어 줘요. **지우면 학교 주소에 404가 떠요.**
+3. **Settings → Pages:** *Enforce HTTPS* 체크 (인증서는 GitHub가 자동으로 발급해요)
 
 ### 졸업 등으로 관리자가 바뀔 때
 
-**Settings → General → Transfer ownership**으로 다음 관리자 계정에 저장소를 넘기면 수정 기록이 그대로 유지됩니다. 학교 주소를 연결해 두었다면 방문자가 쓰는 주소는 바뀌지 않아요.
+**Settings → General → Transfer ownership**으로 다음 관리자 계정에 저장소를 넘기면 수정 기록이 그대로 유지됩니다.
+
+⚠️ 학교 DNS는 `rooosin.github.io`(지금 관리자 계정)를 가리키고 있어요. 저장소를 다른 계정으로 넘기면 학교에 **CNAME을 `<새 아이디>.github.io`로 바꿔 달라**고 다시 요청해야 학교 주소가 계속 열려요. 그 전까지는 404가 떠요. (연구실 공용 계정이나 GitHub Organization으로 넘기면 이후로는 이런 요청이 필요 없어요.)

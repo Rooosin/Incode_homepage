@@ -347,8 +347,7 @@ window.NEWS = [
     type: "award",
     title: "KSME Spring Meeting & Outstanding Presentation Prize",
     text: `We attended 2020 KSME Spring Meeting. Yun Kim won the outstanding presentation prize!
-Congratulations!
-Google SitesReport abusePage detailsPage updated Google SitesReport abuse`,
+Congratulations!`,
     images: ["news/2020-08-19.jpg"]
   }
 ];
