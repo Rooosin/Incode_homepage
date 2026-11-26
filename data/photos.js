@@ -30,7 +30,7 @@ window.ALBUMS = [
       {
         date: "2026.11.09",
         title: "Happy Birthday Seongwoo!",
-        images: ["photos/2026/2026-11-09-a.jpg", "photos/2026/2026-11-09-b.jpg"]
+        images: ["photos/2026/2026-11-09-a.jpeg", "photos/2026/2026-11-09-b.jpeg"]
       },
       {
         date: "2026.08.28",
