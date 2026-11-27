@@ -32,19 +32,19 @@ window.PEOPLE = {
       {
         when: "Sep. 2016 – Aug. 2017",
         what: "Postdoctoral Researcher",
-        where: "University of California, Berkeley, USA · Advisor: Professor Luke P. Lee"
+        where: "University of California, Berkeley, USA\nAdvisor: Professor Luke P. Lee"
       },
       {
         when: "Mar. 2015 – Aug. 2016",
         what: "Postdoctoral Researcher",
-        where: "Sogang University, Seoul, Korea · Advisor: Professor Dongchoul Kim"
+        where: "Sogang University, Seoul, Korea\nAdvisor: Professor Dongchoul Kim"
       }
     ],
     education: [
       {
         when: "Feb. 2015",
         what: "Ph.D., Mechanical Engineering",
-        where: `Sogang University · Advisor: Professor Dongchoul Kim
+        where: `Sogang University\nAdvisor: Professor Dongchoul Kim
 Dissertation: Development of multi-physics design system based on phase field model for nano/microstructures`
       },
       {
