@@ -44,7 +44,7 @@ window.PEOPLE = {
       {
         when: "Feb. 2015",
         what: "Ph.D., Mechanical Engineering",
-        where: `Sogang University\nAdvisor: Professor Dongchoul Kim
+        where: `Sogang University, Seoul, Korea\nAdvisor: Professor Dongchoul Kim
 Dissertation: Development of multi-physics design system based on phase field model for nano/microstructures`
       },
       {
