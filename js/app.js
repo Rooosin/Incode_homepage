@@ -337,8 +337,8 @@ safe("Publications", () => {
     const count = y => list.filter(p => p.year === y).length;
     let html = "", cur = null;
     list.forEach(p => {
-      if (p.year !== cur) { cur = p.year; if (typeof p.year === "string") html += `<div style="margin-top:3rem;padding:.8rem 0;border-top:2px solid currentColor;font-weight:700">▲ Start of Independent Research (2018 – )</div>`; html += `<div class="ylabel">${esc(p.year)}<small>${count(p.year)} paper${count(p.year) > 1 ? "s" : ""}</small></div>`; }
-      if (p.info) { html += `<div class="pub"><span class="n num">${esc(p.no)}</span><div><div class="t">${esc(p.title)}</div><div class="a">${esc(p.info)}</div></div></div>`; return; }
+    if (p.year !== cur) { cur = p.year; if (typeof p.year === "string") html += `<div style="display:flex;align-items:center;gap:1rem;margin:3.5rem 0 .5rem"><span style="flex:1;height:1px;background:var(--crimson-text);opacity:.35"></span><span style="font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--crimson-text);border:1px solid currentColor;border-radius:999px;padding:.45rem 1.1rem">▲ Start of Independent Research</span><span style="flex:1;height:1px;background:var(--crimson-text);opacity:.35"></span></div>`; html += `<div class="ylabel">${esc(p.year)}<small>${count(p.year)} paper${count(p.year) > 1 ? "s" : ""}</small></div>`; }      
+    if (p.info) { html += `<div class="pub"><span class="n num">${esc(p.no)}</span><div><div class="t">${esc(p.title)}</div><div class="a">${esc(p.info)}</div></div></div>`; return; }
       const review = p.journal === "Under review";
       html += `<div class="pub${p.cover ? " has-cover" : ""}"><span class="n num">${esc(p.no)}</span><div>
         <div class="t">${p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>` : esc(p.title)}</div>
