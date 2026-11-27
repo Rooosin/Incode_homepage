@@ -337,7 +337,7 @@ safe("Publications", () => {
     const count = y => list.filter(p => p.year === y).length;
     let html = "", cur = null;
     list.forEach(p => {
-      if (p.year !== cur) { cur = p.year; if (typeof p.year === "string" && p.year !== cur) html += `<div style="margin-top:3rem;padding:.8rem 0;border-top:2px solid currentColor;font-weight:700">▲ Start of Independent Research (2018 – )</div>`; html += `<div class="ylabel">${esc(p.year)}<small>${count(p.year)} paper${count(p.year) > 1 ? "s" : ""}</small></div>`; }
+      if (p.year !== cur) { cur = p.year; if (typeof p.year === "string") html += `<div style="margin-top:3rem;padding:.8rem 0;border-top:2px solid currentColor;font-weight:700">▲ Start of Independent Research (2018 – )</div>`; html += `<div class="ylabel">${esc(p.year)}<small>${count(p.year)} paper${count(p.year) > 1 ? "s" : ""}</small></div>`; }
       if (p.info) { html += `<div class="pub"><span class="n num">${esc(p.no)}</span><div><div class="t">${esc(p.title)}</div><div class="a">${esc(p.info)}</div></div></div>`; return; }
       const review = p.journal === "Under review";
       html += `<div class="pub${p.cover ? " has-cover" : ""}"><span class="n num">${esc(p.no)}</span><div>
