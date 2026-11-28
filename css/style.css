@@ -675,3 +675,8 @@ footer .bottom { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rg
   .person .pill { white-space: normal; }
   .person dl, .person .pubs { grid-column: 1 / -1; }
 }
+
+/* Team page: alumni live in their own view, opened from the "Alumni" button under the banner */
+[data-page="team"]:not(.alumni-view) #t-alumni { display: none; }
+[data-page="team"].alumni-view #t-pi, [data-page="team"].alumni-view #t-researchers { display: none; }
+.alumni-view .subnav button[data-j="t-alumni"] { color: var(--crimson-text); background: color-mix(in srgb, var(--crimson) 9%, transparent); }
