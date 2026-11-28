@@ -64,7 +64,7 @@ function jump(id) { const el = document.getElementById(id); if (el) el.scrollInt
 function subnav(el, items) {
   el.innerHTML = items.map(([id, l]) => `<button type="button" data-j="${id}">${esc(l)}</button>`).join("");
   const pg = el.closest(".page");
-  el.onclick = e => { const b = e.target.closest("button"); if (!b) return; pg.classList.toggle("alumni-view", b.dataset.j === "t-alumni"); jump(b.dataset.j === "t-alumni" ? "teamNav" : b.dataset.j); };
+  el.onclick = e => { const b = e.target.closest("button"); if (!b) return; pg.classList.toggle("alumni-view", b.dataset.j === "t-alumni"); jump(b.dataset.j); };
   addEventListener("hashchange", () => pg.classList.remove("alumni-view"));
 }
 function chipGroup(el, items, onPick) {
