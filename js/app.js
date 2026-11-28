@@ -63,7 +63,9 @@ const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 function jump(id) { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" }); }
 function subnav(el, items) {
   el.innerHTML = items.map(([id, l]) => `<button type="button" data-j="${id}">${esc(l)}</button>`).join("");
-  el.onclick = e => { const b = e.target.closest("button"); if (b) jump(b.dataset.j); };
+  const pg = el.closest(".page");
+  el.onclick = e => { const b = e.target.closest("button"); if (!b) return; pg.classList.toggle("alumni-view", b.dataset.j === "t-alumni"); jump(b.dataset.j === "t-alumni" ? "teamNav" : b.dataset.j); };
+  addEventListener("hashchange", () => pg.classList.remove("alumni-view"));
 }
 function chipGroup(el, items, onPick) {
   el.innerHTML = items.map(([v, l, c], i) => `<button type="button" data-v="${esc(v)}" aria-pressed="${i === 0}">${esc(l)}${c != null ? `<span class="c">${c}</span>` : ""}</button>`).join("");
